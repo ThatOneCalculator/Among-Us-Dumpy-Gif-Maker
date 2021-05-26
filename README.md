@@ -1,5 +1,6 @@
 # Among Us Dumpy Gif Maker
-A tool to make dumpy Among Us Gifs
+#### Made by [Pixer](https://twitter.com/pixer415) and [ThatOneCalculator](https://twitter.com/that1calculator)!
+##### Please credit this repository when you use this program!
 
 ![](https://media.discordapp.net/attachments/810799100940255260/847158407122780160/ezgif.com-gif-maker.gif)
 
@@ -25,3 +26,9 @@ Click and open the jar, select the file, and a file called "twerk.gif" will be m
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar` for defaults
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar <lines>` for choosing a line number. Default is 9.
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar <lines> <filepath>` for choosing a line number AND a file path instead of using the file picker.
+
+### From source:
+*Not reccomended unless you intend to modify the code!*
+```
+git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker && cd Among-Us-Dumpy-Gif-Maker && javac sus.java && java sus
+```
