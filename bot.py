@@ -99,6 +99,19 @@ class TheStuff(commands.Cog):
 		self.bot = bot
 		self.update_status.start()
 
+	async def sussy(self, ctx):
+		if len(ctx.message.attachments) > 0:
+			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+			return True
+		else:
+			try:
+				async for message in ctx.channel.history(limit=20):
+					if len(message.attachments) > 0:
+						await message.attachments[0].save(f"attach_{messageid}.png")
+						return True
+			except:
+				return False
+
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
 	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 9):
@@ -109,13 +122,9 @@ class TheStuff(commands.Cog):
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
 		async with ctx.typing():
-			if len(ctx.message.attachments) > 0:
-				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-			else:
-				async for message in ctx.channel.history(limit=20):
-					if len(message.attachments) > 0:
-						await message.attachments[0].save(f"attach_{messageid}.png")
-			await asyncio.sleep(5)
+			sus = await self.sussy(ctx)
+			if sus:
+				return await ctx.send("I couldn't find an image, you sussy baka!")
 			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 			subprocess.check_call(cmd)
 			filename = f"dumpy{messageid}.gif"
