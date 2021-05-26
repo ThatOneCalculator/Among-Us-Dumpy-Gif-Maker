@@ -23,5 +23,8 @@
 hs_err_pid*
 
 #output
-twerk.gif
+dumpy.gif
 F_*
+
+# token
+token.txt
