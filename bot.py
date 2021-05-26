@@ -110,7 +110,7 @@ class TheStuff(commands.Cog):
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
 		try:
-			ctx.message.message.attachments[0].save(f"attach_{messageid}.png")
+			await ctx.message.message.attachments[0].save(f"attach_{messageid}.png")
 		except:
 			return await ctx.send("Please attach an image to your message!")
 		await ctx.send("Downloaded image!")
