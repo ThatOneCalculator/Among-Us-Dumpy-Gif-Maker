@@ -6,10 +6,10 @@
 
 # Instructions
 
-## Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)!
+# Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)!
 
-## Run as a program:
-### Requirements:
+# Run as a program:
+## Requirements:
 - Java Runtime Environment
     - [All downloads](https://www.oracle.com/java/technologies/javase-jre8-downloads.html)
     - Linux: use package manager.
