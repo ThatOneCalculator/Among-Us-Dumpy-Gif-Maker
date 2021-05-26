@@ -249,7 +249,7 @@ public class sus {
     public static boolean isWindows() throws Exception {
         String OS = System.getProperty("os.name").toLowerCase();
         boolean isWindows = false;
-        if (OS == "windows") {
+        if (OS.startsWith("windows")) {
             isWindows = true;
         }
         return isWindows;
