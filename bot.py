@@ -108,13 +108,13 @@ class TheStuff(commands.Cog):
 		if number > 30 or number < 2:
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
-		async with ctx.typing():
-			try:
-				async for message in ctx.channel.history(limit=20):
-					if len(message.attachments) > 0:
-						await message.attachments[0].save(f"attach_{ctx.message.id}.png")
-			except:
-				return await ctx.send("Couldn't find image!")
+		try:
+			async for message in ctx.channel.history(limit=20):
+				if len(message.attachments) > 0:
+					await message.attachments[0].save(f"attach_{ctx.message.id}.png")
+		except:
+			return await ctx.send("Couldn't find image!")
+		await ctx.send("Downloaded image!")
 		async with ctx.typing():
 			cmd = shlex.split(f"java sus {number} attach_{ctx.message.id}.png {ctx.message.id}")
 			subprocess.check_call(cmd)
