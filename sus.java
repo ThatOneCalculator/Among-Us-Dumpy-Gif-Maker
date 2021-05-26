@@ -40,7 +40,7 @@ public class sus {
                 try {
                     ty = Integer.parseInt(args[0]);
                 } catch (NumberFormatException e) {
-                    ;
+                    System.err.println("Not a number!");
                 }
             }
             if (args.length == 2 && args[1] != null) {
