@@ -126,13 +126,12 @@ public class sus {
         // Combines frames into final GIF
         System.out.println("Converting....");
         // runCmd("convert -delay 1x20 " + dotSlash + "F_*.png -loop 0 " + output);
-        runCmd("convert -delay 1x20 ./F_* -loop 0 " + output);
         boolean win = isWindows();
         if (win) {
-            // execure windows command
+            runCmd("magick convert *\\ -delay 1x20 .\\F_* -loop 0 " + output);
             runCmd("del .\\F_*.png");
         } else {
-            // for unix commands
+            runCmd("convert -delay 1x20 ./F_* -loop 0 " + output);
             runCmd("rm ./F_*");
         }
 
