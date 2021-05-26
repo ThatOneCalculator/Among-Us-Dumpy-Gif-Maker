@@ -1,7 +1,7 @@
 # Among Us Dumpy Gif Maker
 A tool to make dumpy Among Us Gifs
 
-![](https://linus-sex.tips/oQyfz_l1yk.gif | width=200)
+![](https://media.discordapp.net/attachments/810799100940255260/847158407122780160/ezgif.com-gif-maker.gif)
 
 #### Discord bot soon!
 
