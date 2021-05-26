@@ -18,7 +18,7 @@ public class sus {
     public static String wdir = "fs/";
 
     // Enter the input file name here
-    // public String input = "./input.png";
+    // public String input = dotSlash + "input.png";
 
     // Choose if you want to dither here. It'll most likely screw it up but if you
     // have a non-flag/sprite image, this'll probably improve things.
@@ -29,6 +29,12 @@ public class sus {
 
     // MAIN
     public static void main(String[] args) throws Exception {
+
+        String dotSlash = "./";
+        boolean windows = isWindows();
+        if (windows) {
+            dotSlash = ".\\";
+        }
 
         String input = "";
         boolean needFile = true;
@@ -57,7 +63,7 @@ public class sus {
         SetupColors();
 
         // Gets BG and input file
-        BufferedImage bg = ImageIO.read(new File("./black.png"));
+        BufferedImage bg = ImageIO.read(new File(dotSlash + "black.png"));
         BufferedImage r = ImageIO.read(new File(input));
 
         // Calculates size from height
@@ -109,17 +115,17 @@ public class sus {
                 count = count2;
             }
             // Writes finished frames
-            ImageIO.write(frames[index], "PNG", new File("./F_" + index + ".png"));
+            ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + ".png"));
 
             // Gives an idea of progress
             System.out.println(index);
         }
         // Sets output file name
-        String output = "./twerk.gif";
+        String output = dotSlash + "twerk.gif";
 
         // Combines frames into final GIF
         System.out.println("Converting....");
-        // runCmd("convert -delay 1x20 " + "./F_*.png -loop 0 " + output);
+        // runCmd("convert -delay 1x20 " + dotSlash + "F_*.png -loop 0 " + output);
         runCmd("convert -delay 1x20 ./F_* -loop 0 " + output);
         boolean win = isWindows();
         if (win) {
@@ -161,7 +167,12 @@ public class sus {
 
     // Sets up color palette from colors.png.
     public static void SetupColors() throws Exception {
-        BufferedImage c = ImageIO.read(new File("./colors.png"));
+        String dotSlash = "./";
+        boolean windows = isWindows();
+        if (windows) {
+            dotSlash = ".\\";
+        }
+        BufferedImage c = ImageIO.read(new File(dotSlash + "colors.png"));
         HEXES = new String[24];
         for (int i = 0; i < HEXES.length; i++) {
             try {
