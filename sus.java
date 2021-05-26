@@ -41,7 +41,7 @@ public class sus {
         String extraoutput = "";
         boolean needFile = true;
 
-        int ty = 9;
+        int ty = 9; // width value
 
         if (args.length > 0) {
             if (args[0] != null) {
@@ -259,10 +259,10 @@ public class sus {
     public static void runCmd(String cmd) throws Exception {
         boolean win = isWindows();
         if (win) {
-            // execure windows command
+            // execute windows command
             new ProcessBuilder("cmd", "/c", cmd).inheritIO().start().waitFor();
         } else {
-            // execure *nix command
+            // execute *nix command
             new ProcessBuilder("sh", "-c", cmd).inheritIO().start().waitFor();
         }
     }
