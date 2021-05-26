@@ -108,19 +108,21 @@ class TheStuff(commands.Cog):
 		if number > 30 or number < 2:
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
-		try:
-			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-		except Exception as e:
-			return await ctx.send("Please attach an image to your message!")
-		await ctx.send("Downloaded image!")
-		filename = f"attach_{messageid}.png"
-		# await ctx.send(file=discord.File(filename, filename=filename))
-		cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
-		subprocess.check_call(cmd)
-		filename = f"dumpy{messageid}.gif"
-		await ctx.send(file=discord.File(filename, filename=filename))
-		rmcmd = shlex.split(f"rm attach_{messageid}.png dumpy{messageid}.gif")
-		subprocess.check_call(cmd)
+		async with ctx.typing():
+			if len(ctx.message.attachments) > 0:
+				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+			else:
+				async for message in ctx.channel.history(limit=20):
+					if len(message.attachments) > 0:
+						await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+						break
+				return await ctx.send("I couldn't find an image, you sussy baka!")
+			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+			subprocess.check_call(cmd)
+			filename = f"dumpy{messageid}.gif"
+			await ctx.send(file=discord.File(filename, filename=filename))
+			rmcmd = shlex.split(f"rm attach_{messageid}.png dumpy{messageid}.gif")
+			subprocess.check_call(rmcmd)
 
 	@commands.command(name="ping")
 	async def ping(self, ctx):
@@ -133,13 +135,10 @@ class TheStuff(commands.Cog):
 		uptime = afterping - upsince
 		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.")
 
-	@tasks.loop(minutes=10)
+	@tasks.loop(minutes=2)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
-		await bot.change_presence(activity=discord.Activity(
-							type=discord.ActivityType.watching,
-							name=f"!!dumpy on {len(self.bot.guilds)} servers"
-							))
+		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!dumpy on {len(self.bot.guilds)} servers"))
 
 
 intents = discord.Intents.default()
