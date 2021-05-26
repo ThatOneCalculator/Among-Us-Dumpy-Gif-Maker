@@ -99,7 +99,7 @@ class TheStuff(commands.Cog):
 		self.bot = bot
 		self.update_status.start()
 
-	async def sussy(self, ctx):
+	async def sussy(self, ctx, messageid):
 		if len(ctx.message.attachments) > 0:
 			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			return True
@@ -122,7 +122,7 @@ class TheStuff(commands.Cog):
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
 		async with ctx.typing():
-			sus = await self.sussy(ctx)
+			sus = await self.sussy(ctx, messageid)
 			if sus:
 				return await ctx.send("I couldn't find an image, you sussy baka!")
 			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
