@@ -24,9 +24,6 @@ public class sus {
     // have a non-flag/sprite image, this'll probably improve things.
     public static boolean dither = false;
 
-    // Enter the size you want here
-    public static int ty = 9;
-
     // Hex color array
     public static String[] HEXES;
 
@@ -34,20 +31,26 @@ public class sus {
     public static void main(String[] args) throws Exception {
 
         String input = "";
+        boolean needFile = true;
 
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        jfc.addChoosableFileFilter(new ImageFilter());
-        jfc.setAcceptAllFileFilterUsed(false);
+        int ty = 9;
 
-        int returnValue = jfc.showOpenDialog(null);
-        // int returnValue = jfc.showSaveDialog(null);
+        if (args.length > 0) {
+            if (args[0] != null) {
+                try {
+                    ty = Integer.parseInt(args[0]);
+                } catch (NumberFormatException e) {
+                    ;
+                }
+            }
+            if (args.length == 2 && args[1] != null) {
+                input = args[1];
+                needFile = false;
+            }
+        }
 
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = jfc.getSelectedFile();
-            input = selectedFile.getAbsolutePath();
-            System.out.println(input);
-        } else {
-            System.exit(0);
+        if (needFile) {
+            input = pickFile();
         }
 
         // Sets up color palette
@@ -133,6 +136,27 @@ public class sus {
             runCmd("convert " + output + " -resize 1000x1000 " + output);
         }
         System.out.println("Done.");
+    }
+
+    // Picks file
+    public static String pickFile() throws Exception {
+
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.addChoosableFileFilter(new ImageFilter());
+        jfc.setAcceptAllFileFilterUsed(false);
+
+        int returnValue = jfc.showOpenDialog(null);
+        // int returnValue = jfc.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            String i = selectedFile.getAbsolutePath();
+            System.out.println(i);
+            return i;
+        } else {
+            System.exit(0);
+            return "";
+        }
     }
 
     // Sets up color palette from colors.png.
