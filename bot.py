@@ -107,14 +107,16 @@ class TheStuff(commands.Cog):
 			try:
 				async for message in ctx.channel.history(limit=20):
 					if len(message.attachments) > 0:
-						await message.attachments[0].save("attach.png")
+						await message.attachments[0].save(f"attach_{ctx.message.id}.png")
 			except:
 				return await ctx.send("Couldn't find image!")
 		async with ctx.typing():
-			cmd = shlex.split(f"java sus {number} attach.png")
+			cmd = shlex.split(f"java sus {number} attach_{ctx.message.id}.png")
 			subprocess.check_call(cmd)
 			filename = "dumpy.gif"
 			await ctx.send(file=discord.File(filename, filename=filename))
+			rmcmd = shlex.split(f"rm attach_{ctx.message.id}")
+			subprocess.check_call(cmd)
 
 	@commands.command(name="ping")
 	async def ping(self, ctx):
