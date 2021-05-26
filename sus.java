@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileFilter;
@@ -146,6 +147,7 @@ public class sus {
     // Picks file
     public static String pickFile() throws Exception {
 
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.addChoosableFileFilter(new ImageFilter());
         jfc.setAcceptAllFileFilterUsed(false);
