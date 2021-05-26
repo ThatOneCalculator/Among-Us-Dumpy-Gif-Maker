@@ -114,7 +114,7 @@ class TheStuff(commands.Cog):
 			else:
 				async for message in ctx.channel.history(limit=20):
 					if len(message.attachments) > 0:
-						await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+						await message.attachments[0].save(f"attach_{messageid}.png")
 						break
 				return await ctx.send("I couldn't find an image, you sussy baka!")
 			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
