@@ -82,7 +82,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!invite`", value="Invite link for the bot")
 		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
-		embed.add_field(name="`!!dumpy (height)`", value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 30, the default is 9.")
+		embed.add_field(name="`!!dumpy (height)`", value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
 		await ctx.send(embed=embed)
 
 	@commands.command()
@@ -101,11 +101,11 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
-	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 9):
+	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10):
 		messageid = str(ctx.message.id)
-		if type(number) != int: number = 9
-		if number > 30 or number < 2:
-			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
+		if type(number) != int: number = 10
+		if number > 40 or number < 2:
+			return await ctx.send("Number must be between 2 and 40! Defaults to 10.")
 		number = str(number)
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
