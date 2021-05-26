@@ -121,7 +121,7 @@ public class sus {
                 count = count2;
             }
             // Writes finished frames
-            ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + ".png"));
+            ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
 
             // Gives an idea of progress
             System.out.println(index);

@@ -115,11 +115,11 @@ class TheStuff(commands.Cog):
 			except:
 				return await ctx.send("Couldn't find image!")
 		async with ctx.typing():
-			cmd = shlex.split(f"java sus {number} attach_{ctx.message.id}.png")
+			cmd = shlex.split(f"java sus {number} attach_{ctx.message.id}.png {ctx.message.id}")
 			subprocess.check_call(cmd)
 			filename = "dumpy.gif"
 			await ctx.send(file=discord.File(filename, filename=filename))
-			rmcmd = shlex.split(f"rm attach_{ctx.message.id}")
+			rmcmd = shlex.split(f"rm attach_{ctx.message.id}.png dumpy{ctx.message.id}.gif")
 			subprocess.check_call(cmd)
 
 	@commands.command(name="ping")
