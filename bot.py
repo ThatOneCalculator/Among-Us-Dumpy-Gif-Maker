@@ -83,7 +83,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!invite`", value="Invite link for the bot")
 		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's public bot LiterallyNoBot")
-		embed.add_field(name="`!!dumpy (width)`", value="Makes a dumpy gif from whatever image you post (or whatever is the last image in chat), with width being an optional number between 2 and 30, the default is 9.")
+		embed.add_field(name="`!!dumpy (width)`", value="Makes a dumpy gif from whatever image you post, with width being an optional number between 2 and 30, the default is 9.")
 		await ctx.send(embed=embed)
 
 	@commands.command()
@@ -110,11 +110,9 @@ class TheStuff(commands.Cog):
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
 		try:
-			async for message in ctx.channel.history(limit=20):
-				if len(message.attachments) > 0:
-					await message.attachments[0].save(f"attach_{messageid}.png")
+			ctx.message.message.attachments[0].save(f"attach_{messageid}.png")
 		except:
-			return await ctx.send("Couldn't find image!")
+			return await ctx.send("Please attach an image to your message!")
 		await ctx.send("Downloaded image!")
 		filename = f"attach_{messageid}.png"
 		await ctx.send(file=discord.File(filename, filename=filename))
