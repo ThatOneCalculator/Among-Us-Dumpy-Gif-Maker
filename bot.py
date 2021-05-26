@@ -103,7 +103,6 @@ class TheStuff(commands.Cog):
 	@commands.command(aliases=["twerk", "amogus"])
 	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 9):
 		messageid = str(ctx.message.id)
-		await ctx.send("Hang on! This might take a bit :)")
 		if type(number) != int: number = 9
 		if number > 30 or number < 2:
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
