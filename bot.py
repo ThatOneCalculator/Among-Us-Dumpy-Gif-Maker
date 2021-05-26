@@ -112,15 +112,10 @@ class TheStuff(commands.Cog):
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			else:
-				sussy = True
 				async for message in ctx.channel.history(limit=20):
 					if len(message.attachments) > 0:
 						await message.attachments[0].save(f"attach_{messageid}.png")
-						sussy = False
-						break
-			await asyncio.sleep(3)
-			if sussy:
-				return await ctx.send("I couldn't find an image, you sussy baka!")
+			await asyncio.sleep(5)
 			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 			subprocess.check_call(cmd)
 			filename = f"dumpy{messageid}.gif"
