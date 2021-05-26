@@ -79,8 +79,9 @@ class HelpCommand(commands.Cog):
 	@commands.command(name="help")
 	async def help_(self, ctx):
 		embed = discord.Embed(
-			title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x0000FF)
+			title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0xFFE40C)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
+		embed.add_field(name="`!!invite`", value="Invite link for the bot")
 		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's public bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (width)`", value="Makes a dumpy gif from whatever image you post (or whatever is the last image in chat), with width being an optional number between 2 and 30, the default is 9.")
 		await ctx.send(embed=embed)
@@ -89,6 +90,9 @@ class HelpCommand(commands.Cog):
 	async def literallynobot(self, ctx):
 		await ctx.send("https://top.gg/bot/646156214237003777")
 
+	@commands.command()
+	async def invite(self, ctx):
+		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 
 class TheStuff(commands.Cog):
 
