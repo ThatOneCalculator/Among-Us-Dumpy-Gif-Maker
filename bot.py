@@ -79,7 +79,8 @@ class HelpCommand(commands.Cog):
 	@commands.command(name="help")
 	async def help_(self, ctx):
 		embed = discord.Embed(
-			title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0xFFE40C)
+                    title="My commands!", description="Made by ThatOneCalculator and Pixer! https: // github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
+                    ", color=0xFFE40C)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!invite`", value="Invite link for the bot")
 		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's public bot LiterallyNoBot")
