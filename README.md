@@ -29,7 +29,7 @@ Click and open the jar, select the file, and a file called "dumpy.gif" will be m
 A file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### From source:
-*Not reccomended unless you intend to modify the code!*
+*Not recommended unless you intend to modify the code!*
 ```
 git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker && cd Among-Us-Dumpy-Gif-Maker && javac sus.java && java sus
 ```
