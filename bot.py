@@ -102,17 +102,23 @@ class TheStuff(commands.Cog):
 	async def sussy(self, ctx, messageid):
 		if len(ctx.message.attachments) > 0:
 			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-			return True
+			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+			subprocess.check_call(cmd)
+			filename = f"dumpy{messageid}.gif"
+			await ctx.send(file=discord.File(filename, filename=filename))
 		else:
 			try:
 				async for message in ctx.channel.history(limit=20):
 					if len(message.attachments) > 0:
 						await message.attachments[0].save(f"attach_{messageid}.png")
-						return True
+						cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+						subprocess.check_call(cmd)
+						filename = f"dumpy{messageid}.gif"
+						await ctx.send(file=discord.File(filename, filename=filename))
 			except Exception as e:
 				print(e)
 				await ctx.send(e)
-				return False
+				return await ctx.send("I couldn't find an image, you sussy baka!")
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
@@ -124,13 +130,7 @@ class TheStuff(commands.Cog):
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
 		async with ctx.typing():
-			sus = await self.sussy(ctx, messageid)
-			if sus:
-				return await ctx.send("I couldn't find an image, you sussy baka!")
-			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
-			subprocess.check_call(cmd)
-			filename = f"dumpy{messageid}.gif"
-			await ctx.send(file=discord.File(filename, filename=filename))
+			await self.sussy(ctx, messageid)
 			rmcmd = shlex.split(f"rm attach_{messageid}.png dumpy{messageid}.gif")
 			subprocess.check_call(rmcmd)
 
