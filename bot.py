@@ -12,6 +12,7 @@ import os
 import pprint
 import random
 import re
+import shlex
 import shutil
 import string
 import subprocess
@@ -107,7 +108,8 @@ class TheStuff(commands.Cog):
 			except:
 				return await ctx.send("Couldn't find image!")
 		async with ctx.typing():
-			subprocess.run("java", "sus", str(number), "attach.png", capture_output=True, text=True)
+			cmd = shlex.split(f"java sus {number} attach.png")
+			subprocess.check_call(cmd)
 			filename = "dumpy.gif"
 			await ctx.send(file=discord.File(filename, filename=filename))
 
