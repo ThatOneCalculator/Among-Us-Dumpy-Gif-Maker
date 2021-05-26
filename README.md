@@ -20,12 +20,13 @@
 ### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.0.2/Among-Us-Dumpy-Gif-Maker.jar)!
 
 ### Basic usage:
-Click and open the jar, select the file, and a file called "twerk.gif" will be made in the same folder as the jar
+Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar` for defaults
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar <lines>` for choosing a line number. Default is 9.
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar <lines> <filepath>` for choosing a line number AND a file path instead of using the file picker.
+A file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### From source:
 *Not reccomended unless you intend to modify the code!*

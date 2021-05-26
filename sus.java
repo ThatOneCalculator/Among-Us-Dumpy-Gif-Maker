@@ -121,7 +121,7 @@ public class sus {
             System.out.println(index);
         }
         // Sets output file name
-        String output = dotSlash + "twerk.gif";
+        String output = dotSlash + "dumpy.gif";
 
         // Combines frames into final GIF
         System.out.println("Converting....");
