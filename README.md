@@ -16,9 +16,10 @@ A tool to make dumpy Among Us Gifs
     - Linux: use package manager.
 
 ## Usage:
-### Make sure to [download the JAR](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.0.2/Among-Us-Dumpy-Gif-Maker.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.0.2/Among-Us-Dumpy-Gif-Maker.jar)!
 
-### Basic usage: click and open the jar, select the file, and a file called "twerk.gif" will be made in the same folder as the jar
+### Basic usage:
+Click and open the jar, select the file, and a file called "twerk.gif" will be made in the same folder as the jar
 
 ### CLI usage:
 - `java -jar Among-Us-Dumpy-Gif-Maker.jar` for defaults
