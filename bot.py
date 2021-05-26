@@ -103,6 +103,7 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
 	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 9):
+		messageid = str(ctx.message.id)
 		await ctx.send("Hang on! This might take a bit :)")
 		if type(number) != int: number = 9
 		if number > 30 or number < 2:
@@ -111,16 +112,16 @@ class TheStuff(commands.Cog):
 		try:
 			async for message in ctx.channel.history(limit=20):
 				if len(message.attachments) > 0:
-					await message.attachments[0].save(f"attach_{ctx.message.id}.png")
+					await message.attachments[0].save(f"attach_{messageid}.png")
 		except:
 			return await ctx.send("Couldn't find image!")
 		await ctx.send("Downloaded image!")
 		async with ctx.typing():
-			cmd = shlex.split(f"java sus {number} attach_{ctx.message.id}.png {ctx.message.id}")
+			cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 			subprocess.check_call(cmd)
-			filename = f"dumpy{ctx.message.id}.gif"
+			filename = f"dumpy{messageid}.gif"
 			await ctx.send(file=discord.File(filename, filename=filename))
-			rmcmd = shlex.split(f"rm attach_{ctx.message.id}.png dumpy{ctx.message.id}.gif")
+			rmcmd = shlex.split(f"rm attach_{messageid}.png dumpy{messageid}.gif")
 			subprocess.check_call(cmd)
 
 	@commands.command(name="ping")
