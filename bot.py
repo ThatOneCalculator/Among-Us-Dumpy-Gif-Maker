@@ -111,7 +111,8 @@ class TheStuff(commands.Cog):
 		number = str(number)
 		try:
 			await ctx.message.message.attachments[0].save(f"attach_{messageid}.png")
-		except:
+		except Exception as e:
+			await ctx.send(e)
 			return await ctx.send("Please attach an image to your message!")
 		await ctx.send("Downloaded image!")
 		filename = f"attach_{messageid}.png"
