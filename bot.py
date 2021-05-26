@@ -81,7 +81,7 @@ class HelpCommand(commands.Cog):
 		embed = discord.Embed(title="My commands!", description="Made by ThatOneCalculator and Pixer! https:/github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker", color=0xFFE40C)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!invite`", value="Invite link for the bot")
-		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's public bot LiterallyNoBot")
+		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (width)`", value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with width being an optional number between 2 and 30, the default is 9.")
 		await ctx.send(embed=embed)
 
