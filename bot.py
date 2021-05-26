@@ -110,13 +110,12 @@ class TheStuff(commands.Cog):
 			return await ctx.send("Number must be between 2 and 30! Defaults to 9.")
 		number = str(number)
 		try:
-			await ctx.message.message.attachments[0].save(f"attach_{messageid}.png")
+			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 		except Exception as e:
-			await ctx.send(e)
 			return await ctx.send("Please attach an image to your message!")
 		await ctx.send("Downloaded image!")
 		filename = f"attach_{messageid}.png"
-		await ctx.send(file=discord.File(filename, filename=filename))
+		# await ctx.send(file=discord.File(filename, filename=filename))
 		cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 		subprocess.check_call(cmd)
 		filename = f"dumpy{messageid}.gif"
