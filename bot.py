@@ -107,7 +107,7 @@ class TheStuff(commands.Cog):
 			except:
 				return await ctx.send("Couldn't find image!")
 		async with ctx.typing():
-			output = subprocess.run("java", "sus", number, "attach.png", capture_output=True, text=True).stdout
+			subprocess.run("java", "sus", str(number), "attach.png", capture_output=True, text=True)
 			filename = "dumpy.gif"
 			await ctx.send(file=discord.File(filename, filename=filename))
 
