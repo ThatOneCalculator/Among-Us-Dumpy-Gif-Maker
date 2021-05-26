@@ -110,6 +110,7 @@ class TheStuff(commands.Cog):
 						await message.attachments[0].save(f"attach_{messageid}.png")
 						return True
 			except Exception as e:
+				print(e)
 				await ctx.send(e)
 				return False
 
