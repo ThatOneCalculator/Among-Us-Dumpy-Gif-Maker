@@ -109,7 +109,8 @@ class TheStuff(commands.Cog):
 					if len(message.attachments) > 0:
 						await message.attachments[0].save(f"attach_{messageid}.png")
 						return True
-			except:
+			except Exception as e:
+				await ctx.send(e)
 				return False
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
