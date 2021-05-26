@@ -116,6 +116,8 @@ class TheStuff(commands.Cog):
 		except:
 			return await ctx.send("Couldn't find image!")
 		await ctx.send("Downloaded image!")
+		filename = f"attach_{messageid}.png"
+		await ctx.send(file=discord.File(filename, filename=filename))
 		cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 		subprocess.check_call(cmd)
 		filename = f"dumpy{messageid}.gif"
