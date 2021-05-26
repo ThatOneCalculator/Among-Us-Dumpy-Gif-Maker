@@ -38,6 +38,7 @@ public class sus {
         }
 
         String input = "";
+        String extraoutput = "";
         boolean needFile = true;
 
         int ty = 9;
@@ -50,8 +51,12 @@ public class sus {
                     System.err.println("Not a number!");
                 }
             }
-            if (args.length == 2 && args[1] != null) {
+            if (args.length >= 2 && args[1] != null) {
                 input = args[1];
+                needFile = false;
+            }
+            if (args.length == 3 && args[2] != null) {
+                extraoutput = args[2];
                 needFile = false;
             }
         }
@@ -122,7 +127,7 @@ public class sus {
             System.out.println(index);
         }
         // Sets output file name
-        String output = dotSlash + "dumpy.gif";
+        String output = dotSlash + "dumpy.gif" + extraoutput;
 
         // Combines frames into final GIF
         System.out.println("Converting....");
