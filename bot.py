@@ -80,9 +80,8 @@ class HelpCommand(commands.Cog):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x0000FF)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
-		embed.add_field(name="`!!literallynobot`",
-		                value="Directs you to ThatOneCalculator's public bot LiterallyNoBot")
-        embed.add_field(name="`!!dumpy (width)`", value="Makes a dumpy gif from whatever image you post (or whatever is the last image in chat), with width being an optional number between 2 and 30, the default is 9.")
+		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's public bot LiterallyNoBot")
+		embed.add_field(name="`!!dumpy (width)`", value="Makes a dumpy gif from whatever image you post (or whatever is the last image in chat), with width being an optional number between 2 and 30, the default is 9.")
 		await ctx.send(embed=embed)
 
 	@commands.command()
@@ -96,10 +95,10 @@ class TheStuff(commands.Cog):
 		self.bot = bot
 		self.update_status.start()
 
-    @commands.command(aliases=["twerk", "amogus"])
-    async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 9):
-        if type(number) != int: number = 9
-        number = str(number)
+	@commands.command(aliases=["twerk", "amogus"])
+	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 9):
+		if type(number) != int: number = 9
+		number = str(number)
 		async with ctx.typing():
 			try:
 				async for message in ctx.channel.history(limit=20):
@@ -107,9 +106,9 @@ class TheStuff(commands.Cog):
 						await message.attachments[0].save("attach.png")
 			except:
 				return await ctx.send("Couldn't find image!")
-        async with ctx.typing():
-            output = subprocess.run("java", "sus", number, "attach.png", capture_output=True, text=True).stdout
-            filename = "dumpy.gif"
+		async with ctx.typing():
+			output = subprocess.run("java", "sus", number, "attach.png", capture_output=True, text=True).stdout
+			filename = "dumpy.gif"
 			await ctx.send(file=discord.File(filename, filename=filename))
 
 	@commands.command(name="ping")
@@ -127,9 +126,9 @@ class TheStuff(commands.Cog):
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await bot.change_presence(activity=discord.Activity(
-                            type=discord.ActivityType.watching,
-                            name=f"!!dumpy on {len(self.bot.guilds)}"
-                            ))
+							type=discord.ActivityType.watching,
+							name=f"!!dumpy on {len(self.bot.guilds)}"
+							))
 
 
 intents = discord.Intents.default()
