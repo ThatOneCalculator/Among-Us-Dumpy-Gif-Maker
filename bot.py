@@ -124,7 +124,8 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-				cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+				cmd = shlex.split(
+					f"java -jar Among-Us-Dumpy-Gif-Maker.jar {number} attach_{messageid}.png {messageid}")
 				subprocess.check_call(cmd)
 				filename = f"dumpy{messageid}.gif"
 				try:
