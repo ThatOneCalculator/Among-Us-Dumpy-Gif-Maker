@@ -9,7 +9,7 @@
 
 # Run as a program:
 ## Requirements:
-- Java Runtime Environment
+- Java Runtime Environment 15 or newer
     - [All downloads](https://www.oracle.com/java/technologies/javase-jre8-downloads.html)
     - Linux: use package manager.
 - ImageMagick
