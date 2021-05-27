@@ -2,8 +2,7 @@
 #### Made by [Pixer](https://twitter.com/pixer415) and [ThatOneCalculator](https://twitter.com/that1calculator)!
 ##### Please credit this repository when you use this program!
 
-![](https://media.discordapp.net/attachments/810799100940255260/847158407122780160/ezgif.com-gif-maker.gif)
-
+![](https://cdn.discordapp.com/attachments/810799100940255260/847265488005758996/ezgif-5-d8fc3263de91.gif)
 # Instructions
 
 # Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)!
