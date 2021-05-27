@@ -89,7 +89,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (height)`",
-						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
+						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 35, the default is 10.")
 		await ctx.send(embed=embed,
 			buttons=[
 				Button(style=ButtonStyle.URL, label="Invite to your server!",
@@ -121,8 +121,8 @@ class TheStuff(commands.Cog):
 		messageid = str(ctx.message.id)
 		if type(number) != int:
 			number = 10
-		if number > 40 or number < 2:
-			return await ctx.send("Number must be between 2 and 40! Defaults to 10.")
+		if number > 35 or number < 2:
+			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
 		number = str(number)
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
