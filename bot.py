@@ -97,7 +97,7 @@ class HelpCommand(commands.Cog):
 	@commands.command()
 	async def invite(self, ctx):
 		# await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-	    m = await msg.channel.send(
+	    m = await ctx.send(
                 "Content",
                 buttons=[
                     Button(style=ButtonStyle.URL, label="Click to invite!",
