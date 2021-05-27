@@ -186,7 +186,6 @@ public class sus {
             } catch (Exception e) {
                 System.out.println(i);
             }
-            // System.out.println(HEXES[i]);
         }
     }
 
