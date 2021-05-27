@@ -78,16 +78,21 @@ class HelpCommand(commands.Cog):
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
-		embed = discord.Embed(title="My commands!", description="Made by ThatOneCalculator and Pixer! See my source code: https:/github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker", color=0xFFE40C)
+		embed = discord.Embed(title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x976BE1)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!invite`", value="Invite link for the bot")
 		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (height)`", value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
+		embed.add_field(name="`!!github`", value="See my [source code on GitHub!](https:/github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker)")
 		await ctx.send(embed=embed)
 
 	@commands.command()
 	async def literallynobot(self, ctx):
 		await ctx.send("https://top.gg/bot/646156214237003777")
+
+	@commands.command(aliases=['source', 'git'])
+	async def github(self, ctx):
+		await ctx.send("See my source code: https:/github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker")
 
 	@commands.command()
 	async def invite(self, ctx):
@@ -147,7 +152,7 @@ class TheStuff(commands.Cog):
 	@tasks.loop(minutes=2)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!dumpy on {len(self.bot.guilds)} servers"))
+		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!dumpy on {len(self.bot.guilds)} servers!"))
 
 
 intents = discord.Intents.default()
