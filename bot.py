@@ -44,6 +44,9 @@ from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 upsince = datetime.datetime.now()
 
 logchannel = None
+intents = discord.Intents.default()
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
+	"!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordButton(bot)
 
 class CommandErrorHandler(commands.Cog):
@@ -162,9 +165,6 @@ class TheStuff(commands.Cog):
 		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!dumpy on {len(self.bot.guilds)} servers!"))
 
 
-intents = discord.Intents.default()
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
-	"!!"), intents=intents, chunk_guilds_at_startup=False)
 bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
 bot.add_cog(TheStuff(bot))
