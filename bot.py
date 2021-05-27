@@ -170,7 +170,7 @@ class TheStuff(commands.Cog):
 		uptime = afterping - upsince
 		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.")
 
-	@tasks.loop(minutes=2)
+	@tasks.loop(minutes=10)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!dumpy on {len(self.bot.guilds)} servers!"))
