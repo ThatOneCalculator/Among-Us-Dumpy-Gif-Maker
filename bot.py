@@ -99,6 +99,10 @@ class HelpCommand(commands.Cog):
 	async def literallynobot(self, ctx):
 		await ctx.send("https://top.gg/bot/646156214237003777")
 
+	@commands.command()
+	async def invite(self, ctx):
+		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+
 class TheStuff(commands.Cog):
 
 	def __init__(self, bot):
