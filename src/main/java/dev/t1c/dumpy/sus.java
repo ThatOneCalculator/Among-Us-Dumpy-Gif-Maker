@@ -14,7 +14,6 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileFilter;
 import java.awt.Color;
 import java.io.InputStream;
-import java.net.URL;
 
 public class sus {
 
@@ -67,12 +66,6 @@ public class sus {
 
 		if (needFile) {
 			input = pickFile();
-		}
-
-		// Sets up color palette
-		String theSlash = "/";
-		if (windows) {
-			theSlash = "\\";
 		}
 
 		InputStream imgInput = main.getResource("dumpy/colors.png");
