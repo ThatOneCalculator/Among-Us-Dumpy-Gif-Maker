@@ -83,30 +83,21 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x976BE1)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
-		embed.add_field(name="`!!invite`", value="Invite link for the bot")
 		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (height)`", value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
-		embed.add_field(name="`!!github`", value="See my [source code on GitHub!](https:/github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker)")
-		await ctx.send(embed=embed)
+		await ctx.send(embed=embed, buttons=[
+                    Button(style=ButtonStyle.URL, label="See my GitHub!",
+                           url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+                ],
+                    [
+                    Button(style=ButtonStyle.URL, label="Invite to your server!",
+                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+                ],
+            )
 
 	@commands.command()
 	async def literallynobot(self, ctx):
 		await ctx.send("https://top.gg/bot/646156214237003777")
-
-	@commands.command(aliases=['source', 'git'])
-	async def github(self, ctx):
-		await ctx.send("See my source code: https:/github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker")
-
-	@commands.command()
-	async def invite(self, ctx):
-		# await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-	    await ctx.send(
-			"Invite me!",
-			buttons=[
-                    Button(style=ButtonStyle.URL, label="Click to invite!",
-                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-                ],
-            )
 
 class TheStuff(commands.Cog):
 
