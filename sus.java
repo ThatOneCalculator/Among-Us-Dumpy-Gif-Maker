@@ -69,7 +69,7 @@ public class sus {
         SetupColors();
 
         // Gets BG and input file
-        BufferedImage bg = ImageIO.read(new File(dotSlash + "black.png"));
+        BufferedImage bg = ImageIO.read(new File(wdir + "black.png"));
         BufferedImage r = ImageIO.read(new File(input));
 
         // Calculates size from height
@@ -173,12 +173,7 @@ public class sus {
 
     // Sets up color palette from colors.png.
     public static void SetupColors() throws Exception {
-        String dotSlash = "./";
-        boolean windows = isWindows();
-        if (windows) {
-            dotSlash = ".\\";
-        }
-        BufferedImage c = ImageIO.read(new File(dotSlash + "colors.png"));
+        BufferedImage c = ImageIO.read(new File(wdir + "colors.png"));
         HEXES = new String[24];
         for (int i = 0; i < HEXES.length; i++) {
             try {

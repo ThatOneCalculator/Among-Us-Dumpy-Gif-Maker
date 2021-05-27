@@ -1,0 +1,15 @@
+<project>
+    <name>Among Us Dumpy GIF Maker</name>
+    <modelVersion>1.4.0</modelVersion>
+    <groupId>dev.t1c.amongus.sus</groupId>
+    <version>1.4-SNAPSHOT</version>
+    <build>
+        <resource>
+            <resource>
+                <directory>
+                    fs
+                </directory>
+            </resource>
+        </resource>
+    </build>
+</project>
