@@ -93,13 +93,13 @@ class HelpCommand(commands.Cog):
 		await ctx.send(embed=embed)
 		await ctx.send("Some helpful links!", buttons=[
 			Button(style=ButtonStyle.URL, label="Invite to your server!",
-                            url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+					   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 		],
 			[
-				Button(style=ButtonStyle.URL, label="See my GitHub!",
-                                    url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+			Button(style=ButtonStyle.URL, label="See my GitHub!",
+				   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 		]
-		))
+		)
 
 	@commands.command()
 	async def literallynobot(self, ctx):
