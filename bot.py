@@ -153,6 +153,9 @@ class TheStuff(commands.Cog):
 
 	@commands.command(name="ping")
 	async def ping(self, ctx):
+		allmembers = 0
+		for guild in self.bot.guilds:
+			allmembers += guild.member_count
 		ping = await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
 		beforeping = datetime.datetime.now()
 		await ping.edit(content="Pinging!")
@@ -160,7 +163,7 @@ class TheStuff(commands.Cog):
 		pingdiff = afterping - beforeping
 		pingdiffms = pingdiff.microseconds / 1000
 		uptime = afterping - upsince
-		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.")
+		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n\nI am in {str(len(self.bot.guilds))} servers with a total of {allmembers} people.")
 
 	@tasks.loop(minutes=10)
 	async def update_status(self):

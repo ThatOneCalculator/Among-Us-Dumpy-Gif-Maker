@@ -65,10 +65,22 @@ public class sus {
 		}
 
 		// Sets up color palette
-		SetupColors();
+		String theSlash = "/";
+		if (windows) {
+			theSlash = "\\";
+		}
+		BufferedImage c = ImageIO.read(new File("fs" + theSlash + "colors.png"));
+		HEXES = new String[24];
+		for (int i = 0; i < HEXES.length; i++) {
+			try {
+				HEXES[i] = Integer.toHexString(c.getRGB(i, 0)).substring(2).toUpperCase();
+			} catch (Exception e) {
+				System.out.println(i);
+			}
+		}
 
 		// Gets BG and input file
-		BufferedImage bg = ImageIO.read(new File("fs" + dotSlash + "black.png"));
+		BufferedImage bg = ImageIO.read(new File("fs" + theSlash + "black.png"));
 		BufferedImage r = ImageIO.read(new File(input));
 
 		// Calculates size from height
@@ -101,7 +113,7 @@ public class sus {
 				for (int x = 0; x < tx; x++) {
 
 					// Grabs appropriate pixel frame
-					BufferedImage pixel = ImageIO.read(new File("fs" + dotSlash + count + "-"
+					BufferedImage pixel = ImageIO.read(new File(dotSlash + "fs" + theSlash + count + "-"
 							+ Integer.toHexString(image.getRGB(x, y)).substring(2).toUpperCase() + ".png"));
 					// overlays it
 					frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
@@ -167,24 +179,6 @@ public class sus {
 		} else {
 			System.exit(0);
 			return "";
-		}
-	}
-
-	// Sets up color palette from colors.png.
-	public static void SetupColors() throws Exception {
-		String dotSlash = "./";
-		boolean windows = isWindows();
-		if (windows) {
-			dotSlash = ".\\";
-		}
-		BufferedImage c = ImageIO.read(new File("fs" + dotSlash + "colors.png"));
-		HEXES = new String[24];
-		for (int i = 0; i < HEXES.length; i++) {
-			try {
-				HEXES[i] = Integer.toHexString(c.getRGB(i, 0)).substring(2).toUpperCase();
-			} catch (Exception e) {
-				System.out.println(i);
-			}
 		}
 	}
 
