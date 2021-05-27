@@ -3,16 +3,18 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileSystemView;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import javax.swing.filechooser.FileFilter;
 import java.awt.Color;
 
-public class sus {
+public class sus extends Application {
 
     // Put in the directory where you extracted this
     public static String dir = "[DIRECTORY]";
@@ -27,9 +29,16 @@ public class sus {
 
     // Hex color array
     public static String[] HEXES;
-
+    
     // MAIN
     public static void main(String[] args) throws Exception {
+    	Application.launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+    	// Pass args to here
+    	String[] args = Arrays.copyOf(getParameters().getRaw().toArray(), getParameters().getRaw().toArray().length, String[].class);
 
         String dotSlash = "./";
         boolean windows = isWindows();
@@ -149,20 +158,24 @@ public class sus {
         System.out.println("Done.");
     }
 
+    
     // Picks file
     public static String pickFile() throws Exception {
+    	FileChooser fileChooser = new FileChooser();
+    	//fileChooser.setTitle("Title");
+    	
+    	// Set file extension filters
+    	fileChooser.getExtensionFilters().addAll(
+    		new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.tiff", "*.tif", "*.png")
+    	);
+    	
+    	File selectedFile = fileChooser.showOpenDialog(null);
 
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        jfc.addChoosableFileFilter(new ImageFilter());
-        jfc.setAcceptAllFileFilterUsed(false);
+        //jfc.addChoosableFileFilter(new ImageFilter());
+        //jfc.setAcceptAllFileFilterUsed(false);
 
-        int returnValue = jfc.showOpenDialog(null);
-        // int returnValue = jfc.showSaveDialog(null);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = jfc.getSelectedFile();
-            String i = selectedFile.getAbsolutePath();
+        if (selectedFile != null) {
+        	String i = selectedFile.getAbsolutePath();
             System.out.println(i);
             return i;
         } else {
@@ -170,6 +183,7 @@ public class sus {
             return "";
         }
     }
+    
 
     // Sets up color palette from colors.png.
     public static void SetupColors() throws Exception {
