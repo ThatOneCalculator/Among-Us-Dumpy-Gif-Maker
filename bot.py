@@ -39,8 +39,8 @@ from discord import RequestsWebhookAdapter
 from discord import Webhook
 from discord.ext import commands
 from discord.ext import tasks
+from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 
-url_rx = re.compile(r'https?://(?:www\.)?.+')
 upsince = datetime.datetime.now()
 
 logchannel = None
@@ -96,7 +96,14 @@ class HelpCommand(commands.Cog):
 
 	@commands.command()
 	async def invite(self, ctx):
-		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		# await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+	    m = await msg.channel.send(
+                "Content",
+                buttons=[
+                    Button(style=ButtonStyle.URL, label="Click to invite!",
+                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+                ],
+            )
 
 class TheStuff(commands.Cog):
 
