@@ -49,6 +49,7 @@ bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 	"!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordButton(bot)
 
+
 class CommandErrorHandler(commands.Cog):
 
 	def __init__(self, bot):
@@ -72,7 +73,8 @@ class CommandErrorHandler(commands.Cog):
 		elif isinstance(error, commands.BadArgument):
 			if ctx.command.qualified_name == 'tag list':
 				return await ctx.send('I could not find that member. Please try again.')
-		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		print('Ignoring exception in command {}:'.format(
+			ctx.command), file=sys.stderr)
 		traceback.print_exception(
 			type(error), error, error.__traceback__, file=sys.stderr)
 
@@ -81,19 +83,22 @@ class HelpCommand(commands.Cog):
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
-		embed = discord.Embed(title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x976BE1)
+		embed = discord.Embed(
+			title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x976BE1)
 		embed.add_field(name="`!!ping`", value="Pings the bot")
-		embed.add_field(name="`!!literallynobot`", value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
-		embed.add_field(name="`!!dumpy (height)`", value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
+		embed.add_field(name="`!!literallynobot`",
+						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
+		embed.add_field(name="`!!dumpy (height)`",
+						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
 		await ctx.send(embed=embed, buttons=[
-                    Button(style=ButtonStyle.URL, label="See my GitHub!",
-                           url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-                ],
-                    [
-                    Button(style=ButtonStyle.URL, label="Invite to your server!",
-                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-                ],
-            )
+			Button(style=ButtonStyle.URL, label="Invite to your server!",
+					   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+		],
+			[
+				Button(style=ButtonStyle.URL, label="See my GitHub!",
+					   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+		]
+		)
 
 	@commands.command()
 	async def literallynobot(self, ctx):
@@ -102,6 +107,7 @@ class HelpCommand(commands.Cog):
 	@commands.command()
 	async def invite(self, ctx):
 		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+
 
 class TheStuff(commands.Cog):
 
@@ -113,7 +119,8 @@ class TheStuff(commands.Cog):
 	@commands.command(aliases=["twerk", "amogus"])
 	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10):
 		messageid = str(ctx.message.id)
-		if type(number) != int: number = 10
+		if type(number) != int:
+			number = 10
 		if number > 40 or number < 2:
 			return await ctx.send("Number must be between 2 and 40! Defaults to 10.")
 		number = str(number)
@@ -134,7 +141,8 @@ class TheStuff(commands.Cog):
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus:
 							await message.attachments[0].save(f"attach_{messageid}.png")
-							cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+							cmd = shlex.split(
+								f"java sus {number} attach_{messageid}.png {messageid}")
 							subprocess.check_call(cmd)
 							filename = f"dumpy{messageid}.gif"
 							try:
@@ -147,7 +155,8 @@ class TheStuff(commands.Cog):
 					await ctx.send(e)
 					return await ctx.send("I couldn't find an image, you sussy baka!")
 
-			rmcmd = shlex.split(f"rm attach_{messageid}.png dumpy{messageid}.gif")
+			rmcmd = shlex.split(
+				f"rm attach_{messageid}.png dumpy{messageid}.gif")
 			subprocess.check_call(rmcmd)
 
 	@commands.command(name="ping")
@@ -182,5 +191,6 @@ def read_token():
 	with open("token.txt", "r") as f:
 		lines = f.readlines()
 		return lines[0].strip()
+
 
 bot.run(read_token())
