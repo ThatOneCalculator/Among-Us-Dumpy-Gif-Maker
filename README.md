@@ -7,8 +7,6 @@
 
 # Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)!
 ### Please note that this bot is awaiting verification from Discord, and currently has a server cap of 250 servers.
-The note I got from Discord: 
-> This application has suspicious growth, so we cannot accept your application for verification at this time. In the meantime, we have increased your maximum server limit to 250 servers. Please try again in a few weeks after seeing normal, non-advertised growth.
 
 # Run as a program:
 ## Requirements:
