@@ -168,7 +168,7 @@ class TheStuff(commands.Cog):
 	@tasks.loop(minutes=10)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!dumpy on {len(self.bot.guilds)} servers!"))
+		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(self.bot.guilds)} servers!"))
 
 
 bot.remove_command("help")
