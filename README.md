@@ -6,13 +6,14 @@
 # Instructions
 
 # Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)!
-### Please note that this bot is awaiting verification from Discord, and currently has a server cap of 250 servers.
+###### Please note that this bot is awaiting verification from Discord, and currently has a server cap of 250 servers (which it has not reached yet).
 
 # Run as a program:
 ## Requirements:
 - Java Runtime Environment 15 or newer
     - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
     - Linux: use package manager.
+    - Also works with [OpenJDK](https://adoptopenjdk.net)
 - ImageMagick
     - [Windows (static)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.0.11-13-Q16-x64-static.exe)
     - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
