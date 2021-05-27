@@ -144,7 +144,7 @@ public class sus extends Application {
         boolean win = isWindows();
         if (win) {
             runCmd("magick convert *\\ -delay 1x20 .\\F_* -loop 0 " + output);
-            //runCmd("del .\\F_*.png");
+            runCmd("del .\\F_*.png");
         } else {
             runCmd("convert -delay 1x20 ./F_* -loop 0 " + output);
             runCmd("rm ./F_*");
