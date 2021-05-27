@@ -127,7 +127,10 @@ class TheStuff(commands.Cog):
 				cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 				subprocess.check_call(cmd)
 				filename = f"dumpy{messageid}.gif"
-				await ctx.send(file=discord.File(filename, filename=filename))
+				try:
+					await ctx.send(file=discord.File(filename, filename=filename))
+				except:
+					pass
 			else:
 				sus = True
 				try:
@@ -137,7 +140,10 @@ class TheStuff(commands.Cog):
 							cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
 							subprocess.check_call(cmd)
 							filename = f"dumpy{messageid}.gif"
-							await ctx.send(file=discord.File(filename, filename=filename))
+							try:
+								await ctx.send(file=discord.File(filename, filename=filename))
+							except:
+								pass
 							sus = False
 				except Exception as e:
 					print(e)
