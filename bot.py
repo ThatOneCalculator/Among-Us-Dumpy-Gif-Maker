@@ -90,15 +90,16 @@ class HelpCommand(commands.Cog):
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (height)`",
 						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 40, the default is 10.")
-		await ctx.send(embed=embed, buttons=[
+		await ctx.send(embed=embed)
+		await ctx.send("Some helpful links!", , buttons=[
 			Button(style=ButtonStyle.URL, label="Invite to your server!",
-					   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+                            url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 		],
 			[
 				Button(style=ButtonStyle.URL, label="See my GitHub!",
-					   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+                                    url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 		]
-		)
+		))
 
 	@commands.command()
 	async def literallynobot(self, ctx):
