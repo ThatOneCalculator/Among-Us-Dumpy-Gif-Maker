@@ -44,7 +44,7 @@ from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 upsince = datetime.datetime.now()
 
 logchannel = None
-
+ddb = DiscordButton(bot)
 
 class CommandErrorHandler(commands.Cog):
 
