@@ -1,3 +1,5 @@
+package dev.t1c.dumpy;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -11,6 +13,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileFilter;
 import java.awt.Color;
+import java.io.InputStream;
+import java.net.URL;
 
 public class sus {
 
@@ -30,6 +34,7 @@ public class sus {
 	// MAIN
 	public static void main(String[] args) throws Exception {
 
+		var main = new sus();
 		String dotSlash = "./";
 		boolean windows = isWindows();
 		if (windows) {
@@ -69,7 +74,9 @@ public class sus {
 		if (windows) {
 			theSlash = "\\";
 		}
-		BufferedImage c = ImageIO.read(new File("fs" + theSlash + "colors.png"));
+
+		InputStream imgInput = main.getResource("dumpy/colors.png");
+		BufferedImage c = ImageIO.read(imgInput);
 		HEXES = new String[24];
 		for (int i = 0; i < HEXES.length; i++) {
 			try {
@@ -80,7 +87,8 @@ public class sus {
 		}
 
 		// Gets BG and input file
-		BufferedImage bg = ImageIO.read(new File("fs" + theSlash + "black.png"));
+		InputStream blackImg = main.getResource("dumpy/black.png");
+		BufferedImage bg = ImageIO.read(blackImg);
 		BufferedImage r = ImageIO.read(new File(input));
 
 		// Calculates size from height
@@ -113,8 +121,8 @@ public class sus {
 				for (int x = 0; x < tx; x++) {
 
 					// Grabs appropriate pixel frame
-					BufferedImage pixel = ImageIO.read(new File(dotSlash + "fs" + theSlash + count + "-"
-							+ Integer.toHexString(image.getRGB(x, y)).substring(2).toUpperCase() + ".png"));
+					var pixelI = main.getResource("dumpy/" + count + "-" + Integer.toHexString(image.getRGB(x, y)).substring(2).toUpperCase() + ".png");
+					BufferedImage pixel = ImageIO.read(pixelI);
 					// overlays it
 					frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
 
@@ -158,6 +166,16 @@ public class sus {
 			runCmd("convert " + output + " -resize 1000x1000 " + output);
 		}
 		System.out.println("Done.");
+	}
+
+	private InputStream getResource(String filename) {
+		var loader = this.getClass().getClassLoader();
+		var is = loader.getResourceAsStream(filename);
+
+		if (is == null)
+			throw new NullPointerException("got null when retrieving file " + filename);
+
+		return is;
 	}
 
 	// Picks file
@@ -238,13 +256,8 @@ public class sus {
 		return bgImage;
 	}
 
-	public static boolean isWindows() throws Exception {
-		String OS = System.getProperty("os.name").toLowerCase();
-		boolean isWindows = false;
-		if (OS.startsWith("windows")) {
-			isWindows = true;
-		}
-		return isWindows;
+	public static boolean isWindows() {
+		return System.getProperty("os.name").toLowerCase().startsWith("windows");
 	}
 
 	// convenient way to handle Windows commands.

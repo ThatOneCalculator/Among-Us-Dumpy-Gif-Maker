@@ -28,3 +28,12 @@ F_*
 
 # token
 token.txt
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore IDEA
+.idea
