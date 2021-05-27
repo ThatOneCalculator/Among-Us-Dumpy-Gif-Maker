@@ -20,7 +20,7 @@
     - Linux: use package manager.
 
 ## Usage:
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.1/Among-Us-Dumpy-Gif-Maker.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.2/Among-Us-Dumpy-Gif-Maker.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
