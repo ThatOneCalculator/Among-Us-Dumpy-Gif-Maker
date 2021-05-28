@@ -84,7 +84,7 @@ class HelpCommand(commands.Cog):
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
-		await ctx.send(f"{ctx.author.mention} {ctx.guild.owner.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		await ctx.send(f"{ctx.author.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot\n\n**PLEASE LET THE SERVER OWNER/ADMINS KNOW OF THIS!!**")
 
 	@commands.command()
 	async def literallynobot(self, ctx):
@@ -92,7 +92,7 @@ class HelpCommand(commands.Cog):
 
 	@commands.command()
 	async def invite(self, ctx):
-		await ctx.send(f"{ctx.author.mention} {ctx.guild.owner.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		await ctx.send(f"{ctx.author.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot\n\n**PLEASE LET THE SERVER OWNER/ADMINS KNOW OF THIS!!**")
 
 
 def blocking(messageid, number, dither):
@@ -116,7 +116,7 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
 	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10, ditheropt: str = "false"):
-		await ctx.send(f"{ctx.author.mention} {ctx.guild.owner.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		await ctx.send(f"{ctx.author.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot\n\n**PLEASE LET THE SERVER OWNER/ADMINS KNOW OF THIS!!**")
 
 	@commands.command(name="ping")
 	async def ping(self, ctx):
