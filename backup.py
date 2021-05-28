@@ -44,9 +44,14 @@ from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 upsince = datetime.datetime.now()
 
 logchannel = None
-intents = discord.Intents.default()
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
-	"!!"), intents=intents, chunk_guilds_at_startup=False)
+try:
+	intents = discord.Intents.all()
+	bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
+		"!!"), intents=intents, chunk_guilds_at_startup=True)
+except:
+	intents = discord.Intents.default()
+	bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
+		"!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordButton(bot)
 
 
