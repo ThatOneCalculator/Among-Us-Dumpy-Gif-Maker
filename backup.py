@@ -44,14 +44,10 @@ from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 upsince = datetime.datetime.now()
 
 logchannel = None
-try:
-	intents = discord.Intents.all()
-	bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
-		"!!"), intents=intents, chunk_guilds_at_startup=True)
-except:
-	intents = discord.Intents.default()
-	bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
-		"!!"), intents=intents, chunk_guilds_at_startup=False)
+
+intents = discord.Intents.default()
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
+	"!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordButton(bot)
 
 
@@ -146,17 +142,6 @@ bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
 bot.add_cog(TheStuff(bot))
 bot.add_cog(CommandErrorHandler(bot))
-
-
-@bot.event
-async def on_ready():
-	print("Ready")
-	for i in bot.guilds:
-		try:
-			await i.owner.send("The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-		except Exception as e:
-			# print(f"I couldn't dm server {i.id}'s owner {i.owner.name}/{i.owner.discriminator}")
-			print(e)
 
 
 def read_token():
