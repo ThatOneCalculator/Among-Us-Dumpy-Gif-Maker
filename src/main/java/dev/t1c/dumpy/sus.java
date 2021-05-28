@@ -46,12 +46,16 @@ public class sus {
 					System.out.println("""
 
 
-`java -jar Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar lines true/false filepath` for adding arguments
+`java -jar Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar lines true/false filepath` for adding arguments
 
 *All arguments optional!*
 - `lines` is the number of lines, which defaults to 9.
 - `true/false` is whether to dither, which generally looks better at higher resolutions but not at lower ones.
 - `filepath` is a filepath to give it instead of using the file picker.""");
+					System.exit(0);
+				}
+				if (args[0].toLowerCase().indexOf("help") != -1) {
+					System.out.println("Version 1.5.1");
 					System.exit(0);
 				}
 				try {
