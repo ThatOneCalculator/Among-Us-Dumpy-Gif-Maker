@@ -8,13 +8,7 @@
 ![](https://cdn.discordapp.com/attachments/810799100940255260/847265488005758996/ezgif-5-d8fc3263de91.gif)
 # Instructions
 
-# Easiest: use the Discord bot
-## CURRENTLY UNAVAILABLE: ~~[Bot link](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)~~
-## Backup bot links:
-### [Backup bot link 1](https://discord.com/api/oauth2/authorize?client_id=847646081877934130&permissions=117760&scope=bot)
-### [Backup bot link 2](https://discord.com/api/oauth2/authorize?client_id=847701607310295060&permissions=117760&scope=bot)
-#### Help command: `!!help`
-#### Please note that this bot is awaiting verification from Discord, and currently has a server cap of 250 servers.
+# Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)
 
 # Run as a program:
 ## Requirements:
