@@ -154,8 +154,9 @@ async def on_ready():
 	for i in bot.guilds:
 		try:
 			await i.owner.send("The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-		except:
-			print(f"I couldn't dm server {i.id}'s owner {i.owner.name}/{i.owner.discriminator}")
+		except Exception as e:
+			# print(f"I couldn't dm server {i.id}'s owner {i.owner.name}/{i.owner.discriminator}")
+			print(e)
 
 
 def read_token():
