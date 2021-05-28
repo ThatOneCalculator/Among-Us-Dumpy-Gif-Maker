@@ -110,7 +110,8 @@ class HelpCommand(commands.Cog):
 
 def blocking(messageid, number, dither):
 	ditheropt = "true" if dither else "false"
-	cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar {number} attach_{messageid}.png {ditheropt} {messageid}")
+	cmd = shlex.split(
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
 	subprocess.check_call(cmd)
 
 
