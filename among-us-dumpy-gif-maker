@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/lib/jvm/java-15-openjdk/bin/java -jar /usr/share/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar
