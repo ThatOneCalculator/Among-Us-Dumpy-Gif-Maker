@@ -83,7 +83,7 @@ class HelpCommand(commands.Cog):
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
-        await ctx.send(f"{ctx.author.mention} {ctx.guild.owner.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		await ctx.send(f"{ctx.author.mention} {ctx.guild.owner.mention} The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 
 	@commands.command()
 	async def literallynobot(self, ctx):
@@ -146,11 +146,11 @@ bot.add_cog(CommandErrorHandler(bot))
 @bot.event
 async def on_ready():
 	print("Ready")
-    for i in bot.guilds:
-        try:
-            await i.owner.send("The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-        except:
-            print(f"I couldn't dm server {i.id}'s owner {i.owner.name}/{i.owner.discriminator}")
+	for i in bot.guilds:
+		try:
+			await i.owner.send("The main bot is now verified! Please invite that to your server!\n\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		except:
+			print(f"I couldn't dm server {i.id}'s owner {i.owner.name}/{i.owner.discriminator}")
 
 
 def read_token():
