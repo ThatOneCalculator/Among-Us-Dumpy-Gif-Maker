@@ -12,14 +12,9 @@
 
 # Run as a program:
 ## Requirements:
-- Java Runtime Environment 15 or newer
-    - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
-    - Linux: use package manager.
-    - Also works with [OpenJDK](https://adoptopenjdk.net)
-- ImageMagick
-    - [Windows (static)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.0.11-13-Q16-x64-static.exe)
-    - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
-    - Linux: use package manager.
+Java Runtime Environment 15 or newer
+- [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
+- Also works with [OpenJDK](https://adoptopenjdk.net)
 
 ## Usage:
 
@@ -28,15 +23,15 @@
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.5.2/Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.6.0/Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar` for defaults
-- `java -jar Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar help/version` for help/version
-- `java -jar Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar lines true/false filepath` for adding arguments
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar` for defaults
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar help/version` for help/version
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar lines true/false filepath` for adding arguments
 
 
 #### ***All arguments optional!***
@@ -54,5 +49,5 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar
 ```
