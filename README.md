@@ -28,6 +28,12 @@
     - Linux: use package manager.
 
 ## Usage:
+
+#### [AUR package for Arch Linux users](https://aur.archlinux.org/packages/discordrpcmaker/) ![arch](https://media.discordapp.net/attachments/810799100940255260/838491685892784178/ezgif-6-fd025aa8c722.png)
+`yay -S among-us-dumpy-gif-maker && among-us-dumpy-gif-maker`
+
+To everyone else:
+
 ### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.4.0/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar)!
 
 ### Basic usage:
