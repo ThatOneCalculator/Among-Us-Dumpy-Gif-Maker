@@ -88,8 +88,8 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
-		embed.add_field(name="`!!dumpy (height)`",
-						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat, with height being an optional number between 2 and 35, the default is 10.")
+		embed.add_field(name="`!!dumpy (height) (dither)`",
+						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 35, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
 		await ctx.send(embed=embed,
 			buttons=[
 				Button(style=ButtonStyle.URL, label="Invite to your server!",
