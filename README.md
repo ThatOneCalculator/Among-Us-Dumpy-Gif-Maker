@@ -28,17 +28,13 @@
     - Linux: use package manager.
 
 ## Usage:
-<<<<<<< HEAD
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.5.0/Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar)!
-=======
 
 #### [AUR package for Arch Linux users](https://aur.archlinux.org/packages/discordrpcmaker/) ![arch](https://media.discordapp.net/attachments/810799100940255260/838491685892784178/ezgif-6-fd025aa8c722.png)
 `yay -S among-us-dumpy-gif-maker && among-us-dumpy-gif-maker`
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.4.0/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar)!
->>>>>>> 088171a37baaf049031454bad4137016c60387df
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.5.0/Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
