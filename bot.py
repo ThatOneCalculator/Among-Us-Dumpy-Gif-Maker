@@ -108,6 +108,11 @@ class HelpCommand(commands.Cog):
 	async def invite(self, ctx):
 		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 
+def blocking(number, dither):
+	ditheropt = "true" if dither else "false"
+	cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar {number} attach_{messageid}.png {ditheropt} {messageid}")
+	subprocess.check_call(cmd)
+
 
 class TheStuff(commands.Cog):
 
@@ -117,18 +122,22 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
-	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10):
+	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10, ditheropt: str = "false"):
+		if ditheropt == "dither":
+			dither = True
+		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
 			number = 10
 		if number > 35 or number < 2:
 			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
-		number = str(number)
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-				cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
-				subprocess.check_call(cmd)
+				if dither:
+					await loop.run_in_executor(None, blocking, number, True)
+				else:
+					await loop.run_in_executor(None, blocking, number)
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
 			else:
@@ -137,8 +146,10 @@ class TheStuff(commands.Cog):
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus:
 							await message.attachments[0].save(f"attach_{messageid}.png")
-							cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
-							subprocess.check_call(cmd)
+							if dither:
+								await loop.run_in_executor(None, blocking, number, True)
+							else:
+								await loop.run_in_executor(None, blocking, number)
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
 							sus = False

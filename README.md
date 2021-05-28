@@ -28,15 +28,22 @@
     - Linux: use package manager.
 
 ## Usage:
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.4.0/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v1.5.0/Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar` for defaults
-- `java -jar Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar <lines>` for choosing a line number. Default is 9.
-- `java -jar Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar <lines> <filepath>` for choosing a line number AND a file path instead of using the file picker.
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar` for defaults
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar help` for help
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar lines true/false filepath` for adding arguments
+
+
+#### ***All arguments optional!***
+- `lines` is the number of lines, which defaults to 9.
+- `true/false` is whether to dither, which generally looks better at higher resolutions but not at lower ones.
+- `filepath` is a filepath to give it instead of using the file picker.
+
 A file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### From source:
@@ -47,5 +54,5 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar
 ```

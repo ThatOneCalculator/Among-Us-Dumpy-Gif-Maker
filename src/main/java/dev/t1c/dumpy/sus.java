@@ -20,13 +20,6 @@ public class sus {
 	// Put in the directory where you extracted this
 	public static String dir = "[DIRECTORY]";
 
-	// Enter the input file name here
-	// public String input = dotSlash + "input.png";
-
-	// Choose if you want to dither here. It'll most likely screw it up but if you
-	// have a non-flag/sprite image, this'll probably improve things.
-	public static boolean dither = false;
-
 	// Hex color array
 	public static String[] HEXES;
 
@@ -35,6 +28,7 @@ public class sus {
 
 		var main = new sus();
 		String dotSlash = "./";
+		boolean dither = false;
 		boolean windows = isWindows();
 		if (windows) {
 			dotSlash = ".\\";
@@ -48,6 +42,18 @@ public class sus {
 
 		if (args.length > 0) {
 			if (args[0] != null) {
+				if (args[0].toLowerCase().indexOf("help") != -1) {
+					System.out.println("""
+
+
+`java -jar Among-Us-Dumpy-Gif-Maker-1.5.0-all.jar lines true/false filepath` for adding arguments
+
+*All arguments optional!*
+- `lines` is the number of lines, which defaults to 9.
+- `true/false` is whether to dither, which generally looks better at higher resolutions but not at lower ones.
+- `filepath` is a filepath to give it instead of using the file picker.""");
+					System.exit(0);
+				}
 				try {
 					ty = Integer.parseInt(args[0]);
 				} catch (NumberFormatException e) {
@@ -55,11 +61,17 @@ public class sus {
 				}
 			}
 			if (args.length >= 2 && args[1] != null) {
-				input = args[1];
+				if (args[1].toLowerCase().indexOf("true") != -1) {
+					dither = true;
+				}
+			}
+			if (args.length >= 3 && args[2] != null) {
+				input = args[2];
 				needFile = false;
 			}
-			if (args.length == 3 && args[2] != null) {
-				extraoutput = args[2];
+
+			if (args.length >= 4 && args[3] != null) {
+				extraoutput = args[3];
 				needFile = false;
 			}
 		}
@@ -90,7 +102,7 @@ public class sus {
 
 		// Prepares source image
 		BufferedImage image = Dither
-				.floydSteinbergDithering(toBufferedImage(r.getScaledInstance(tx, ty, Image.SCALE_SMOOTH)), false);
+				.floydSteinbergDithering(toBufferedImage(r.getScaledInstance(tx, ty, Image.SCALE_SMOOTH)), dither);
 
 		// Actually makes the frames
 		BufferedImage[] frames = new BufferedImage[6];
@@ -114,7 +126,8 @@ public class sus {
 				for (int x = 0; x < tx; x++) {
 
 					// Grabs appropriate pixel frame
-					var pixelI = main.getResource("dumpy/" + count + "-" + Integer.toHexString(image.getRGB(x, y)).substring(2).toUpperCase() + ".png");
+					var pixelI = main.getResource("dumpy/" + count + "-"
+							+ Integer.toHexString(image.getRGB(x, y)).substring(2).toUpperCase() + ".png");
 					BufferedImage pixel = ImageIO.read(pixelI);
 					// overlays it
 					frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
