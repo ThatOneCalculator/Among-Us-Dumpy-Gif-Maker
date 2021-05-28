@@ -46,7 +46,7 @@ public class sus {
 					System.out.println("""
 
 
-`java -jar Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar lines true/false filepath` for adding arguments
+`java -jar Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar lines true/false filepath` for adding arguments
 
 *All arguments optional!*
 - `lines` is the number of lines, which defaults to 9.
@@ -55,7 +55,7 @@ public class sus {
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("help") != -1) {
-					System.out.println("Version 1.5.1");
+					System.out.println("Version 1.5.2");
 					System.exit(0);
 				}
 				try {
@@ -166,8 +166,8 @@ public class sus {
 			runCmd("magick convert *\\ -delay 1x20 .\\F_* -loop 0 " + output);
 			runCmd("del .\\F_*.png");
 		} else {
-			runCmd("convert -delay 1x20 ./F_* -loop 0 " + output);
-			runCmd("rm ./F_*");
+			runCmd("convert -delay 1x20 ./F_*" + extraoutput + ".png -loop 0 " + output);
+			runCmd("rm ./F_*.png");
 		}
 
 		// Resizes if need be
