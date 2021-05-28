@@ -110,9 +110,10 @@ class HelpCommand(commands.Cog):
 
 def blocking(messageid, number, dither):
 	ditheropt = "true" if dither else "false"
-	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
+	cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
+	rmcmd = shlex.split(f"rm ./attach_{messageid}.png ./dumpy{messageid}.gif")
 	subprocess.check_call(cmd)
+	subprocess.check_call(rmcmd)
 
 
 class TheStuff(commands.Cog):
@@ -161,9 +162,6 @@ class TheStuff(commands.Cog):
 					await ctx.send(e)
 					return await ctx.send("I couldn't find an image, you sussy baka!")
 
-			rmcmd = shlex.split(
-				f"rm attach_{messageid}.png dumpy{messageid}.gif")
-			subprocess.check_call(rmcmd)
 
 	@commands.command(name="ping")
 	async def ping(self, ctx):
