@@ -108,7 +108,7 @@ class HelpCommand(commands.Cog):
 	async def invite(self, ctx):
 		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 
-def blocking(number, dither):
+def blocking(messageid, number, dither):
 	ditheropt = "true" if dither else "false"
 	cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar {number} attach_{messageid}.png {ditheropt} {messageid}")
 	subprocess.check_call(cmd)
@@ -137,9 +137,9 @@ class TheStuff(commands.Cog):
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 				if dither:
-					await loop.run_in_executor(None, blocking, number, True)
+					await loop.run_in_executor(None, blocking, messageid, number, True)
 				else:
-					await loop.run_in_executor(None, blocking, number, False)
+					await loop.run_in_executor(None, blocking, messageid, number, False)
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
 			else:
@@ -149,9 +149,9 @@ class TheStuff(commands.Cog):
 						if len(message.attachments) > 0 and sus:
 							await message.attachments[0].save(f"attach_{messageid}.png")
 							if dither:
-								await loop.run_in_executor(None, blocking, number, True)
+								await loop.run_in_executor(None, blocking, messageid, number, True)
 							else:
-								await loop.run_in_executor(None, blocking, number, False)
+								await loop.run_in_executor(None, blocking, messageid, number, False)
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
 							sus = False
