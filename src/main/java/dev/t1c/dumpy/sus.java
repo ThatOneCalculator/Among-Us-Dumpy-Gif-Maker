@@ -1,19 +1,19 @@
 package dev.t1c.dumpy;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileFilter;
-import java.awt.Color;
-import java.io.InputStream;
+import javax.swing.filechooser.FileSystemView;
 
 public class sus {
 
@@ -43,15 +43,15 @@ public class sus {
 		if (args.length > 0) {
 			if (args[0] != null) {
 				if (args[0].toLowerCase().indexOf("help") != -1) {
-					System.out.println("""
+					System.out.println(
+							"""
 
+									`java -jar Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar lines true/false filepath` for adding arguments
 
-`java -jar Among-Us-Dumpy-Gif-Maker-1.5.2-all.jar lines true/false filepath` for adding arguments
-
-*All arguments optional!*
-- `lines` is the number of lines, which defaults to 9.
-- `true/false` is whether to dither, which generally looks better at higher resolutions but not at lower ones.
-- `filepath` is a filepath to give it instead of using the file picker.""");
+									*All arguments optional!*
+									- `lines` is the number of lines, which defaults to 9.
+									- `true/false` is whether to dither, which generally looks better at higher resolutions but not at lower ones.
+									- `filepath` is a filepath to give it instead of using the file picker.""");
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("help") != -1) {
