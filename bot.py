@@ -50,20 +50,6 @@ bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 ddb = DiscordButton(bot)
 
 
-async def run(cmd):
-    proc = await asyncio.create_subprocess_shell(
-        cmd,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE)
-
-    stdout, stderr = await proc.communicate()
-
-    print(f'[{cmd!r} exited with {proc.returncode}]')
-    if stdout:
-        print(f'[stdout]\n{stdout.decode()}')
-    if stderr:
-        print(f'[stderr]\n{stderr.decode()}')
-
 class CommandErrorHandler(commands.Cog):
 
 	def __init__(self, bot):
@@ -141,9 +127,8 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-				# cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
-				# subprocess.check_call(cmd)
-				asyncio.run(run(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}"))
+				cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
+				subprocess.check_call(cmd)
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
 			else:
@@ -152,9 +137,8 @@ class TheStuff(commands.Cog):
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus:
 							await message.attachments[0].save(f"attach_{messageid}.png")
-							# cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
-							# subprocess.check_call(cmd)
-							asyncio.run(run(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}"))
+							cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
+							subprocess.check_call(cmd)
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
 							sus = False
