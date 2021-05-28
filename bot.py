@@ -125,6 +125,8 @@ class TheStuff(commands.Cog):
 	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10, ditheropt: str = "false"):
 		if ditheropt == "dither":
 			dither = True
+		else:
+			dither = False
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
