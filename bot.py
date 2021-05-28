@@ -143,7 +143,7 @@ class TheStuff(commands.Cog):
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 				# cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
 				# subprocess.check_call(cmd)
-				await asyncio.run(run(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}"))
+				asyncio.run(run(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}"))
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
 			else:
@@ -154,7 +154,7 @@ class TheStuff(commands.Cog):
 							await message.attachments[0].save(f"attach_{messageid}.png")
 							# cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}")
 							# subprocess.check_call(cmd)
-							await asyncio.run(run(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}"))
+							asyncio.run(run(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar {number} attach_{messageid}.png {messageid}"))
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
 							sus = False
