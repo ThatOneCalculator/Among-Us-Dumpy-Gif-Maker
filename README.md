@@ -29,7 +29,7 @@
 
 ## Usage:
 
-#### [AUR package for Arch Linux users](https://aur.archlinux.org/packages/discordrpcmaker/) ![arch](https://media.discordapp.net/attachments/810799100940255260/838491685892784178/ezgif-6-fd025aa8c722.png)
+#### [AUR package for Arch Linux users](https://aur.archlinux.org/packages/among-us-dumpy-gif-maker/) ![arch](https://media.discordapp.net/attachments/810799100940255260/838491685892784178/ezgif-6-fd025aa8c722.png)
 `yay -S among-us-dumpy-gif-maker && among-us-dumpy-gif-maker`
 
 To everyone else:
