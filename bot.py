@@ -127,7 +127,8 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-				cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+				cmd = shlex.split(
+					f"java -jar ./build/lib/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar attach_{messageid}.png {messageid}")
 				subprocess.check_call(cmd)
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
@@ -137,7 +138,8 @@ class TheStuff(commands.Cog):
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus:
 							await message.attachments[0].save(f"attach_{messageid}.png")
-							cmd = shlex.split(f"java sus {number} attach_{messageid}.png {messageid}")
+							cmd = shlex.split(
+                                                            f"java -jar ./build/lib/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar attach_{messageid}.png {messageid}")
 							subprocess.check_call(cmd)
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
