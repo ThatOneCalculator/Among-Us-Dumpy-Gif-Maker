@@ -30,13 +30,18 @@
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker.jar` for defaults
-- `java -jar Among-Us-Dumpy-Gif-Maker.jar <lines>` for choosing a line number. Default is 9.
-- `java -jar Among-Us-Dumpy-Gif-Maker.jar <lines> <filepath>` for choosing a line number AND a file path instead of using the file picker.
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar` for defaults
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar <lines>` for choosing a line number. Default is 9.
+- `java -jar Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar <lines> <filepath>` for choosing a line number AND a file path instead of using the file picker.
 A file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### From source:
 *Not recommended unless you intend to modify the code!*
+- Need [Gradle](https://gradle.org/)
 ```
-git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker && cd Among-Us-Dumpy-Gif-Maker && javac sus.java && java sus
+git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
+cd Among-Us-Dumpy-Gif-Maker
+gradle wrapper
+./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-1.4.0-all.jar
 ```
