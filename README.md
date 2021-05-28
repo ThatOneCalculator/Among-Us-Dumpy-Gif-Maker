@@ -9,7 +9,7 @@
 # Instructions
 
 # Easiest: use the Discord bot
-## CURRENTLY UNAVAILABLE: [Bot link](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)
+## CURRENTLY UNAVAILABLE: ~~[Bot link](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot)~~
 ## [Backup bot link](https://discord.com/api/oauth2/authorize?client_id=847646081877934130&permissions=117760&scope=bot)
 #### Help command: `!!help`
 #### Please note that this bot is awaiting verification from Discord, and currently has a server cap of 250 servers.
