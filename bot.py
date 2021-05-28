@@ -139,7 +139,7 @@ class TheStuff(commands.Cog):
 				if dither:
 					await loop.run_in_executor(None, blocking, number, True)
 				else:
-					await loop.run_in_executor(None, blocking, number)
+					await loop.run_in_executor(None, blocking, number, False)
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
 			else:
@@ -151,7 +151,7 @@ class TheStuff(commands.Cog):
 							if dither:
 								await loop.run_in_executor(None, blocking, number, True)
 							else:
-								await loop.run_in_executor(None, blocking, number)
+								await loop.run_in_executor(None, blocking, number, False)
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
 							sus = False
