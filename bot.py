@@ -111,10 +111,11 @@ class HelpCommand(commands.Cog):
 def blocking(messageid, number, dither):
 	ditheropt = "true" if dither else "false"
 	cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.5.1-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
-	rmcmd = shlex.split(f"rm ./attach_{messageid}.png ./dumpy{messageid}.gif")
 	subprocess.check_call(cmd)
-	subprocess.check_call(rmcmd)
 
+def rmblocking(messageid):
+	rmcmd = shlex.split(f"rm ./attach_{messageid}.png ./dumpy{messageid}.gif")
+	subprocess.check_call(rmcmd)
 
 class TheStuff(commands.Cog):
 
@@ -144,6 +145,7 @@ class TheStuff(commands.Cog):
 					await loop.run_in_executor(None, blocking, messageid, number, False)
 				filename = f"dumpy{messageid}.gif"
 				await ctx.send(file=discord.File(filename, filename=filename))
+				await loop.run_in_executor(None, rmblocking, messageid)
 			else:
 				sus = True
 				try:
@@ -157,6 +159,7 @@ class TheStuff(commands.Cog):
 							filename = f"dumpy{messageid}.gif"
 							await ctx.send(file=discord.File(filename, filename=filename))
 							sus = False
+							await loop.run_in_executor(None, rmblocking, messageid)
 				except Exception as e:
 					print(e)
 					await ctx.send(e)
