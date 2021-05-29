@@ -41,6 +41,14 @@ from discord.ext import commands
 from discord.ext import tasks
 from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 
+with open("srapi.txt", "r") as f:
+	lines = f.readlines()
+	sr_api_key = lines[0].strip()
+
+with open("token.txt", "r") as f:
+	lines = f.readlines()
+	token = lines[0].strip()
+
 upsince = datetime.datetime.now()
 
 logchannel = None
@@ -123,12 +131,32 @@ def rmblocking(messageid):
 	rmcmd = shlex.split(f"rm ./attach_{messageid}.png ./dumpy{messageid}.gif")
 	subprocess.check_call(rmcmd)
 
+async def asyncimage(url, filename):
+	async with aiohttp.ClientSession() as session:
+		async with session.get(url) as resp:
+			f = await aiofiles.open(filename, mode="wb")
+			await f.write(await resp.read())
+			await f.close()
+	img = Image.open(filename)
+	file = discord.File(filename, filename=filename)
+	return file
 
 class TheStuff(commands.Cog):
 
 	def __init__(self, bot):
 		self.bot = bot
 		self.update_status.start()
+
+	@commands.command(aliases=["sus", "imposter", "crewmate"])
+	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
+		if type(victim) != discord.Member:
+			return await ctx.send("You need to mention someone!")
+		imposter = random.choice(["true", "false"])
+		url = str(victim.avatar_url_as(format="png"))
+		file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.png")
+		await ctx.send(file=file)
+		rm = shlex.split(f"rm ./eject{ctx.message.id}.png")
+		subprocess.check_call(rm)
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
@@ -232,15 +260,8 @@ bot.add_cog(TheStuff(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
 
-@ bot.event
+@bot.event
 async def on_ready():
 	print("Ready")
 
-
-def read_token():
-	with open("token.txt", "r") as f:
-		lines=f.readlines()
-		return lines[0].strip()
-
-
-bot.run(read_token())
+bot.run(token)

@@ -28,6 +28,7 @@ F_*
 
 # token
 token.txt
+srapi.txt
 
 # Ignore Gradle project-specific cache directory
 .gradle
