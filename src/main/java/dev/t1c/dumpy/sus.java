@@ -201,9 +201,9 @@ public class sus {
 		// Resizes if need be
 		BufferedImage resize = ImageIO.read(new File(output));
 		if (resize.getHeight() > 1000 || resize.getWidth() > 1000) {
-			BufferedImage rz = resizeImage(resize, 500, resize.getWidth());
-			ImageIO.write(rz, "gif", new File(output));
-			// runCmd("convert " + output + " -resize 1000x1000 " + output);
+			// BufferedImage rz = resizeImage(resize, 500, resize.getWidth());
+			// ImageIO.write(rz, "gif", new File(output));
+			runCmd("convert " + output + " -resize 1000x1000 " + output);
 		}
 		System.out.println("Done.");
 	}
