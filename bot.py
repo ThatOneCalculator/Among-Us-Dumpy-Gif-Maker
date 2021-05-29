@@ -147,7 +147,10 @@ class TheStuff(commands.Cog):
 				else:
 					await loop.run_in_executor(None, blocking, messageid, number, False)
 				filename = f"dumpy{messageid}.gif"
-				await ctx.send(file=discord.File(filename, filename=filename))
+				try:
+					await ctx.send(file=discord.File(filename, filename=filename))
+				except:
+					pass
 				await loop.run_in_executor(None, rmblocking, messageid)
 			else:
 				sus = True
@@ -160,7 +163,10 @@ class TheStuff(commands.Cog):
 							else:
 								await loop.run_in_executor(None, blocking, messageid, number, False)
 							filename = f"dumpy{messageid}.gif"
-							await ctx.send(file=discord.File(filename, filename=filename))
+							try:
+								await ctx.send(file=discord.File(filename, filename=filename))
+							except:
+								pass
 							sus = False
 							await loop.run_in_executor(None, rmblocking, messageid)
 				except Exception as e:
