@@ -193,9 +193,9 @@ public class sus {
 		imageoutput.close();
 		boolean win = isWindows();
 		if (win) {
-			runCmd("del .\\F_*.png");
+			runCmd("del .\\F_*");
 		} else {
-			runCmd("rm ./F_*.png");
+			runCmd("rm ./F_*");
 		}
 
 		// Resizes if need be
