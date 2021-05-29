@@ -199,6 +199,15 @@ class TheStuff(commands.Cog):
 
 	@ commands.command(name="ping")
 	async def ping(self, ctx):
+		shardscounter = []
+		allmembers = 0
+		for guild in self.bot.guilds:
+			if guild.shard_id not in shardscounter:
+				shardscounter.append(guild.shard_id)
+			allmembers += guild.member_count
+		shards = []
+		for i in shardscounter:
+			shards.append(self.bot.get_shard(i))
 		allmembers=0
 		for guild in self.bot.guilds:
 			allmembers += guild.member_count
@@ -209,7 +218,7 @@ class TheStuff(commands.Cog):
 		pingdiff=afterping - beforeping
 		pingdiffms=pingdiff.microseconds / 1000
 		uptime=afterping - upsince
-		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n\nI am in {str(len(self.bot.guilds))} servers with a total of {allmembers} people.")
+		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.\n\nI am in {str(len(self.bot.guilds))} servers with a total of {allmembers} people.")
 
 	@ tasks.loop(minutes=10)
 	async def update_status(self):
