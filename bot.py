@@ -163,7 +163,7 @@ class TheStuff(commands.Cog):
 						]
 					)
 				except:
-					pass
+					await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 				await loop.run_in_executor(None, rmblocking, messageid)
 			else:
 				sus=True
@@ -188,7 +188,7 @@ class TheStuff(commands.Cog):
 									]
 								)
 							except:
-								pass
+								await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 							sus=False
 							await loop.run_in_executor(None, rmblocking, messageid)
 				except Exception as e:
