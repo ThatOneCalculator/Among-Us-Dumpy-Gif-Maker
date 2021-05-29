@@ -111,14 +111,18 @@ class HelpCommand(commands.Cog):
 	async def invite(self, ctx):
 		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 
+
 def blocking(messageid, number, dither):
 	ditheropt = "true" if dither else "false"
-	cmd = shlex.split(f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
+	cmd = shlex.split(
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
 	subprocess.check_call(cmd)
+
 
 def rmblocking(messageid):
 	rmcmd = shlex.split(f"rm ./attach_{messageid}.png ./dumpy{messageid}.gif")
 	subprocess.check_call(rmcmd)
+
 
 class TheStuff(commands.Cog):
 
@@ -148,12 +152,21 @@ class TheStuff(commands.Cog):
 					await loop.run_in_executor(None, blocking, messageid, number, False)
 				filename = f"dumpy{messageid}.gif"
 				try:
-					await ctx.send(file=discord.File(filename, filename=filename))
+				await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+					file=discord.File(filename, filename=filename,
+					buttons=[
+						Button(style=ButtonStyle.URL, label="Invite to your server!",
+							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+
+						Button(style=ButtonStyle.URL, label="See my GitHub!",
+							url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+					]
+				)
 				except:
 					pass
 				await loop.run_in_executor(None, rmblocking, messageid)
 			else:
-				sus = True
+				sus=True
 				try:
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus:
@@ -162,12 +175,21 @@ class TheStuff(commands.Cog):
 								await loop.run_in_executor(None, blocking, messageid, number, True)
 							else:
 								await loop.run_in_executor(None, blocking, messageid, number, False)
-							filename = f"dumpy{messageid}.gif"
+							filename=f"dumpy{messageid}.gif"
 							try:
-								await ctx.send(file=discord.File(filename, filename=filename))
+								await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+									file=discord.File(filename, filename=filename,
+									buttons=[
+										Button(style=ButtonStyle.URL, label="Invite to your server!",
+												url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+
+										Button(style=ButtonStyle.URL, label="See my GitHub!",
+												url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+									]
+								)
 							except:
 								pass
-							sus = False
+							sus=False
 							await loop.run_in_executor(None, rmblocking, messageid)
 				except Exception as e:
 					print(e)
@@ -175,21 +197,21 @@ class TheStuff(commands.Cog):
 					return await ctx.send("I couldn't find an image, you sussy baka!")
 
 
-	@commands.command(name="ping")
+	@ commands.command(name="ping")
 	async def ping(self, ctx):
-		allmembers = 0
+		allmembers=0
 		for guild in self.bot.guilds:
 			allmembers += guild.member_count
-		ping = await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
-		beforeping = datetime.datetime.now()
+		ping=await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
+		beforeping=datetime.datetime.now()
 		await ping.edit(content="Pinging!")
-		afterping = datetime.datetime.now()
-		pingdiff = afterping - beforeping
-		pingdiffms = pingdiff.microseconds / 1000
-		uptime = afterping - upsince
+		afterping=datetime.datetime.now()
+		pingdiff=afterping - beforeping
+		pingdiffms=pingdiff.microseconds / 1000
+		uptime=afterping - upsince
 		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n\nI am in {str(len(self.bot.guilds))} servers with a total of {allmembers} people.")
 
-	@tasks.loop(minutes=10)
+	@ tasks.loop(minutes=10)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(self.bot.guilds)} servers!"))
@@ -201,14 +223,14 @@ bot.add_cog(TheStuff(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
 
-@bot.event
+@ bot.event
 async def on_ready():
 	print("Ready")
 
 
 def read_token():
 	with open("token.txt", "r") as f:
-		lines = f.readlines()
+		lines=f.readlines()
 		return lines[0].strip()
 
 
