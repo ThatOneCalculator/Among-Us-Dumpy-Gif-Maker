@@ -200,11 +200,9 @@ class TheStuff(commands.Cog):
 	@ commands.command(name="ping")
 	async def ping(self, ctx):
 		shardscounter = []
-		allmembers = 0
 		for guild in self.bot.guilds:
 			if guild.shard_id not in shardscounter:
 				shardscounter.append(guild.shard_id)
-			allmembers += guild.member_count
 		shards = []
 		for i in shardscounter:
 			shards.append(self.bot.get_shard(i))
