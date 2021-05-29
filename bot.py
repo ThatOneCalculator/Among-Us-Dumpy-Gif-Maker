@@ -130,7 +130,7 @@ def blocking(messageid, number, dither):
 
 
 def rmblocking(messageid):
-	rmcmd = shlex.split(f"rm ./attach_{messageid}.png ./dumpy{messageid}.gif")
+	rmcmd = shlex.split(f"rm *{messageid}*")
 	subprocess.check_call(rmcmd)
 
 async def asyncimage(url, filename):
