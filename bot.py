@@ -51,6 +51,7 @@ with open("token.txt", "r") as f:
 	token = lines[0].strip()
 
 upsince = datetime.datetime.now()
+version = "1.6.1"
 
 logchannel = None
 intents = discord.Intents.default()
@@ -100,6 +101,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!eject <@person>`", value="Sees if someone is the imposter!")
 		embed.add_field(name="`!!dumpy (height) (dither)`",
 						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 35, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
+		embed.set_footer(text=f"Among Us Dumpy Bot version {version}.")
 		try:
 			await ctx.send(embed=embed,
 				buttons=[
@@ -125,7 +127,7 @@ class HelpCommand(commands.Cog):
 def blocking(messageid, number, dither):
 	ditheropt = "true" if dither else "false"
 	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-1.6.1-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
 	subprocess.check_call(cmd)
 
 
@@ -262,7 +264,7 @@ class TheStuff(commands.Cog):
 		pingdiff=afterping - beforeping
 		pingdiffms=pingdiff.microseconds / 1000
 		uptime=afterping - upsince
-		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.\n\nI am in {str(len(self.bot.guilds))} servers ({large} of which are large) with a total of {allmembers} people.")
+		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.\n\nI am in {str(len(self.bot.guilds))} servers ({large} of which are large) with a total of {allmembers} people on version {version}.")
 
 	@ tasks.loop(minutes=10)
 	async def update_status(self):
