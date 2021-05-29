@@ -37,3 +37,6 @@ build
 
 # Ignore IDEA
 .idea
+
+# Ignore AUR
+aur/
