@@ -4,6 +4,7 @@
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a></p>
 
 ##### Please credit this repository when you use this program!
+##### Current version: 1.6.1
 
 ![](https://cdn.discordapp.com/attachments/810799100940255260/847265488005758996/ezgif-5-d8fc3263de91.gif)
 # Instructions
