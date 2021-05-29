@@ -158,7 +158,16 @@ class TheStuff(commands.Cog):
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
-			await ctx.send(file=file)
+			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+				file=file,
+				buttons=[
+					Button(style=ButtonStyle.URL, label="Invite to your server!",
+							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+
+					Button(style=ButtonStyle.URL, label="See my GitHub!",
+							url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+				]
+			)
 		rm = shlex.split(f"rm ./eject{ctx.message.id}.gif")
 		subprocess.check_call(rm)
 
