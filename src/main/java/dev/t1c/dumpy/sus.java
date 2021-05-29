@@ -201,9 +201,18 @@ public class sus {
 		// Resizes if need be
 		BufferedImage resize = ImageIO.read(new File(output));
 		if (resize.getHeight() > 1000 || resize.getWidth() > 1000) {
-			runCmd("convert " + output + " -resize 1000x1000 " + output);
+			BufferedImage rz = resizeImage(resize, 500, resize.getWidth());
+			ImageIO.write(rz, "gif", new File(output));
+			// runCmd("convert " + output + " -resize 1000x1000 " + output);
 		}
 		System.out.println("Done.");
+	}
+
+	public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
+		Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
+		BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+		outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+		return outputImage;
 	}
 
 	private InputStream getResource(String filename) {
