@@ -152,16 +152,16 @@ class TheStuff(commands.Cog):
 					await loop.run_in_executor(None, blocking, messageid, number, False)
 				filename = f"dumpy{messageid}.gif"
 				try:
-				await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-					file=discord.File(filename, filename=filename,
-					buttons=[
-						Button(style=ButtonStyle.URL, label="Invite to your server!",
-							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+					await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+						file=discord.File(filename, filename=filename,
+						buttons=[
+							Button(style=ButtonStyle.URL, label="Invite to your server!",
+								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
-						Button(style=ButtonStyle.URL, label="See my GitHub!",
-							url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-					]
-				)
+							Button(style=ButtonStyle.URL, label="See my GitHub!",
+								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+						]
+					)
 				except:
 					pass
 				await loop.run_in_executor(None, rmblocking, messageid)
