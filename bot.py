@@ -90,15 +90,18 @@ class HelpCommand(commands.Cog):
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!dumpy (height) (dither)`",
 						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 35, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
-		await ctx.send(embed=embed,
-			buttons=[
-				Button(style=ButtonStyle.URL, label="Invite to your server!",
-						url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+		try:
+			await ctx.send(embed=embed,
+				buttons=[
+					Button(style=ButtonStyle.URL, label="Invite to your server!",
+							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
-				Button(style=ButtonStyle.URL, label="See my GitHub!",
-						url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-			],
-		)
+					Button(style=ButtonStyle.URL, label="See my GitHub!",
+							url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+				],
+			)
+		except:
+			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
 
 	@commands.command()
 	async def literallynobot(self, ctx):
