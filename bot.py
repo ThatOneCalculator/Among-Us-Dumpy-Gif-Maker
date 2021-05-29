@@ -153,7 +153,7 @@ class TheStuff(commands.Cog):
 				filename = f"dumpy{messageid}.gif"
 				try:
 					await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-						file=discord.File(filename, filename=filename,
+						file=discord.File(filename, filename=filename),
 						buttons=[
 							Button(style=ButtonStyle.URL, label="Invite to your server!",
 								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
@@ -178,7 +178,7 @@ class TheStuff(commands.Cog):
 							filename=f"dumpy{messageid}.gif"
 							try:
 								await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-									file=discord.File(filename, filename=filename,
+									file=discord.File(filename, filename=filename),
 									buttons=[
 										Button(style=ButtonStyle.URL, label="Invite to your server!",
 												url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
