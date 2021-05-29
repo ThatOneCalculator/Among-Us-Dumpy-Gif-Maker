@@ -149,15 +149,17 @@ class TheStuff(commands.Cog):
 		self.bot = bot
 		self.update_status.start()
 
+	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "crewmate"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
 		if type(victim) != discord.Member:
 			return await ctx.send("You need to mention someone!")
 		imposter = random.choice(["true", "false"])
 		url = str(victim.avatar_url_as(format="png"))
-		file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.png")
-		await ctx.send(file=file)
-		rm = shlex.split(f"rm ./eject{ctx.message.id}.png")
+		async with ctx.typing():
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
+			await ctx.send(file=file)
+		rm = shlex.split(f"rm ./eject{ctx.message.id}.gif")
 		subprocess.check_call(rm)
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
