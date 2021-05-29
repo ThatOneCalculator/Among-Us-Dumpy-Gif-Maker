@@ -57,7 +57,7 @@ public class sus {
 					System.out.println(
 							"""
 
-									`java -jar Among-Us-Dumpy-Gif-Maker-1.6.0-all.jar lines true/false filepath` for adding arguments
+									`java -jar Among-Us-Dumpy-Gif-Maker-1.6.1-all.jar lines true/false filepath` for adding arguments
 
 									*All arguments optional!*
 									- `lines` is the number of lines, which defaults to 9.
@@ -66,7 +66,7 @@ public class sus {
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 1.6.0");
+					System.out.println("Version 1.6.1");
 					System.exit(0);
 				}
 				try {
