@@ -1,5 +1,6 @@
 #!/bin/bash
-while true do
+while true
+do
 rm attach*
 rm dumpy*
 rm eject*
