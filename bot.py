@@ -150,6 +150,7 @@ class TheStuff(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 		self.update_status.start()
+		self.rmall.start()
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "crewmate"])
@@ -263,11 +264,14 @@ class TheStuff(commands.Cog):
 		uptime=afterping - upsince
 		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.\n\nI am in {str(len(self.bot.guilds))} servers with a total of {allmembers} people on version {version}.")
 
-	@ tasks.loop(minutes=10)
+	@tasks.loop(minutes=10)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(self.bot.guilds)} servers!"))
 
+	@tasks.loop(minutes=10)
+	async def rmall(self):
+		subprocess.check_call("./rmall")
 
 bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
