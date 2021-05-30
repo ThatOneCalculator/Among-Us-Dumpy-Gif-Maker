@@ -39,7 +39,7 @@ from discord import RequestsWebhookAdapter
 from discord import Webhook
 from discord.ext import commands
 from discord.ext import tasks
-from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
+from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
 from PIL import Image
 
 with open("srapi.txt", "r") as f:
