@@ -104,7 +104,7 @@ class HelpCommand(commands.Cog):
 		embed.set_footer(text=f"Among Us Dumpy Bot version {version}.")
 		try:
 			await ctx.send(embed=embed,
-				buttons=[
+				components=[
 					Button(style=ButtonStyle.URL, label="Invite to your server!",
 							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
@@ -163,7 +163,7 @@ class TheStuff(commands.Cog):
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 				file=file,
-				buttons=[
+				components=[
 					Button(style=ButtonStyle.URL, label="Invite to your server!",
 							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
@@ -198,7 +198,7 @@ class TheStuff(commands.Cog):
 				try:
 					await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 						file=discord.File(filename, filename=filename),
-						buttons=[
+						components=[
 							Button(style=ButtonStyle.URL, label="Invite to your server!",
 								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
@@ -224,7 +224,7 @@ class TheStuff(commands.Cog):
 							try:
 								await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 									file=discord.File(filename, filename=filename),
-									buttons=[
+									components=[
 										Button(style=ButtonStyle.URL, label="Invite to your server!",
 												url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
