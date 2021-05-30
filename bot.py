@@ -132,7 +132,7 @@ def blocking(messageid, number, dither):
 
 
 def rmblocking(messageid):
-	rmcmd = shlex.split(f"rm *{messageid}*")
+	rmcmd = shlex.split(f"bash -c 'rm *{messageid}*'")
 	subprocess.check_call(rmcmd)
 
 async def asyncimage(url, filename):
@@ -170,7 +170,7 @@ class TheStuff(commands.Cog):
 							url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 				]
 			)
-		rm = shlex.split(f"rm ./eject{ctx.message.id}.gif")
+		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
