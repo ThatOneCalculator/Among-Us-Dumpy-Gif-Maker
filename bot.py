@@ -57,7 +57,7 @@ logchannel = None
 intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 	"!!"), intents=intents, chunk_guilds_at_startup=False)
-ddb = DiscordButton(bot)
+ddb = DiscordComponents(bot)
 
 
 class CommandErrorHandler(commands.Cog):
