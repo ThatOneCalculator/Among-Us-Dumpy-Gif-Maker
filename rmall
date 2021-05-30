@@ -1,5 +1,7 @@
 #!/bin/bash
-
+while true do
 rm attach*
 rm dumpy*
 rm eject*
+sleep 600
+done
