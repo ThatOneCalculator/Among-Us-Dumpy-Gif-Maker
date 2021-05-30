@@ -100,7 +100,7 @@ class HelpCommand(commands.Cog):
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
 		embed.add_field(name="`!!eject <@person>`", value="Sees if someone is the imposter!")
 		embed.add_field(name="`!!dumpy (height) (dither)`",
-						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 35, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
+						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
 		embed.set_footer(text=f"Among Us Dumpy Bot version {version}.")
 		try:
 			await ctx.send(embed=embed,
@@ -185,8 +185,8 @@ class TheStuff(commands.Cog):
 		messageid = str(ctx.message.id)
 		if type(number) != int:
 			number = 10
-		if number > 35 or number < 2:
-			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
+		if number > 30 or number < 2:
+			return await ctx.send("Number must be between 2 and 30! Defaults to 10.")
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
