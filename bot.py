@@ -133,11 +133,6 @@ def blocking(messageid, number, dither):
 		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
 	subprocess.check_call(cmd)
 
-
-def rmblocking(messageid):
-	rmcmd = shlex.split(f"bash -c 'rm *{messageid}*'")
-	subprocess.check_call(rmcmd)
-
 async def asyncimage(url, filename):
 	async with aiohttp.ClientSession() as session:
 		async with session.get(url) as resp:
@@ -261,7 +256,12 @@ class TheStuff(commands.Cog):
 				except:
 					pass
 					# await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
-				await loop.run_in_executor(None, rmblocking, messageid)
+				rmcmds = [
+					shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
+					shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
+				]
+				for i in rmcmds:
+					subprocess.check_call(i)
 			else:
 				sus=True
 				try:
@@ -290,12 +290,16 @@ class TheStuff(commands.Cog):
 								pass
 								# await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 							sus=False
-							await loop.run_in_executor(None, rmblocking, messageid)
+							rmcmds = [
+								shlex.split(
+									f"bash -c 'rm ./attach_{messageid}.png'"),
+								shlex.split(
+									f"bash -c 'rm ./dumpy{messageid}.gif'")
+							]
+							for i in rmcmds:
+								subprocess.check_call(i)
 				except Exception as e:
-					print(e)
-					await ctx.send(e)
 					return await ctx.send("I couldn't find an image, you sussy baka!")
-
 
 	@ commands.command(name="ping")
 	async def ping(self, ctx):
