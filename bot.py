@@ -98,7 +98,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!dumpy (height) (dither)`",
                   value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
-		                value="Sees if someone is the imposter!")
+		                value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
@@ -155,7 +155,7 @@ class TheStuff(commands.Cog):
 		self.update_status.start()
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command(aliases=["sus", "imposter", "crewmate"])
+	@commands.command(aliases=["sus"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
 		if type(victim) != discord.Member:
 			return await ctx.send("You need to mention someone!")
@@ -163,6 +163,29 @@ class TheStuff(commands.Cog):
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
+			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+                            file=file,
+                            components=[
+                                [
+                                    Button(style=ButtonStyle.URL, label="Invite to your server!",
+                                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+
+                                    Button(style=ButtonStyle.URL, label="See my GitHub!",
+                                           url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+                                ]
+                            ]
+                  )
+		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
+		subprocess.check_call(rm)
+
+	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.command()
+	async def imposter(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
+		if type(victim) != discord.Member:
+			return await ctx.send("You need to mention someone!")
+		url = str(victim.avatar_url_as(format="png"))
+		async with ctx.typing():
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter=true", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 				file=file,
 				components=[
@@ -175,6 +198,29 @@ class TheStuff(commands.Cog):
 					]
 				]
 			)
+		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
+		subprocess.check_call(rm)
+
+	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.command()
+	async def crewmate(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
+		if type(victim) != discord.Member:
+			return await ctx.send("You need to mention someone!")
+		url = str(victim.avatar_url_as(format="png"))
+		async with ctx.typing():
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter=false", f"eject{ctx.message.id}.gif")
+			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+                            file=file,
+                            components=[
+                                [
+                                    Button(style=ButtonStyle.URL, label="Invite to your server!",
+                                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+
+                                    Button(style=ButtonStyle.URL, label="See my GitHub!",
+                                           url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+                                ]
+                            ]
+                  )
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
