@@ -94,22 +94,25 @@ class HelpCommand(commands.Cog):
 	@commands.command(name="help")
 	async def help_(self, ctx):
 		embed = discord.Embed(
-			title="My commands!", description="Made by ThatOneCalculator and Pixer!", color=0x976BE1)
+			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
+		embed.add_field(name="`!!dumpy (height) (dither)`",
+                  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
+		embed.add_field(name="`!!eject <@person>`",
+		                value="Sees if someone is the imposter!")
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
-		embed.add_field(name="`!!eject <@person>`", value="Sees if someone is the imposter!")
-		embed.add_field(name="`!!dumpy (height) (dither)`",
-						value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
 		embed.set_footer(text=f"Among Us Dumpy Bot version {version}.")
 		try:
 			await ctx.send(embed=embed,
 				components=[
-					Button(style=ButtonStyle.URL, label="Invite to your server!",
-							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+					[
+						Button(style=ButtonStyle.URL, label="Invite to your server!",
+								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
-					Button(style=ButtonStyle.URL, label="See my GitHub!",
-							url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+						Button(style=ButtonStyle.URL, label="See my GitHub!",
+								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+					]
 				],
 			)
 		except:
