@@ -162,7 +162,7 @@ class TheStuff(commands.Cog):
 		imposter = random.choice(["true", "false"])
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&impostor={imposter}", f"eject{ctx.message.id}.gif")
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 				file=file,
 				components=[
