@@ -1,5 +1,6 @@
 # Among Us Dumpy Gif Maker
 #### Made by [Pixer](https://twitter.com/pixer415) and [ThatOneCalculator](https://twitter.com/that1calculator)!
+###### With help from Telk, karl-police, and auguwu!
 <p align="left"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a></p>
 
