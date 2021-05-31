@@ -96,7 +96,7 @@ class HelpCommand(commands.Cog):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
 		embed.add_field(name="`!!dumpy (height) (dither)`",
-                  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.")
+                  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 		                value="Sees if someone is the imposter!")
 		embed.add_field(name="`!!ping`", value="Pings the bot")
