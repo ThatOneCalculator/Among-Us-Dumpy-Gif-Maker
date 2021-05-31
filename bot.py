@@ -102,7 +102,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
-		embed.set_footer(text=f"Among Us Dumpy Bot version {version}.")
+		embed.set_footer(text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3.")
 		try:
 			await ctx.send(embed=embed,
 				components=[
