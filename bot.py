@@ -40,6 +40,7 @@ from discord import Webhook
 from discord.ext import commands
 from discord.ext import tasks
 from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
+from discord_slash import SlashCommand, SlashContext, cog_ext
 from PIL import Image
 
 with open("srapi.txt", "r") as f:
@@ -58,6 +59,7 @@ intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 	"!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordComponents(bot)
+slash = SlashCommand(bot, sync_commands=True)
 
 
 class CommandErrorHandler(commands.Cog):
@@ -302,6 +304,10 @@ class TheStuff(commands.Cog):
 								subprocess.check_call(i)
 				except Exception as e:
 					return await ctx.send("I couldn't find an image, you sussy baka!")
+
+	@cog_ext.cog_slash(name="slashping")
+	async def _ping(self, ctx: SlashContext):
+		await ctx.send("Pong!")
 
 	@ commands.command(name="ping")
 	async def ping(self, ctx):
