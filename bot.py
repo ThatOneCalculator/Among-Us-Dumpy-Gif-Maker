@@ -41,6 +41,7 @@ from discord.ext import commands
 from discord.ext import tasks
 from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
 from discord_slash import SlashCommand, SlashContext, cog_ext
+from discord_slash.utils.manage_commands import create_option, create_choice
 from PIL import Image
 
 with open("srapi.txt", "r") as f:
@@ -304,10 +305,6 @@ class TheStuff(commands.Cog):
 								subprocess.check_call(i)
 				except Exception as e:
 					return await ctx.send("I couldn't find an image, you sussy baka!")
-
-	@cog_ext.cog_slash(name="slashping")
-	async def _ping(self, ctx: SlashContext):
-		await ctx.send("Pong!")
 
 	@ commands.command(name="ping")
 	async def ping(self, ctx):
