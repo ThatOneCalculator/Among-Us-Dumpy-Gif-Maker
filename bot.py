@@ -83,7 +83,7 @@ class CommandErrorHandler(commands.Cog):
 		elif isinstance(error, commands.BadArgument):
 			if ctx.command.qualified_name == 'tag list':
 				return await ctx.send('I could not find that member. Please try again.')
-		elif commands.Command.is_on_cooldown(ctx):
+		elif commands.Command.is_on_cooldown(self, ctx):
 			return await ctx.send("You're on cooldown, you sussy baka!")
 		print('Ignoring exception in command {}:'.format(
 			ctx.command), file=sys.stderr)
