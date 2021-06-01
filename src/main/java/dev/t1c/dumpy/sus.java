@@ -185,8 +185,12 @@ public class sus {
 		};
 
 		for (File i : images) {
-			BufferedImage next = ImageIO.read(i);
-			writer.writeToSequence(next);
+			try {
+				BufferedImage next = ImageIO.read(i);
+				writer.writeToSequence(next);
+			} catch (IOException e) {
+				System.out.println("Couldn't add " + i.toString());
+			}
 		}
 
 		writer.close();
