@@ -57,7 +57,7 @@ public class sus {
 					System.out.println(
 							"""
 
-									`java -jar Among-Us-Dumpy-Gif-Maker-1.6.2-all.jar lines true/false filepath` for adding arguments
+									`java -jar Among-Us-Dumpy-Gif-Maker-1.6.3-all.jar lines true/false filepath` for adding arguments
 
 									*All arguments optional!*
 									- `lines` is the number of lines, which defaults to 9.
@@ -66,7 +66,7 @@ public class sus {
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 1.6.2");
+					System.out.println("Version 1.6.3");
 					System.exit(0);
 				}
 				try {
@@ -196,10 +196,21 @@ public class sus {
 		writer.close();
 		imageoutput.close();
 		boolean win = isWindows();
-		if (win) {
-			runCmd("del .\\F_*");
-		} else {
-			runCmd("rm ./F_*");
+
+		String[] filenames = new String[]{
+			dotSlash + "F_1" + extraoutput + ".png",
+			dotSlash + "F_2" + extraoutput + ".png",
+			dotSlash + "F_3" + extraoutput + ".png",
+			dotSlash + "F_4" + extraoutput + ".png",
+			dotSlash + "F_5" + extraoutput + ".png",
+		};
+
+		for (String i : filenames) {
+			if (win) {
+				runCmd("del " + i);
+			} else {
+				runCmd("rm " + i);
+			}
 		}
 
 		// Resizes if need be
