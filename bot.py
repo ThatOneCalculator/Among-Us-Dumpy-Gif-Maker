@@ -258,6 +258,7 @@ class TheStuff(commands.Cog):
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 				img = Image.open(f"attach_{messageid}.png")
 				if img.height / img.width <= 0.05:
+					subprocess.check_call(shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"))
 					return await ctx.send("This image is way too long, you're the imposter!")
 				if dither:
 					await loop.run_in_executor(None, blocking, messageid, number, True)
@@ -297,6 +298,7 @@ class TheStuff(commands.Cog):
 							await message.attachments[0].save(f"attach_{messageid}.png")
 							img = Image.open(f"attach_{messageid}.png")
 							if img.height / img.width <= 0.05:
+								subprocess.check_call(shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"))
 								return await ctx.send("This image is way too long, you're the imposter!")
 							if dither:
 								await loop.run_in_executor(None, blocking, messageid, number, True)
