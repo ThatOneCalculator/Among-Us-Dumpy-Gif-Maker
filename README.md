@@ -8,6 +8,9 @@
 ##### Current version: 1.6.3
 
 ![](https://cdn.discordapp.com/attachments/810799100940255260/847265488005758996/ezgif-5-d8fc3263de91.gif)
+
+[![Discord](https://discordapp.com/api/guilds/849516341933506561/embed.png?style=banner2)](https://discord.gg/VRawXXybvd)
+
 # Instructions
 
 # Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands)

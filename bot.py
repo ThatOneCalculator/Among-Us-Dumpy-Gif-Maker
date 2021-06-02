@@ -117,6 +117,9 @@ class HelpCommand(commands.Cog):
 
 						Button(style=ButtonStyle.URL, label="See my GitHub!",
 								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+						Button(style=ButtonStyle.URL, label="Join the support server!",
+                                url="https://discord.gg/VRawXXybvd")
 					]
 				],
 			)
@@ -130,6 +133,10 @@ class HelpCommand(commands.Cog):
 	@commands.command()
 	async def invite(self, ctx):
 		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+
+	@commands.command()
+	async def support(self, ctx):
+		await ctx.send("https://discord.gg/VRawXXybvd")
 
 
 def blocking(messageid, number, dither):
@@ -172,6 +179,9 @@ class TheStuff(commands.Cog):
 
                                     Button(style=ButtonStyle.URL, label="See my GitHub!",
                                            url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+                              		Button(style=ButtonStyle.URL, label="Join the support server!",
+                                           url="https://discord.gg/VRawXXybvd")
                                 ]
                             ]
                   )
@@ -195,6 +205,9 @@ class TheStuff(commands.Cog):
 
 						Button(style=ButtonStyle.URL, label="See my GitHub!",
 								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+						Button(style=ButtonStyle.URL, label="Join the support server!",
+                                url="https://discord.gg/VRawXXybvd")
 					]
 				]
 			)
@@ -218,6 +231,9 @@ class TheStuff(commands.Cog):
 
                                     Button(style=ButtonStyle.URL, label="See my GitHub!",
                                            url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+									Button(style=ButtonStyle.URL, label="Join the support server!",
+											url="https://discord.gg/VRawXXybvd")
                                 ]
                             ]
                   )
@@ -255,6 +271,9 @@ class TheStuff(commands.Cog):
 
 								Button(style=ButtonStyle.URL, label="See my GitHub!",
 									url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+								Button(style=ButtonStyle.URL, label="Join the support server!",
+									url="https://discord.gg/VRawXXybvd")
 							]
 						]
 					)
@@ -288,6 +307,9 @@ class TheStuff(commands.Cog):
 
 											Button(style=ButtonStyle.URL, label="See my GitHub!",
 													url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+											Button(style=ButtonStyle.URL, label="Join the support server!",
+													url="https://discord.gg/VRawXXybvd")
 										]
 									]
 								)
@@ -331,7 +353,8 @@ class TheStuff(commands.Cog):
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await asyncio.sleep(10)
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(self.bot.guilds)} servers!"))
+		# await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(self.bot.guilds)} servers!"))
+		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"New support server! | {len(self.bot.guilds)} servers!"))
 
 bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
