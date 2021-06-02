@@ -101,9 +101,9 @@ class HelpCommand(commands.Cog):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
 		embed.add_field(name="`!!dumpy (height) (dither)`",
-                  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
+				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
-		                value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
+						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
@@ -119,7 +119,7 @@ class HelpCommand(commands.Cog):
 								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 
 						Button(style=ButtonStyle.URL, label="Join the support server!",
-                                url="https://discord.gg/VRawXXybvd")
+								url="https://discord.gg/VRawXXybvd")
 					]
 				],
 			)
@@ -171,20 +171,20 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-                            file=file,
-                            components=[
-                                [
-                                    Button(style=ButtonStyle.URL, label="Invite to your server!",
-                                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+							file=file,
+							components=[
+								[
+									Button(style=ButtonStyle.URL, label="Invite to your server!",
+										   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
-                                    Button(style=ButtonStyle.URL, label="See my GitHub!",
-                                           url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+									Button(style=ButtonStyle.URL, label="See my GitHub!",
+										   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 
-                              		Button(style=ButtonStyle.URL, label="Join the support server!",
-                                           url="https://discord.gg/VRawXXybvd")
-                                ]
-                            ]
-                  )
+							  		Button(style=ButtonStyle.URL, label="Join the support server!",
+										   url="https://discord.gg/VRawXXybvd")
+								]
+							]
+				  )
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
@@ -207,7 +207,7 @@ class TheStuff(commands.Cog):
 								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 
 						Button(style=ButtonStyle.URL, label="Join the support server!",
-                                url="https://discord.gg/VRawXXybvd")
+								url="https://discord.gg/VRawXXybvd")
 					]
 				]
 			)
@@ -223,20 +223,20 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter=false", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-                            file=file,
-                            components=[
-                                [
-                                    Button(style=ButtonStyle.URL, label="Invite to your server!",
-                                           url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+							file=file,
+							components=[
+								[
+									Button(style=ButtonStyle.URL, label="Invite to your server!",
+										   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
 
-                                    Button(style=ButtonStyle.URL, label="See my GitHub!",
-                                           url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+									Button(style=ButtonStyle.URL, label="See my GitHub!",
+										   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
 
 									Button(style=ButtonStyle.URL, label="Join the support server!",
 											url="https://discord.gg/VRawXXybvd")
-                                ]
-                            ]
-                  )
+								]
+							]
+				  )
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
@@ -256,6 +256,9 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+				img = Image.open(f"attach_{messageid}.png")
+				if img.height / img.width <= 0.05:
+					return await ctx.send("This image is way too long, you're the imposter!")
 				if dither:
 					await loop.run_in_executor(None, blocking, messageid, number, True)
 				else:
@@ -292,6 +295,9 @@ class TheStuff(commands.Cog):
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
 							await message.attachments[0].save(f"attach_{messageid}.png")
+							img = Image.open(f"attach_{messageid}.png")
+							if img.height / img.width <= 0.05:
+								return await ctx.send("This image is way too long, you're the imposter!")
 							if dither:
 								await loop.run_in_executor(None, blocking, messageid, number, True)
 							else:
