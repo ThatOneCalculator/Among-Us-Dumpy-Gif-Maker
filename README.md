@@ -19,7 +19,7 @@
 ## Requirements:
 Java Runtime Environment 15 or newer
 - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
-- Also works with [OpenJDK](https://adoptopenjdk.net)
+- Also works with [OpenJDK](https://adoptopenjdk.net/?variant=openjdk16&jvmVariant=hotspot)
 
 ## Usage:
 
