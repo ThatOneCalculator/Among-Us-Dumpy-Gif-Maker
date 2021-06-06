@@ -14,6 +14,7 @@
 # Instructions
 
 # Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands)
+##### The help command is `!!help`
 
 # Run as a program:
 ## Requirements:
