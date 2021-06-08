@@ -373,7 +373,7 @@ bot.add_cog(CommandErrorHandler(bot))
 
 @bot.event
 async def on_message(message):
-	if ((message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) or message.channel.topic == None) and message.content.startswith(prefix) and ";-;" not in message.content:
+	if ((message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) or message.channel.topic == None) and message.content.startswith("!!"):
 		return await message.channel.send("**Commands have been disabled in this channel.**")
 	await bot.process_commands(message)
 
