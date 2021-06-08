@@ -13,8 +13,8 @@
 
 # Instructions
 
-# Easiest: use [the Discord bot](https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands)
-##### The help command is `!!help`
+# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a> 
+##### The help command is `!!help`.
 
 # Run as a program:
 ## Requirements:
