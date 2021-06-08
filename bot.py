@@ -107,6 +107,7 @@ class HelpCommand(commands.Cog):
 		embed.add_field(name="`!!ping`", value="Pings the bot")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
+		embed.add_field(name="Tips and tricks", value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version." inline=False)
 		embed.set_footer(
 			text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
 		try:
@@ -370,6 +371,11 @@ bot.add_cog(HelpCommand(bot))
 bot.add_cog(TheStuff(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
+@bot.event
+async def on_message(message):
+	if ((message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) or message.channel.topic == None) and message.content.startswith(prefix) and ";-;" not in message.content:
+		return await message.channel.send("**Commands have been disabled in this channel.**")
+	await bot.process_commands(message)
 
 @bot.event
 async def on_ready():
