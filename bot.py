@@ -104,9 +104,9 @@ class HelpCommand(commands.Cog):
 				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
-		embed.add_field(name="`!!ping`", value="Pings the bot")
+		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
 		embed.add_field(name="`!!literallynobot`",
-						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot")
+						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot.")
 		embed.add_field(name="Tips and tricks", value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version." inline=False)
 		embed.set_footer(
 			text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
