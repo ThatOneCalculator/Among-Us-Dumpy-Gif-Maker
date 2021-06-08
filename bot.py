@@ -191,7 +191,7 @@ class TheStuff(commands.Cog):
 		subprocess.check_call(rm)
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command()
+	@commands.command(aliases=["impostor"])
 	async def imposter(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
 		if type(victim) != discord.Member:
 			return await ctx.send("You need to mention someone!")
