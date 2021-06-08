@@ -18,9 +18,13 @@
 
 # Run as a program:
 ## Requirements:
-Java Runtime Environment 15 or newer
-- [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
-- Also works with [OpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
+- Java Runtime Environment 15 or newer
+    - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
+    - Also works with [OpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
+- ImageMagick
+    - [Windows (static)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.0.11-13-Q16-x64-static.exe)
+    - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
+    - Linux: use package manager.
 
 ## Usage:
 
