@@ -101,7 +101,7 @@ class HelpCommand(commands.Cog):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
 		embed.add_field(name="`!!dumpy (height) (dither)`",
-				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 30, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
+				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 35, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
 		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
@@ -171,7 +171,7 @@ class TheStuff(commands.Cog):
 		imposter = random.choice(["true", "false"])
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 							file=file,
 							components=[
@@ -197,7 +197,7 @@ class TheStuff(commands.Cog):
 			return await ctx.send("You need to mention someone!")
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter=true", f"eject{ctx.message.id}.gif")
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter=true", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 				file=file,
 				components=[
@@ -223,7 +223,7 @@ class TheStuff(commands.Cog):
 			return await ctx.send("You need to mention someone!")
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:30]}&imposter=false", f"eject{ctx.message.id}.gif")
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter=false", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 							file=file,
 							components=[
@@ -253,8 +253,8 @@ class TheStuff(commands.Cog):
 		messageid = str(ctx.message.id)
 		if type(number) != int:
 			number = 10
-		if number > 30 or number < 2:
-			return await ctx.send("Number must be between 2 and 30! Defaults to 10.")
+		if number > 35 or number < 2:
+			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
@@ -338,7 +338,7 @@ class TheStuff(commands.Cog):
 				except Exception as e:
 					return await ctx.send("I couldn't find an image, you sussy baka!")
 
-	@ commands.command(name="ping")
+	@commands.command(name="ping")
 	async def ping(self, ctx):
 		shardscounter = []
 		for guild in self.bot.guilds:
