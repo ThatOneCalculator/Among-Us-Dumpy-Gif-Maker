@@ -57,7 +57,7 @@ public class sus {
 					System.out.println(
 							"""
 
-									`java -jar Among-Us-Dumpy-Gif-Maker-1.6.3-all.jar lines true/false filepath` for adding arguments
+									`java -jar Among-Us-Dumpy-Gif-Maker-1.7.0-all.jar lines true/false filepath` for adding arguments
 
 									*All arguments optional!*
 									- `lines` is the number of lines, which defaults to 9.
@@ -66,7 +66,7 @@ public class sus {
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 1.6.3");
+					System.out.println("Version 1.7.0");
 					System.exit(0);
 				}
 				try {
@@ -97,7 +97,7 @@ public class sus {
 
 		InputStream imgInput = main.getResource("dumpy/colors.png");
 		BufferedImage c = ImageIO.read(imgInput);
-		HEXES = new String[24];
+		HEXES = new String[c.getWidth()];
 		for (int i = 0; i < HEXES.length; i++) {
 			try {
 				HEXES[i] = Integer.toHexString(c.getRGB(i, 0)).substring(2).toUpperCase();
