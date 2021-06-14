@@ -196,7 +196,7 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
-	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10):
+	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
@@ -207,12 +207,17 @@ class TheStuff(commands.Cog):
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			else:
+				# if type(victim) == discord.Member and victim != None:
+				# 	try:
+				# 		await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
+				# 	except:
+				# 		pass
 				sus=True
 				try:
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
 							await message.attachments[0].save(f"attach_{messageid}.png")
-							break
+							sus = False
 				except Exception as e:
 					return await ctx.send("I couldn't find an image, you sussy baka!")
 			img = Image.open(f"attach_{messageid}.png")
