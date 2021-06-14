@@ -100,8 +100,8 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
-		embed.add_field(name="`!!dumpy (height) (dither)`",
-				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and dither are optional. Height is a number between 2 and 35, the default is 10. Add \"dither\" to the end to dither the image, which usually looks better with higher resolution images, and worse with lower resolution images.", inline=False)
+		embed.add_field(name="`!!dumpy (height) (@person)`",
+				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and @person are optional. Height is a number between 2 and 35, the default is 10. You can also tag a person to use their avatar as the image.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
 		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
@@ -141,10 +141,9 @@ class HelpCommand(commands.Cog):
 		await ctx.send("https://discord.gg/VRawXXybvd")
 
 
-def blocking(messageid, number, dither):
-	ditheropt = "true" if dither else "false"
+def blocking(messageid, number):
 	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar {number} {ditheropt} attach_{messageid}.png {messageid}")
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar {number} attach_{messageid}.png {messageid}")
 	subprocess.check_call(cmd)
 
 async def asyncimage(url, filename):
