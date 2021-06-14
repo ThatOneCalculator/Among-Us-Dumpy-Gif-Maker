@@ -194,6 +194,14 @@ class TheStuff(commands.Cog):
 		subprocess.check_call(rm)
 
 
+	@commands.command()
+	async def tall(self, ctx, number: int):
+		if number == None or type(number) != int:
+			number = 0
+		if number > 20:
+			return await ctx.send("That's too tall, you sussy baka!")
+		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{'<:tallamongus_2:853680316110602260>\n' * number} + <:tallamongus_3:853680372554268702>")
+
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
