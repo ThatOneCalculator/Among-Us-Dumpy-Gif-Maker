@@ -200,7 +200,8 @@ class TheStuff(commands.Cog):
 			number = 0
 		if number > 20:
 			return await ctx.send("That's too tall, you sussy baka!")
-		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{'<:tallamongus_2:853680316110602260>\n' * number} + <:tallamongus_3:853680372554268702>")
+		lb = "\n"
+		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number} + <:tallamongus_3:853680372554268702>")
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
