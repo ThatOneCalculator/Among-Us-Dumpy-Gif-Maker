@@ -251,7 +251,7 @@ class TheStuff(commands.Cog):
 		if number > 35 or number < 2:
 			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
 		async with ctx.typing():
-			if person not in ["", None]:
+			if person not in ["", None] and type(person) != discord.Member:
 				pfp = str(person.avatar_url_as(format='png'))
 				await asyncimage(pfp, f"attach_{messageid}.png")
 			elif len(ctx.message.attachments) > 0:
