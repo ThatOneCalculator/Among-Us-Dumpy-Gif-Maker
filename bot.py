@@ -197,7 +197,7 @@ class TheStuff(commands.Cog):
 
 
 	@commands.command()
-	@commands.cooldown(1, 10, commands.BucketType.user)
+	@commands.cooldown(1, 15, commands.BucketType.user)
 	async def tall(self, ctx, number: int):
 		if number == None or type(number) != int:
 			number = 0
