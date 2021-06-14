@@ -99,7 +99,7 @@ class HelpCommand(commands.Cog):
 	@commands.command(name="help")
 	async def help_(self, ctx):
 		embed = discord.Embed(
-			title="My commands!", description="Made by ThatOneCalculator#1337 and Pixer#8145!", color=0x976BE1)
+			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
 		embed.add_field(name="`!!dumpy (height)`",
 				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Height is an OPTIONAL number between 2 and 35, the default is 10.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
