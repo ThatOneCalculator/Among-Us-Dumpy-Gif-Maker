@@ -1,7 +1,5 @@
-
-
 <p align="center">
-   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a> 
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
   <h1 align="center">Among Us Dumpy Gif Maker</h1>
 </p>
 
@@ -11,8 +9,8 @@
 <h6 align="center"> With help from Telk, karl-police, and auguwu!</h6>
 <div align="center"> <img src="https://media.discordapp.net/attachments/810799100940255260/853461754016694312/servericon.gif" height=100></div>
  </p>
- 
- 
+
+
 ### Please credit this repository when you use this program!
 ##### Current version: 1.7.1
 
