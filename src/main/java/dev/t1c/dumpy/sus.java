@@ -5,13 +5,20 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.imageio.IIOImage;
+import java.awt.image.LookupOp;
+
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+import java.awt.image.LookupTable;
+import java.util.Arrays;
+
+import javax.imageio.IIOImage;
 import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
@@ -21,7 +28,6 @@ import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -31,6 +37,8 @@ public class sus {
 	// Put in the directory where you extracted this
 	public static String dir = "[DIRECTORY]";
 
+	public static Color c = Color.decode("#C51111");
+	public static Color c2 = new Color(122, 8, 56);
 	// Hex color array
 	public static String[] HEXES;
 
@@ -39,7 +47,6 @@ public class sus {
 
 		var main = new sus();
 		String dotSlash = "./";
-		boolean dither = false;
 		boolean windows = isWindows();
 		if (windows) {
 			dotSlash = ".\\";
@@ -57,16 +64,15 @@ public class sus {
 					System.out.println(
 							"""
 
-									`java -jar Among-Us-Dumpy-Gif-Maker-1.7.2-all.jar lines true/false filepath` for adding arguments
+									`java -jar Among-Us-Dumpy-Gif-Maker-2.0.0-all.jar lines filepath` for adding arguments
 
 									*All arguments optional!*
 									- `lines` is the number of lines, which defaults to 9.
-									- `true/false` is whether to dither, which generally looks better at higher resolutions but not at lower ones.
 									- `filepath` is a filepath to give it instead of using the file picker.""");
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 1.7.2");
+					System.out.println("Version 2.0.0");
 					System.exit(0);
 				}
 				try {
@@ -76,16 +82,11 @@ public class sus {
 				}
 			}
 			if (args.length >= 2 && args[1] != null) {
-				if (args[1].toLowerCase().indexOf("true") != -1) {
-					dither = true;
-				}
-			}
-			if (args.length >= 3 && args[2] != null) {
 				input = args[2];
 				needFile = false;
 			}
 
-			if (args.length >= 4 && args[3] != null) {
+			if (args.length >= 3 && args[2] != null) {
 				extraoutput = args[3];
 				needFile = false;
 			}
@@ -116,8 +117,7 @@ public class sus {
 		int tx = (int) Math.round((double) ty * txd * 0.862);
 
 		// Prepares source image
-		BufferedImage image = Dither
-				.floydSteinbergDithering(toBufferedImage(r.getScaledInstance(tx, ty, Image.SCALE_SMOOTH)), dither);
+		BufferedImage image = toBufferedImage(r.getScaledInstance(tx, ty, Image.SCALE_SMOOTH));
 
 		// Actually makes the frames
 		BufferedImage[] frames = new BufferedImage[6];
@@ -141,9 +141,9 @@ public class sus {
 				for (int x = 0; x < tx; x++) {
 
 					// Grabs appropriate pixel frame
-					var pixelI = main.getResource("dumpy/" + count + "-"
-							+ Integer.toHexString(image.getRGB(x, y)).substring(2).toUpperCase() + ".png");
+					var pixelI = main.getResource("dumpy/" + count + ".png");
 					BufferedImage pixel = ImageIO.read(pixelI);
+					pixel = shader(pixel, image.getRGB(x, y));
 					// overlays it
 					frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
 
@@ -333,127 +333,42 @@ public class sus {
 			new ProcessBuilder("sh", "-c", cmd).inheritIO().start().waitFor();
 		}
 	}
-}
 
-// This is an example of Floyd-Steinberg dithering lifted from
-// https://gist.github.com/naikrovek/643a9799171d20820cb9.
-// It can be enabled and disabled in the main class.
-class Dither {
-	static class C3 {
-		int r, g, b;
-
-		public C3(int c) {
-			Color color = new Color(c);
-			r = color.getRed();
-			g = color.getGreen();
-			b = color.getBlue();
+	// New pixel shader
+	public static BufferedImage shader(BufferedImage t, int pRgb) {
+		Color entry = new Color(pRgb);
+		// brightness check. If the pixel is too dim, the brightness is floored to the
+		// standard "black" level.
+		float[] hsb = new float[3];
+		Color.RGBtoHSB(entry.getRed(), entry.getGreen(), entry.getBlue(), hsb);
+		float blackLevel = 0.200f;
+		if (hsb[2] < blackLevel) {
+			entry = new Color(Color.HSBtoRGB(hsb[0], hsb[1], blackLevel));
 		}
-
-		public C3(int r, int g, int b) {
-			this.r = r;
-			this.g = g;
-			this.b = b;
+		// shading.
+		Color shade = new Color((int) ((double) entry.getRed() * 0.66), (int) ((double) entry.getGreen() * 0.66),
+				(int) ((double) entry.getBlue() * 0.66));
+		Color.RGBtoHSB(shade.getRed(), shade.getGreen(), shade.getBlue(), hsb);
+		hsb[0] = hsb[0] - 0.0635f;
+		if (hsb[0] < 0.0f) {
+			hsb[0] = 1.0f + hsb[0];
 		}
-
-		public C3 add(C3 o) {
-			return new C3(r + o.r, g + o.g, b + o.b);
-		}
-
-		public int clamp(int c) {
-			return Math.max(0, Math.min(255, c));
-		}
-
-		public int diff(C3 o) {
-			int Rdiff = o.r - r;
-			int Gdiff = o.g - g;
-			int Bdiff = o.b - b;
-			int distanceSquared = Rdiff * Rdiff + Gdiff * Gdiff + Bdiff * Bdiff;
-			return distanceSquared;
-		}
-
-		public C3 mul(double d) {
-			return new C3((int) (d * r), (int) (d * g), (int) (d * b));
-		}
-
-		public C3 sub(C3 o) {
-			return new C3(r - o.r, g - o.g, b - o.b);
-		}
-
-		public Color toColor() {
-			return new Color(clamp(r), clamp(g), clamp(b));
-		}
-
-		public int toRGB() {
-			return toColor().getRGB();
-		}
+		shade = new Color(Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]));
+		// fills in img
+		BufferedImageOp lookup = new LookupOp(new ColorMapper(c, entry), null);
+		BufferedImageOp lookup2 = new LookupOp(new ColorMapper(c2, shade), null);
+		t = toARGB(t);
+		BufferedImage convertedImage = lookup.filter(t, null);
+		convertedImage = lookup2.filter(convertedImage, null);
+		return convertedImage;
 	}
 
-	private static C3 findClosestPaletteColor(C3 c, C3[] palette) {
-		C3 closest = palette[0];
-
-		for (C3 n : palette) {
-			if (n.diff(c) < closest.diff(c)) {
-				closest = n;
-			}
-		}
-
-		return closest;
-	}
-
-	public static BufferedImage floydSteinbergDithering(BufferedImage img, boolean dither) {
-
-		C3[] palette = null;
-		palette = new C3[sus.HEXES.length];
-		for (int i = 0; i < palette.length; i++) {
-			Color c = hex2Rgb(sus.HEXES[i]);
-			palette[i] = new C3(c.getRed(), c.getGreen(), c.getBlue());
-		}
-
-		int w = img.getWidth();
-		int h = img.getHeight();
-
-		C3[][] d = new C3[h][w];
-
-		for (int y = 0; y < h; y++) {
-			for (int x = 0; x < w; x++) {
-				d[y][x] = new C3(img.getRGB(x, y));
-			}
-		}
-
-		for (int y = 0; y < img.getHeight(); y++) {
-			for (int x = 0; x < img.getWidth(); x++) {
-
-				C3 oldColor = d[y][x];
-				C3 newColor = findClosestPaletteColor(oldColor, palette);
-				img.setRGB(x, y, newColor.toColor().getRGB());
-				if (dither) {
-					C3 err = oldColor.sub(newColor);
-
-					if (x + 1 < w) {
-						d[y][x + 1] = d[y][x + 1].add(err.mul(7. / 16));
-					}
-
-					if (x - 1 >= 0 && y + 1 < h) {
-						d[y + 1][x - 1] = d[y + 1][x - 1].add(err.mul(3. / 16));
-					}
-
-					if (y + 1 < h) {
-						d[y + 1][x] = d[y + 1][x].add(err.mul(5. / 16));
-					}
-
-					if (x + 1 < w && y + 1 < h) {
-						d[y + 1][x + 1] = d[y + 1][x + 1].add(err.mul(1. / 16));
-					}
-				}
-			}
-		}
-
-		return img;
-	}
-
-	public static Color hex2Rgb(String colorStr) {
-		return new Color(Integer.valueOf(colorStr.substring(0, 2), 16), Integer.valueOf(colorStr.substring(2, 4), 16),
-				Integer.valueOf(colorStr.substring(4, 6), 16));
+	// (grumbles) stupid indexed image error (thanks,
+	// https://stackoverflow.com/a/19594979)
+	public static BufferedImage toARGB(Image i) {
+		BufferedImage rgb = new BufferedImage(i.getWidth(null), i.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		rgb.createGraphics().drawImage(i, 0, 0, null);
+		return rgb;
 	}
 }
 
@@ -567,4 +482,31 @@ class GifSequenceWriter {
 	public void close() throws IOException {
         writer.endWriteSequence();
     }
+}
+
+// Color replacement solution from https://stackoverflow.com/a/27464772
+class ColorMapper extends LookupTable {
+
+	private final int[] from;
+	private final int[] to;
+
+	public ColorMapper(Color from, Color to) {
+		super(0, 4);
+
+		this.from = new int[] { from.getRed(), from.getGreen(), from.getBlue(), from.getAlpha(), };
+		this.to = new int[] { to.getRed(), to.getGreen(), to.getBlue(), to.getAlpha(), };
+	}
+
+	@Override
+	public int[] lookupPixel(int[] src, int[] dest) {
+		if (dest == null) {
+			dest = new int[src.length];
+		}
+
+		int[] newColor = (Arrays.equals(src, from) ? to : src);
+		System.arraycopy(newColor, 0, dest, 0, newColor.length);
+
+		return dest;
+	}
+
 }

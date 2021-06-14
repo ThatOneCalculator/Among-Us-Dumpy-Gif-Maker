@@ -53,7 +53,7 @@ with open("token.txt", "r") as f:
 	token = lines[0].strip()
 
 upsince = datetime.datetime.now()
-version = "1.7.2"
+version = "2.0.0"
 
 logchannel = None
 intents = discord.Intents.default()
@@ -244,11 +244,7 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
-	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10, ditheropt: str = "false"):
-		if ditheropt == "dither":
-			dither = True
-		else:
-			dither = False
+	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10, person: typing.Union[discord.Member, str] = ""):
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
@@ -256,60 +252,30 @@ class TheStuff(commands.Cog):
 		if number > 35 or number < 2:
 			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
 		async with ctx.typing():
-			if len(ctx.message.attachments) > 0:
+			if person not in ["", None]:
+				pfp = str(person.avatar_url_as(format='png'))
+				await asyncimage(pfp, f"attach_{messageid}.png")
+			elif len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
-				img = Image.open(f"attach_{messageid}.png")
-				if img.height / img.width <= 0.05:
-					subprocess.check_call(shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"))
-					return await ctx.send("This image is way too long, you're the imposter!")
-				if dither:
-					await loop.run_in_executor(None, blocking, messageid, number, True)
-				else:
-					await loop.run_in_executor(None, blocking, messageid, number, False)
-				filename = f"dumpy{messageid}.gif"
-				try:
-					await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-						file=discord.File(filename, filename=filename),
-						components=[
-							[
-								Button(style=ButtonStyle.URL, label="Invite to your server!",
-									url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-
-								Button(style=ButtonStyle.URL, label="See my GitHub!",
-									url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-
-								Button(style=ButtonStyle.URL, label="Join the support server!",
-									url="https://discord.gg/VRawXXybvd")
-							]
-						]
-					)
-				except:
-					pass
-					# await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
-				rmcmds = [
-					shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
-					shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
-				]
-				for i in rmcmds:
-					subprocess.check_call(i)
 			else:
 				sus=True
 				try:
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
 							await message.attachments[0].save(f"attach_{messageid}.png")
-							img = Image.open(f"attach_{messageid}.png")
-							if img.height / img.width <= 0.05:
-								subprocess.check_call(shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"))
-								return await ctx.send("This image is way too long, you're the imposter!")
-							if dither:
-								await loop.run_in_executor(None, blocking, messageid, number, True)
-							else:
-								await loop.run_in_executor(None, blocking, messageid, number, False)
-							filename=f"dumpy{messageid}.gif"
-							try:
-								await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-									file=discord.File(filename, filename=filename),
+				except Exception as e:
+					return await ctx.send("I couldn't find an image, you sussy baka!")
+			img = Image.open(f"attach_{messageid}.png")
+			if img.height / img.width <= 0.05:
+				subprocess.check_call(shlex.split(
+					f"bash -c 'rm ./attach_{messageid}.png'"))
+				return await ctx.send("This image is way too long, you're the imposter!")
+			await loop.run_in_executor(None, blocking, messageid, number)
+			filename = f"dumpy{messageid}.gif"
+			try:
+				await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+									file=discord.File(
+										filename, filename=filename),
 									components=[
 										[
 											Button(style=ButtonStyle.URL, label="Invite to your server!",
@@ -322,21 +288,16 @@ class TheStuff(commands.Cog):
 													url="https://discord.gg/VRawXXybvd")
 										]
 									]
-								)
-							except:
-								pass
-								# await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
-							sus=False
-							rmcmds = [
-								shlex.split(
-									f"bash -c 'rm ./attach_{messageid}.png'"),
-								shlex.split(
-									f"bash -c 'rm ./dumpy{messageid}.gif'")
-							]
-							for i in rmcmds:
-								subprocess.check_call(i)
-				except Exception as e:
-					return await ctx.send("I couldn't find an image, you sussy baka!")
+					)
+			except:
+				# pass
+				await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
+			rmcmds = [
+				shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
+				shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
+			]
+			for i in rmcmds:
+				subprocess.check_call(i)
 
 	@commands.command(name="ping")
 	async def ping(self, ctx):
