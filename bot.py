@@ -53,7 +53,7 @@ with open("token.txt", "r") as f:
 	token = lines[0].strip()
 
 upsince = datetime.datetime.now()
-version = "1.7.1"
+version = "1.7.2"
 
 logchannel = None
 intents = discord.Intents.default()
