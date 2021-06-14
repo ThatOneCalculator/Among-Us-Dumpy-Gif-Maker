@@ -39,8 +39,6 @@ public class sus {
 
 	public static Color c = Color.decode("#C51111");
 	public static Color c2 = new Color(122, 8, 56);
-	// Hex color array
-	public static String[] HEXES;
 
 	// MAIN
 	public static void main(String[] args) throws Exception {
@@ -94,17 +92,6 @@ public class sus {
 
 		if (needFile) {
 			input = pickFile();
-		}
-
-		InputStream imgInput = main.getResource("dumpy/colors.png");
-		BufferedImage c = ImageIO.read(imgInput);
-		HEXES = new String[c.getWidth()];
-		for (int i = 0; i < HEXES.length; i++) {
-			try {
-				HEXES[i] = Integer.toHexString(c.getRGB(i, 0)).substring(2).toUpperCase();
-			} catch (Exception e) {
-				System.out.println(i);
-			}
 		}
 
 		// Gets BG and input file
