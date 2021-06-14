@@ -100,8 +100,8 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
-		embed.add_field(name="`!!dumpy (height) (@person)`",
-				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Both height and @person are optional. Height is a number between 2 and 35, the default is 10. You can also tag a person to use their avatar as the image.", inline=False)
+		embed.add_field(name="`!!dumpy (height)`",
+				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Height is an OPTIONAL number between 2 and 35, the default is 10.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
 		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
@@ -243,7 +243,7 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
-	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10, person: typing.Union[discord.Member, str] = ""):
+	async def dumpy(self, ctx, number: typing.Union[discord.Member, int, str] = 10):
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
@@ -251,10 +251,7 @@ class TheStuff(commands.Cog):
 		if number > 35 or number < 2:
 			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
 		async with ctx.typing():
-			if person not in ["", None] and type(person) != discord.Member:
-				pfp = str(person.avatar_url_as(format='png'))
-				await asyncimage(pfp, f"attach_{messageid}.png")
-			elif len(ctx.message.attachments) > 0:
+			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			else:
 				sus=True
