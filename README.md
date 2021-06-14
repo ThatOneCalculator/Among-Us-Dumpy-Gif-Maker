@@ -1,19 +1,26 @@
-# Among Us Dumpy Gif Maker
-#### Made by [Pixer](https://twitter.com/pixer415) and [ThatOneCalculator](https://twitter.com/that1calculator)!
-###### With help from Telk, karl-police, and auguwu!
-<p align="left"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
- <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a></p>
 
+
+<p align="center">
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a> 
+  <h1 align="center">Among Us Dumpy Gif Maker</h1>
+</p>
+
+<h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer</a></h3>
+<p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
+ <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
+<h6 align="center"> With help from Telk, karl-police, and auguwu!</h6>
+<div align="center"> <img src="https://media.discordapp.net/attachments/810799100940255260/853461754016694312/servericon.gif" height=100></div>
+ </p>
+ 
+ 
 ### Please credit this repository when you use this program!
 ##### Current version: 1.7.1
-
-![](https://cdn.discordapp.com/attachments/810799100940255260/847265488005758996/ezgif-5-d8fc3263de91.gif)
 
 [![Discord](https://discordapp.com/api/guilds/849516341933506561/embed.png?style=banner2)](https://discord.gg/VRawXXybvd)
 
 # Instructions
 
-# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a> 
+# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a> 
 ##### The help command is `!!help`.
 
 # Run as a program:
