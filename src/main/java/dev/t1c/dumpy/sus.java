@@ -62,7 +62,7 @@ public class sus {
 					System.out.println(
 							"""
 
-									`java -jar Among-Us-Dumpy-Gif-Maker-2.0.1-all.jar lines filepath` for adding arguments
+									`java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar lines filepath` for adding arguments
 
 									*All arguments optional!*
 									- `lines` is the number of lines, which defaults to 9.
@@ -70,7 +70,7 @@ public class sus {
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 2.0.1");
+					System.out.println("Version 2.0.2");
 					System.exit(0);
 				}
 				try {
