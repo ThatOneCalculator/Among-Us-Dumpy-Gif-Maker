@@ -104,6 +104,8 @@ class HelpCommand(commands.Cog):
 				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Height is an OPTIONAL number between 2 and 35, the default is 10.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
+		embed.add_field(
+			name="`!!tall <number>`", value="Makes a tall sussy imposter!")
 		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
 		embed.add_field(name="`!!literallynobot`",
 						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot.")
