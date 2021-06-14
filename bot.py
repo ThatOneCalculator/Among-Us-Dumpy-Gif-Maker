@@ -163,11 +163,15 @@ class TheStuff(commands.Cog):
 		self.update_status.start()
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command(aliases=["sus"])
+	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
 		if type(victim) != discord.Member:
 			return await ctx.send("You need to mention someone!")
 		imposter = random.choice(["true", "false"])
+		if "impost" in ctx.message.content:
+			imposter = "true"
+		elif "crewmate" in ctx.message.content:
+			imposter = "false"
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
@@ -189,57 +193,6 @@ class TheStuff(commands.Cog):
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
-	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command(aliases=["impostor"])
-	async def imposter(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
-		if type(victim) != discord.Member:
-			return await ctx.send("You need to mention someone!")
-		url = str(victim.avatar_url_as(format="png"))
-		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter=true", f"eject{ctx.message.id}.gif")
-			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-				file=file,
-				components=[
-					[
-						Button(style=ButtonStyle.URL, label="Invite to your server!",
-								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-
-						Button(style=ButtonStyle.URL, label="See my GitHub!",
-								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-
-						Button(style=ButtonStyle.URL, label="Join the support server!",
-								url="https://discord.gg/VRawXXybvd")
-					]
-				]
-			)
-		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
-		subprocess.check_call(rm)
-
-	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command()
-	async def crewmate(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
-		if type(victim) != discord.Member:
-			return await ctx.send("You need to mention someone!")
-		url = str(victim.avatar_url_as(format="png"))
-		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter=false", f"eject{ctx.message.id}.gif")
-			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-							file=file,
-							components=[
-								[
-									Button(style=ButtonStyle.URL, label="Invite to your server!",
-										   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-
-									Button(style=ButtonStyle.URL, label="See my GitHub!",
-										   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-
-									Button(style=ButtonStyle.URL, label="Join the support server!",
-											url="https://discord.gg/VRawXXybvd")
-								]
-							]
-				  )
-		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
-		subprocess.check_call(rm)
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus"])
@@ -259,6 +212,7 @@ class TheStuff(commands.Cog):
 					async for message in ctx.channel.history(limit=20):
 						if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
 							await message.attachments[0].save(f"attach_{messageid}.png")
+							break
 				except Exception as e:
 					return await ctx.send("I couldn't find an image, you sussy baka!")
 			img = Image.open(f"attach_{messageid}.png")
