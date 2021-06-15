@@ -226,7 +226,7 @@ class TheStuff(commands.Cog):
 						await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
 					except:
 						pass
-				else
+				else:
 					sus=True
 					try:
 						async for message in ctx.channel.history(limit=20):
