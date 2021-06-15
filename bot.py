@@ -192,7 +192,7 @@ class TheStuff(commands.Cog):
 	async def text(self, ctx, *, text):
 		if text == None:
 			return await ctx.send("You have to give something to write, you sussy baka!")
-		mytext = urllib.parse.quote(text)
+		mytext = urllib.parse.quote(text).upper()
 		file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
 		await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 				 file=file,
