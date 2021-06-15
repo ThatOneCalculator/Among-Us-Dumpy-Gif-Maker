@@ -223,8 +223,7 @@ class TheStuff(commands.Cog):
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			else:
 				if victim != None and type(victim) == discord.Member:
-					await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
-					await asyncio.sleep(0.5)
+					await asyncimage(victim.avatar_url_as(format='png', size=128), f"attach_{messageid}.png")
 				else:
 					sus=True
 					try:
@@ -234,6 +233,7 @@ class TheStuff(commands.Cog):
 								sus = False
 					except Exception as e:
 						return await ctx.send("I couldn't find an image, you sussy baka!")
+			await asyncio.sleep(0.2)
 			img = Image.open(f"attach_{messageid}.png")
 			if img.height / img.width <= 0.05:
 				subprocess.check_call(shlex.split(
