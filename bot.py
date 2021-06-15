@@ -189,7 +189,7 @@ class TheStuff(commands.Cog):
 
 	@commands.command(aliases=["font", "text"])
 	async def write(self, ctx, *, text: ""):
-		if text = "":
+		if text == "":
 			return await ctx.send("You have to give something to write, you sussy baka!")
 		mytext = urllib.parse.quote(text)
 		file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
