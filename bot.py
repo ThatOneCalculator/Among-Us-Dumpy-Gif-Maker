@@ -225,6 +225,7 @@ class TheStuff(commands.Cog):
 				if victim != None and type(victim) == discord.Member:
 					try:
 						await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
+						sleep 0.5
 					except:
 						pass
 				else:
