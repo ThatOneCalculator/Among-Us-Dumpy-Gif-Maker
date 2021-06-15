@@ -185,7 +185,7 @@ class TheStuff(commands.Cog):
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
-	@commands.command(aliases=["font"])
+	@commands.command(aliases=["font", "text"])
 	async def write(self, ctx, *, text: ""):
 		if text = "":
 			return await ctx.send("You have to give something to write, you sussy baka!")
