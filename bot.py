@@ -62,6 +62,18 @@ bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 ddb = DiscordComponents(bot)
 slash = SlashCommand(bot, sync_commands=True)
 
+promobuttons = [
+	[
+		Button(style=ButtonStyle.URL, label="Invite to your server!",
+			   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+
+		Button(style=ButtonStyle.URL, label="See my GitHub!",
+			   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+
+		Button(style=ButtonStyle.URL, label="Join the support server!",
+			   url="https://discord.gg/VRawXXybvd")
+	]
+]
 
 class CommandErrorHandler(commands.Cog):
 
@@ -114,18 +126,7 @@ class HelpCommand(commands.Cog):
 			text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
 		try:
 			await ctx.send(embed=embed,
-				components=[
-					[
-						Button(style=ButtonStyle.URL, label="Invite to your server!",
-								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-
-						Button(style=ButtonStyle.URL, label="See my GitHub!",
-								url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-
-						Button(style=ButtonStyle.URL, label="Join the support server!",
-								url="https://discord.gg/VRawXXybvd")
-					]
-				],
+				components=promobuttons
 			)
 		except:
 			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
@@ -179,22 +180,21 @@ class TheStuff(commands.Cog):
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
 			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 							file=file,
-							components=[
-								[
-									Button(style=ButtonStyle.URL, label="Invite to your server!",
-										   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-
-									Button(style=ButtonStyle.URL, label="See my GitHub!",
-										   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-
-							  		Button(style=ButtonStyle.URL, label="Join the support server!",
-										   url="https://discord.gg/VRawXXybvd")
-								]
-							]
+							components=promobuttons
 				  )
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
+	@commands.command(aliases=["font"])
+	async def write(self, ctx, *, text: ""):
+		if text = "":
+			return await ctx.send("You have to give something to write, you sussy baka!")
+		mytext = urllib.parse.quote(text)
+		file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
+		await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+				 file=file,
+				 components=promobuttons
+				 )
 
 	@commands.command()
 	@commands.cooldown(1, 15, commands.BucketType.user)
@@ -243,18 +243,7 @@ class TheStuff(commands.Cog):
 				await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
 									file=discord.File(
 										filename, filename=filename),
-									components=[
-										[
-											Button(style=ButtonStyle.URL, label="Invite to your server!",
-													url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
-
-											Button(style=ButtonStyle.URL, label="See my GitHub!",
-													url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
-
-											Button(style=ButtonStyle.URL, label="Join the support server!",
-													url="https://discord.gg/VRawXXybvd")
-										]
-									]
+									components=promobuttons
 					)
 			except:
 				# pass
