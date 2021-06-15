@@ -112,10 +112,12 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(
 			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
-		embed.add_field(name="`!!dumpy (height)`",
-				  value="Makes a dumpy gif from whatever image you post or whatever image was the latest in chat. Height is an OPTIONAL number between 2 and 35, the default is 10.", inline=False)
+		embed.add_field(name="`!!dumpy (height) (@person)`",
+				  value="Makes a dumpy gif from whatever image you post, whatever image was the latest in chat, or from a person's avatar. Height can be a number between 2 and 35, the default is 10. If you tag a person after the height, it will use their avatar instead of the last image in chat.", inline=False)
 		embed.add_field(name="`!!eject <@person>`",
 						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
+		embed.add_field(
+			name="`!!text <text>`", value="Writes something out, but sus.")
 		embed.add_field(
 			name="`!!tall <number>`", value="Makes a tall sussy imposter!")
 		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
@@ -219,19 +221,20 @@ class TheStuff(commands.Cog):
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			else:
-				# if type(victim) == discord.Member and victim != None:
-				# 	try:
-				# 		await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
-				# 	except:
-				# 		pass
-				sus=True
-				try:
-					async for message in ctx.channel.history(limit=20):
-						if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
-							await message.attachments[0].save(f"attach_{messageid}.png")
-							sus = False
-				except Exception as e:
-					return await ctx.send("I couldn't find an image, you sussy baka!")
+				if victim != None and type(victim) == discord.Member:
+					try:
+						await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
+					except:
+						pass
+				else
+					sus=True
+					try:
+						async for message in ctx.channel.history(limit=20):
+							if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
+								await message.attachments[0].save(f"attach_{messageid}.png")
+								sus = False
+					except Exception as e:
+						return await ctx.send("I couldn't find an image, you sussy baka!")
 			img = Image.open(f"attach_{messageid}.png")
 			if img.height / img.width <= 0.05:
 				subprocess.check_call(shlex.split(
