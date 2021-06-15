@@ -223,11 +223,8 @@ class TheStuff(commands.Cog):
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 			else:
 				if victim != None and type(victim) == discord.Member:
-					try:
-						await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
-						sleep 0.5
-					except:
-						pass
+					await asyncimage(victim.avatar_url_as('png'), f"attach_{messageid}.png")
+					await asyncio.sleep(0.5)
 				else:
 					sus=True
 					try:
