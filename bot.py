@@ -34,21 +34,29 @@ upsince = datetime.datetime.now()
 version = "2.0.2"
 
 intents = discord.Intents.default()
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
-	"!!"), intents=intents, chunk_guilds_at_startup=False)
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordComponents(bot)
 slash = SlashCommand(bot, sync_commands=True)
 
 promobuttons = [
 	[
-		Button(style=ButtonStyle.URL, label="Invite to your server!",
-			   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"),
+		Button(
+			style=ButtonStyle.URL,
+			label="Invite to your server!",
+			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+		),
 
-		Button(style=ButtonStyle.URL, label="See my GitHub!",
-			   url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"),
+		Button(
+			style=ButtonStyle.URL,
+			label="See my GitHub!",
+			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
+		),
 
-		Button(style=ButtonStyle.URL, label="Join the support server!",
-			   url="https://discord.gg/VRawXXybvd")
+		Button(
+			style=ButtonStyle.URL,
+			label="Join the support server!",
+			url="https://discord.gg/VRawXXybvd"
+		)
 	]
 ]
 
@@ -88,25 +96,43 @@ class HelpCommand(commands.Cog):
 	@commands.command(name="help")
 	async def help_(self, ctx):
 		embed = discord.Embed(
-			title="My commands!", description="Made by ThatOneCalculator#1337 and Dsim64#8145!", color=0x976BE1)
-		embed.add_field(name="`!!dumpy (height) (@person)`",
-				  value="Makes a dumpy gif from whatever image you post, whatever image was the latest in chat, or from a person's avatar. Height can be a number between 2 and 35, the default is 10. If you tag a person after the height, it will use their avatar instead of the last image in chat.", inline=False)
-		embed.add_field(name="`!!eject <@person>`",
-						value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output.")
+			title="My commands!",
+			description="Made by ThatOneCalculator#1337 and Dsim64#8145!",
+			color=0x976BE1
+		)
 		embed.add_field(
-			name="`!!text <text>`", value="Writes something out, but sus.")
+			name="`!!dumpy (height) (@person)`",
+			value="Makes a dumpy gif from whatever image you post, whatever image was the latest in chat, or from a person's avatar. Height can be a number between 2 and 35, the default is 10. If you tag a person after the height, it will use their avatar instead of the last image in chat.",
+			inline=False
+		)
 		embed.add_field(
-			name="`!!tall <number>`", value="Makes a tall sussy imposter!")
-		embed.add_field(name="`!!ping`", value="Pings the bot, and gives some information.")
-		embed.add_field(name="`!!literallynobot`",
-						value="Directs you to ThatOneCalculator's main bot LiterallyNoBot.")
-		embed.add_field(name="Tips and tricks", value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.", inline=False)
-		embed.set_footer(
-			text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
+			name="`!!eject <@person>`",
+			value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output."
+		)
+		embed.add_field(
+			name="`!!text <text>`",
+			value="Writes something out, but sus."
+		)
+		embed.add_field(
+			name="`!!tall <number>`",
+			value="Makes a tall sussy imposter!"
+		)
+		embed.add_field(
+			name="`!!ping`",
+			value="Pings the bot, and gives some information."
+		)
+		embed.add_field(
+			name="`!!literallynobot`",
+			value="Directs you to ThatOneCalculator's main bot LiterallyNoBot."
+		)
+		embed.add_field(
+			name="Tips and tricks",
+			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
+			inline=False
+		)
+		embed.set_footer(text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
 		try:
-			await ctx.send(embed=embed,
-				components=promobuttons
-			)
+			await ctx.send(embed=embed, components=promobuttons)
 		except:
 			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
 
@@ -157,10 +183,11 @@ class TheStuff(commands.Cog):
 		url = str(victim.avatar_url_as(format="png"))
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
-			await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-							file=file,
-							components=promobuttons
-				  )
+			await ctx.send(
+				f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+				file=file,
+				components=promobuttons
+			)
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
 
@@ -171,10 +198,11 @@ class TheStuff(commands.Cog):
 			return await ctx.send("You have to give something to write, you sussy baka!")
 		mytext = urllib.parse.quote(text).upper()
 		file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
-		await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-				 file=file,
-				 components=promobuttons
-				 )
+		await ctx.send(
+			f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+			file=file,
+			components=promobuttons
+		)
 
 	@commands.command()
 	@commands.cooldown(1, 15, commands.BucketType.user)
@@ -219,13 +247,12 @@ class TheStuff(commands.Cog):
 			await loop.run_in_executor(None, blocking, messageid, number)
 			filename = f"dumpy{messageid}.gif"
 			try:
-				await ctx.send(f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
-									file=discord.File(
-										filename, filename=filename),
-									components=promobuttons
-					)
+				await ctx.send(
+					f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+					file=discord.File(filename, filename=filename),
+					components=promobuttons
+				)
 			except:
-				# pass
 				await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 			rmcmds = [
 				shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
