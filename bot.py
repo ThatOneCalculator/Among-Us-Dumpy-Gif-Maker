@@ -1,47 +1,25 @@
 import asyncio
-import codecs
 import datetime
-import time
-import humanfriendly
-import io
-import itertools
 import json
-import logging
-import math
 import os
-import pprint
 import random
-import re
 import shlex
-import shutil
-import string
 import subprocess
 import sys
-import threading
 import traceback
 import typing
 import urllib.parse
-import urllib.request
-
-from io import StringIO
-from typing import Any
-from typing import Iterable
-from typing import Tuple
+from typing import Any, Iterable, Tuple
 
 import aiofiles
 import aiohttp
 import discord
-import requests
-
+import humanfriendly
 from async_timeout import timeout
-from discord import AsyncWebhookAdapter
-from discord import RequestsWebhookAdapter
-from discord import Webhook
-from discord.ext import commands
-from discord.ext import tasks
-from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
+from discord.ext import commands, tasks
+from discord_components import Button, ButtonStyle, DiscordComponents, InteractionType
 from discord_slash import SlashCommand, SlashContext, cog_ext
-from discord_slash.utils.manage_commands import create_option, create_choice
+from discord_slash.utils.manage_commands import create_choice, create_option
 from PIL import Image
 
 with open("srapi.txt", "r") as f:
@@ -55,7 +33,6 @@ with open("token.txt", "r") as f:
 upsince = datetime.datetime.now()
 version = "2.0.2"
 
-logchannel = None
 intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 	"!!"), intents=intents, chunk_guilds_at_startup=False)
