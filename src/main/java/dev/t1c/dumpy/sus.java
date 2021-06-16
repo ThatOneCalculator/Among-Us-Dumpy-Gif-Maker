@@ -59,14 +59,13 @@ public class sus {
 		if (args.length > 0) {
 			if (args[0] != null) {
 				if (args[0].toLowerCase().indexOf("help") != -1) {
-					System.out.println(
-							"""
+					System.out.println("""
 
-									`java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar lines filepath` for adding arguments
+							`java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar lines filepath` for adding arguments
 
-									*All arguments optional!*
-									- `lines` is the number of lines, which defaults to 9.
-									- `filepath` is a filepath to give it instead of using the file picker.""");
+							*All arguments optional!*
+							- `lines` is the number of lines, which defaults to 9.
+							- `filepath` is a filepath to give it instead of using the file picker.""");
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
@@ -168,7 +167,7 @@ public class sus {
 			new File(dotSlash + "F_2" + extraoutput + ".png"),
 			new File(dotSlash + "F_3" + extraoutput + ".png"),
 			new File(dotSlash + "F_4" + extraoutput + ".png"),
-			new File(dotSlash + "F_5" + extraoutput + ".png"),
+			new File(dotSlash + "F_5" + extraoutput + ".png")
 		};
 
 		for (File i : images) {
@@ -184,12 +183,12 @@ public class sus {
 		imageoutput.close();
 		boolean win = isWindows();
 
-		String[] filenames = new String[]{
+		String[] filenames = new String[] {
 			dotSlash + "F_1" + extraoutput + ".png",
 			dotSlash + "F_2" + extraoutput + ".png",
 			dotSlash + "F_3" + extraoutput + ".png",
 			dotSlash + "F_4" + extraoutput + ".png",
-			dotSlash + "F_5" + extraoutput + ".png",
+			dotSlash + "F_5" + extraoutput + ".png"
 		};
 
 		for (String i : filenames) {
@@ -200,11 +199,9 @@ public class sus {
 			}
 		}
 
-		// Resizes if need be
+		// Resizes if necessary
 		BufferedImage resize = ImageIO.read(new File(output));
 		if (resize.getHeight() > 1000 || resize.getWidth() > 1000) {
-			// BufferedImage rz = resizeImage(resize, 500, resize.getWidth());
-			// ImageIO.write(rz, "gif", new File(output));
 			runCmd("convert " + output + " -resize 1000x1000 " + output);
 		}
 		System.out.println("Done.");
@@ -236,7 +233,6 @@ public class sus {
 		jfc.setAcceptAllFileFilterUsed(false);
 
 		int returnValue = jfc.showOpenDialog(null);
-		// int returnValue = jfc.showSaveDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jfc.getSelectedFile();
@@ -350,8 +346,7 @@ public class sus {
 		return convertedImage;
 	}
 
-	// (grumbles) stupid indexed image error (thanks,
-	// https://stackoverflow.com/a/19594979)
+	// Indexed image error (https://stackoverflow.com/a/19594979)
 	public static BufferedImage toARGB(Image i) {
 		BufferedImage rgb = new BufferedImage(i.getWidth(null), i.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 		rgb.createGraphics().drawImage(i, 0, 0, null);
@@ -402,8 +397,10 @@ class ImageFilter extends FileFilter {
 	}
 }
 
-// Shamelessly stolen from
-// https://memorynotfound.com/generate-gif-image-java-delay-infinite-loop-example/
+/*
+Shamelessly stolen from
+https://memorynotfound.com/generate-gif-image-java-delay-infinite-loop-example/
+*/
 
 class GifSequenceWriter {
 
@@ -467,8 +464,8 @@ class GifSequenceWriter {
 	}
 
 	public void close() throws IOException {
-        writer.endWriteSequence();
-    }
+		writer.endWriteSequence();
+	}
 }
 
 // Color replacement solution from https://stackoverflow.com/a/27464772
