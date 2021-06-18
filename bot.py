@@ -13,7 +13,7 @@ from typing import Any, Iterable, Tuple
 
 import aiofiles
 import aiohttp
-import dbl
+import topgg
 import discord
 import humanfriendly
 from async_timeout import timeout
@@ -33,7 +33,7 @@ with open("token.txt", "r") as f:
 
 with open("topgg.txt", "r") as f:
 	lines = f.readlines()
-	topgg = lines[0].strip()
+	topggtoken = lines[0].strip()
 
 upsince = datetime.datetime.now()
 version = "2.0.2"
@@ -41,6 +41,7 @@ version = "2.0.2"
 intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordComponents(bot)
+bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
 slash = SlashCommand(bot, sync_commands=True)
 
 promobuttons = [
@@ -105,31 +106,20 @@ class TopGG(commands.Cog):
 
 	def __init__(self, bot):
 		self.bot = bot
-		self.dblpy = dbl.DBLClient(self.bot, topgg, autopost=True)
 		self.update_stats.start()
 
 	@tasks.loop(minutes=30.0)
 	async def update_stats(self):
-		await bot.wait_until_ready()
+		await self.bot.wait_until_ready()
 		await asyncio.sleep(5)
 		try:
-			await self.dblpy.post_guild_count()
-			print(f'Posted server count ({self.dblpy.guild_count()})')
+			await self.bot.topggpy.post_guild_count()
 		except Exception as e:
 			print(f"\nServer update on top.gg failed\n{e}\n")
 
-	@commands.Cog.listener()
-	async def on_dbl_vote(self, data):
-		userid = int(data[user])
-		print(f'Received an upvote from {userid}')
-
-	@commands.Cog.listener()
-	async def on_dbl_test(self, data):
-		print('DBL Tested')
-
 	@commands.command()
 	async def votes(self, ctx):
-		votes = await dbl.get_bot_votes()
+		votes = await self.bot.topggpy.get_bot_votes()
 		await ctx.send(f"I have {len(votes)} votes on top.gg!",
 			components=[
 				Button(
