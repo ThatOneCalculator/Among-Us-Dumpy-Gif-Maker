@@ -263,6 +263,7 @@ class TheStuff(commands.Cog):
 			if number > 30 and number < 36:
 				voted = await self.bot.topggpy.get_bot_votes(ctx.author.id)
 				await asyncio.sleep(2)
+				print(f"\n\n{voted}\n\n")
 				if voted:
 					await ctx.send("Thank you for voting!")
 				if not voted:
@@ -355,10 +356,12 @@ bot.add_cog(CommandErrorHandler(bot))
 
 @bot.event
 async def on_message(message):
-	if (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
-		return await message.channel.send("**Commands have been disabled in this channel.**")
-	await bot.process_commands(message)
-
+	try:
+		if (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
+			return await message.channel.send("**Commands have been disabled in this channel.**")
+		await bot.process_commands(message)
+	except:
+		await ctx.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 @bot.event
 async def on_ready():
 	print("Ready")
