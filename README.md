@@ -7,6 +7,8 @@
       <img src="https://top.gg/api/widget/servers/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a>&nbsp;<a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a>&nbsp;<a href="https://discord.gg/Z7UZPR3bbW/">
+      <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
    </a>
   <h1 align="center">Among Us Dumpy Gif Maker</h1>
 </p>
@@ -21,10 +23,6 @@
 
 ### Please credit this repository when you use this program!
 ##### Current version: 2.0.2
-
-[![Discord](https://discordapp.com/api/guilds/849516341933506561/embed.png?style=banner3)](https://discord.gg/VRawXXybvd) [![Discord Bots](https://top.gg/api/widget/847164104161361921.svg)](https://top.gg/bot/847164104161361921)
-
-
 
 # Instructions
 
