@@ -47,12 +47,6 @@ promobuttons = [
 	[
 		Button(
 			style=ButtonStyle.URL,
-			label="Invite to your server!",
-			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-		),
-
-		Button(
-			style=ButtonStyle.URL,
 			label="See my GitHub!",
 			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
 		),
@@ -61,8 +55,19 @@ promobuttons = [
 			style=ButtonStyle.URL,
 			label="Join the support server!",
 			url="https://discord.gg/VRawXXybvd"
+		),
+
+		Button(
+			style=ButtonStyle.URL,
+			label="Vote on top.gg!",
+			url="https://top.gg/bot/847164104161361921/vote"
 		)
-	]
+	],
+	Button(
+		style=ButtonStyle.URL,
+		label="Invite to your server!",
+		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+	),
 ]
 
 class CommandErrorHandler(commands.Cog):
@@ -97,6 +102,7 @@ class CommandErrorHandler(commands.Cog):
 
 
 class TopGG(commands.Cog):
+
 	def __init__(self, bot):
 		self.bot = bot
 		self.dblpy = dbl.DBLClient(self.bot, topgg, autopost=True)
@@ -120,6 +126,19 @@ class TopGG(commands.Cog):
 	@commands.Cog.listener()
 	async def on_dbl_test(self, data):
 		print('DBL Tested')
+
+	@commands.command()
+	async def votes(self, ctx):
+		votes = await dbl.get_bot_votes()
+		await ctx.send(f"I have {len(votes)} votes on top.gg!",
+			components=[
+				Button(
+					style=ButtonStyle.URL,
+					label="Vote on top.gg!",
+					url="https://top.gg/bot/847164104161361921/vote"
+				)
+			]
+		)
 
 class HelpCommand(commands.Cog):
 
