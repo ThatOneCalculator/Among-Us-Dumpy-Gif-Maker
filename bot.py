@@ -261,7 +261,7 @@ class TheStuff(commands.Cog):
 		if type(number) != int:
 			number = 10
 		if number > 35 or number < 1:
-			if number > 30:
+			if number > 30 and number < 36:
 				voted = await self.bot.topggpy.get_bot_votes(ctx.author.id)
 				if not voted:
 					return await ctx.send("The limit for non-voters is 30! Vote on top.gg to increase it to 35!",
