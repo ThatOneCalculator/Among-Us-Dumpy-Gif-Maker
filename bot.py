@@ -119,8 +119,7 @@ class TopGG(commands.Cog):
 
 	@commands.command()
 	async def votes(self, ctx):
-		votes = await self.bot.topggpy.get_bot_votes()
-		await ctx.send(f"I have {votes} votes on top.gg!",
+		await ctx.send(f"I have {await self.bot.topggpy.get_bot_votes()} votes on top.gg!",
 			components=[
 				Button(
 					style=ButtonStyle.URL,
@@ -263,6 +262,9 @@ class TheStuff(commands.Cog):
 		if number > 35 or number < 1:
 			if number > 30 and number < 36:
 				voted = await self.bot.topggpy.get_bot_votes(ctx.author.id)
+				await asyncio.sleep(2)
+				if voted:
+					await ctx.send("Thank you for voting!")
 				if not voted:
 					return await ctx.send("The limit for non-voters is 30! Vote on top.gg to increase it to 35!",
 						components=[
