@@ -260,8 +260,26 @@ class TheStuff(commands.Cog):
 		messageid = str(ctx.message.id)
 		if type(number) != int:
 			number = 10
-		if number > 35 or number < 2:
-			return await ctx.send("Number must be between 2 and 35! Defaults to 10.")
+		if number > 35 or number < 1:
+			if number > 30:
+				voted = await self.bot.topggpy.get_bot_votes(ctx.author.id)
+				if not voted:
+					return await ctx.send("The limit for non-voters is 30! Vote on top.gg to increase it to 35!",
+						components=[
+							Button(
+								style=ButtonStyle.URL,
+								label="Vote on top.gg!",
+								url="https://top.gg/bot/847164104161361921/vote"
+							)
+						])
+			return await ctx.send("Number must be between 1 and 30 (35 if you vote! Defaults to 10.",
+				components=[
+					Button(
+						style=ButtonStyle.URL,
+						label="Vote on top.gg!",
+						url="https://top.gg/bot/847164104161361921/vote"
+					)
+				])
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
