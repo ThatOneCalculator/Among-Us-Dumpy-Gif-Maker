@@ -13,6 +13,7 @@ from typing import Any, Iterable, Tuple
 
 import aiofiles
 import aiohttp
+import dbl
 import discord
 import humanfriendly
 from async_timeout import timeout
@@ -29,6 +30,10 @@ with open("srapi.txt", "r") as f:
 with open("token.txt", "r") as f:
 	lines = f.readlines()
 	token = lines[0].strip()
+
+with open("topgg.txt", "r") as f:
+	lines = f.readlines()
+	topgg = lines[0].strip()
 
 upsince = datetime.datetime.now()
 version = "2.0.2"
@@ -90,6 +95,31 @@ class CommandErrorHandler(commands.Cog):
 		traceback.print_exception(
 			type(error), error, error.__traceback__, file=sys.stderr)
 
+
+class TopGG(commands.Cog):
+	def __init__(self, bot):
+		self.bot = bot
+		self.dblpy = dbl.DBLClient(self.bot, topgg, autopost=True)
+		self.update_stats.start()
+
+	@tasks.loop(minutes=30.0)
+	async def update_stats(self):
+		await bot.wait_until_ready()
+		await asyncio.sleep(5)
+		try:
+			await self.dblpy.post_guild_count()
+			print(f'Posted server count ({self.dblpy.guild_count()})')
+		except Exception as e:
+			print(f"\nServer update on top.gg failed\n{e}\n")
+
+	@commands.Cog.listener()
+	async def on_dbl_vote(self, data):
+		userid = int(data[user])
+		print(f'Received an upvote from {userid}')
+
+	@commands.Cog.listener()
+	async def on_dbl_test(self, data):
+		print('DBL Tested')
 
 class HelpCommand(commands.Cog):
 
@@ -291,6 +321,7 @@ class TheStuff(commands.Cog):
 bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
 bot.add_cog(TheStuff(bot))
+bot.add_cog(TopGG(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
 @bot.event
