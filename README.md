@@ -22,7 +22,9 @@
 ### Please credit this repository when you use this program!
 ##### Current version: 2.0.2
 
-[![Discord](https://discordapp.com/api/guilds/849516341933506561/embed.png?style=banner2)](https://discord.gg/VRawXXybvd)
+[![Discord](https://discordapp.com/api/guilds/849516341933506561/embed.png?style=banner3)](https://discord.gg/VRawXXybvd) [![Discord Bots](https://top.gg/api/widget/847164104161361921.svg)](https://top.gg/bot/847164104161361921)
+
+
 
 # Instructions
 
