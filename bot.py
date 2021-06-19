@@ -117,7 +117,7 @@ class TopGG(commands.Cog):
 		except Exception as e:
 			print(f"\nServer update on top.gg failed\n{e}\n")
 
-	@commands.command(aliases=["voters", "top", "topgg"])
+	@commands.command(aliases=["voters", "top", "topgg", "vote"])
 	async def votes(self, ctx):
 		votes = await self.bot.topggpy.get_bot_votes()
 		print(votes)
@@ -162,8 +162,8 @@ class HelpCommand(commands.Cog):
 			value="Pings the bot, and gives some information."
 		)
 		embed.add_field(
-			name="`!!literallynobot`",
-			value="Directs you to ThatOneCalculator's main bot LiterallyNoBot."
+			name="`!!topgg`",
+			value="Check the number of votes on top.gg, and vote for the bot."
 		)
 		embed.add_field(
 			name="Tips and tricks",
