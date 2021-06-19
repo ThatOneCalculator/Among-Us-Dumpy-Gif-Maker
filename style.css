@@ -1,5 +1,13 @@
 body {
   background-color: #181A1B !important;
+  color: #AF978A !important;
+}
+
+.main-content code {
+    font-size: 0.9rem;
+    color: #abe4ff;
+    background-color: #455760;
+    border-radius: 0.3rem;
 }
 
 .page-header{
