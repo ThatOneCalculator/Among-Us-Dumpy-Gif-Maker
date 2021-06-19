@@ -1,27 +1,27 @@
 body {
-    background-color: #232021 !important;
-    color: #DAE7DA !important;
+    background-color: #545863 !important;
+    color: #F1E3D3 !important;
 }
 
 h1 {
-    color: #655A7C !important;
+    color: #D88C9A !important;
 }
 
 h2, h3 {
-    color: #AB92BF !important;
+    color: #F2D0A9 !important;
 }
 
 h4, h5 {
-    color: #AFC1D6 !important;
+    color: #99C1B9 !important;
 }
 
 .main-content code {
-    color: #CEF9F2 !important;
-    background-color: #0D0A0B !important;
+    color: #8E7DBE !important;
+    background-color: #888B96 !important;
 }
 
 .main-content pre {
-    background-color: #0D0A0B !important;
+    background-color: #888B96 !important;
 }
 
 .page-header{
