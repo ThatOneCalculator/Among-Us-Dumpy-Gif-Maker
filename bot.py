@@ -223,7 +223,7 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
 			await ctx.send(
-				f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+				f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 				file=file,
 				components=promobuttons
 			)
@@ -238,7 +238,7 @@ class TheStuff(commands.Cog):
 		mytext = urllib.parse.quote(text).upper()
 		file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
 		await ctx.send(
-			f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+			f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 			file=file,
 			components=promobuttons
 		)
@@ -276,7 +276,7 @@ class TheStuff(commands.Cog):
 								url="https://top.gg/bot/847164104161361921/vote"
 							)
 						])
-			return await ctx.send("Number must be between 1 and 30 (35 if you vote! Defaults to 10.",
+			return await ctx.send("Number must be between 1 and 30 (35 if you vote!) Defaults to 10.",
 				components=[
 					Button(
 						style=ButtonStyle.URL,
@@ -309,7 +309,7 @@ class TheStuff(commands.Cog):
 			filename = f"dumpy{messageid}.gif"
 			try:
 				await ctx.send(
-					f"{ctx.author.mention} Please leave a star on the GitHub, it's free and helps out a lot!",
+					f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 					file=discord.File(filename, filename=filename),
 					components=promobuttons
 				)
