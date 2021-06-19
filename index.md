@@ -4,6 +4,9 @@
 <meta name="description" content="Among Us Dumpy Gif Maker!">
 <meta property="og:image" content="https://cdn.discordapp.com/icons/849516341933506561/a_31c9be842b1a47f2fe939a1415b75f8b.gif"/>
 <meta property="twitter:image" content="https://cdn.discordapp.com/icons/849516341933506561/a_31c9be842b1a47f2fe939a1415b75f8b.gif"/>
+
+
+
 <p align="center">
    <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
    <br><br>
@@ -13,16 +16,18 @@
       <img src="https://top.gg/api/widget/servers/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a> <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a> <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/">
+      <img src="https://shields.io/badge/Star_on-GitHub-black?logo=github&style=flat"></img>
    </a> <a href="https://discord.gg/Z7UZPR3bbW/">
       <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
    </a>
   <h1 align="center">Among Us Dumpy Gif Maker</h1>
 </p>
 
-<h2 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer</a></h2>
+<h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer</a></h3>
 <p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
-<h4 align="center"> With help from Telk, karl-police, and auguwu!</h4>
+<h6 align="center"> With help from Telk, karl-police, and auguwu!</h6>
 <div align="center"> <img src="https://media.discordapp.net/attachments/810799100940255260/853461754016694312/servericon.gif" height=100></div>
  </p>
 
@@ -79,3 +84,4 @@ gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
 java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar
 ```
+
