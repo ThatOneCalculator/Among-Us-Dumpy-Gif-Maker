@@ -1,37 +1,75 @@
-## Welcome to GitHub Pages
+<p align="center">
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
+   <br><br>
+   <a href="https://top.gg/bot/847164104161361921/">
+      <img src="https://top.gg/api/widget/status/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a> <a href="https://top.gg/bot/847164104161361921/">
+      <img src="https://top.gg/api/widget/servers/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a> <a href="https://top.gg/bot/847164104161361921/">
+      <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a> <a href="https://discord.gg/Z7UZPR3bbW/">
+      <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
+   </a>
+  <h1 align="center">Among Us Dumpy Gif Maker</h1>
+</p>
 
-You can use the [editor on GitHub](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer</a></h3>
+<p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
+ <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
+<h6 align="center"> With help from Telk, karl-police, and auguwu!</h6>
+<div align="center"> <img src="https://media.discordapp.net/attachments/810799100940255260/853461754016694312/servericon.gif" height=100></div>
+ </p>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### Please credit this repository when you use this program!
+##### Current version: 2.0.2
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+# Instructions
 
-```markdown
-Syntax highlighted code block
+# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a>
+##### The help command is `!!help`.
 
-# Header 1
-## Header 2
-### Header 3
+# Run as a program:
+## Requirements:
+- Java Runtime Environment 15 or newer
+    - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
+    - Also works with [OpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
+- ImageMagick
+    - [Windows (static)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.0.11-13-Q16-x64-static.exe)
+    - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
+    - Linux: use package manager.
 
-- Bulleted
-- List
+## Usage:
 
-1. Numbered
-2. List
+#### [AUR package for Arch Linux users](https://aur.archlinux.org/packages/among-us-dumpy-gif-maker/) ![arch](https://media.discordapp.net/attachments/810799100940255260/838491685892784178/ezgif-6-fd025aa8c722.png)
+`yay -S among-us-dumpy-gif-maker && among-us-dumpy-gif-maker`
 
-**Bold** and _Italic_ and `Code` text
+To everyone else:
 
-[Link](url) and ![Image](src)
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v2.0.2/Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar)!
+
+### Basic usage:
+Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
+
+### CLI usage:
+- `java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar` for defaults
+- `java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar help/version` for help/version
+- `java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar lines filepath` for adding arguments
+
+
+#### *All arguments optional!*
+- `lines` is the number of lines, which defaults to 9.
+- `filepath` is a filepath to give it instead of using the file picker.
+
+A file called "dumpy.gif" will be made in the same folder as the jar.
+
+### From source:
+*Not recommended unless you intend to modify the code!*
+- Need [Gradle](https://gradle.org/)
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
+cd Among-Us-Dumpy-Gif-Maker
+gradle wrapper
+./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar
+```
