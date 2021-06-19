@@ -264,18 +264,8 @@ class TheStuff(commands.Cog):
 			if number > 30 and number < 36:
 				voted = await self.bot.topggpy.get_bot_votes(ctx.author.id)
 				await asyncio.sleep(2)
-				print(f"\n\n{voted}\n\n")
-				if voted:
-					await ctx.send("Thank you for voting!")
 				if not voted:
-					return await ctx.send("The limit for non-voters is 30! Vote on top.gg to increase it to 35!",
-						components=[
-							Button(
-								style=ButtonStyle.URL,
-								label="Vote on top.gg!",
-								url="https://top.gg/bot/847164104161361921/vote"
-							)
-						])
+					return await ctx.send("The limit for non-voters is 30! Vote on top.gg to increase it to 35!\nhttps://top.gg/bot/847164104161361921/vote")
 			return await ctx.send("Number must be between 1 and 30 (35 if you vote!) Defaults to 10.",
 				components=[
 					Button(
