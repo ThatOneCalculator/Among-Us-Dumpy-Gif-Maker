@@ -1,6 +1,6 @@
 body {
-  background-color: #181A1B !important;
-  color: #AF978A !important;
+    background-color: #181A1B !important;
+    color: #AF978A !important;
 }
 
 .main-content code {
@@ -8,6 +8,10 @@ body {
     background-color: #455760 !important;
 }
 
+.main-content pre {
+    background-color: #455760 !important;
+}
+
 .page-header{
-  display: none !important; 
+    display: none !important; 
 }
