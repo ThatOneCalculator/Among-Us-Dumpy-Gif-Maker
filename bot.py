@@ -318,8 +318,9 @@ class TheStuff(commands.Cog):
 			for i in rmcmds:
 				subprocess.check_call(i)
 
-	@commands.command(name="ping")
+	@commands.command(aliases=["stats"])
 	async def ping(self, ctx):
+		votes = await self.bot.topggpy.get_bot_votes()
 		shardscounter = []
 		for guild in self.bot.guilds:
 			if guild.shard_id not in shardscounter:
@@ -337,7 +338,15 @@ class TheStuff(commands.Cog):
 		pingdiff=afterping - beforeping
 		pingdiffms=pingdiff.microseconds / 1000
 		uptime=afterping - upsince
-		await ping.edit(content=f"🏓 Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.\n☎️ API latency is {str(round((pingdiffms),2))} milliseconds.\n:coffee: I have been up for {humanfriendly.format_timespan(uptime)}.\n🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.\n\nI am in {len(bot.guilds):,} servers with a total of {allmembers:,} people on version {version}.")
+		await ping.edit(content=f"""
+		🏓 Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.
+		☎️ API latency is {str(round((pingdiffms),2))} milliseconds.
+		☕ I have been up for {humanfriendly.format_timespan(uptime)}.
+		🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.
+		👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
+		🧑‍💻 I am on version {version}.
+		📈 I have {len(votes):,} on top.gg.
+		""", components=promobuttons)
 
 	@tasks.loop(minutes=10)
 	async def update_status(self):
