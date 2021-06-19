@@ -1,3 +1,8 @@
+<section class="page-header">
+      <h1 class="project-name">Among Us Dumpy Gif Maker</h1>
+      <h2 class="project-tagline">A tool to make dumpy among us GIFS</h2>
+         <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker" class="btn">View on GitHub</a>
+    </section>
 <p align="center">
    <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
    <br><br>
