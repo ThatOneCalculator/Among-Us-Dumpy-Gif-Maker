@@ -119,7 +119,8 @@ class TopGG(commands.Cog):
 
 	@commands.command()
 	async def votes(self, ctx):
-		await ctx.send(f"I have {await self.bot.topggpy.get_bot_votes()} votes on top.gg!",
+		votes = await self.bot.topggpy.get_bot_votes()
+		await ctx.send(f"I have {len(votes)} votes on top.gg!",
 			components=[
 				Button(
 					style=ButtonStyle.URL,
