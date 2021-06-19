@@ -1,15 +1,27 @@
 body {
-    background-color: #181A1B !important;
-    color: #AF978A !important;
+    background-color: #232021 !important;
+    color: #DAE7DA !important;
+}
+
+h1 {
+    color: #655A7C !important;
+}
+
+h2, h3 {
+    color: #AB92BF !important;
+}
+
+h4, h5 {
+    color: #AFC1D6 !important;
 }
 
 .main-content code {
-    color: #abe4ff !important;
-    background-color: #455760 !important;
+    color: #CEF9F2 !important;
+    background-color: #0D0A0B !important;
 }
 
 .main-content pre {
-    background-color: #455760 !important;
+    background-color: #0D0A0B !important;
 }
 
 .page-header{
