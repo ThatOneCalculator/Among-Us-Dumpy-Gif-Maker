@@ -166,6 +166,10 @@ class HelpCommand(commands.Cog):
 			value="Check the number of votes on top.gg, and vote for the bot."
 		)
 		embed.add_field(
+			name="`!!literallynobot`",
+			value="Directs you to ThatOneCalculator's main bot LiterallyNoBot."
+		)
+		embed.add_field(
 			name="Tips and tricks",
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
