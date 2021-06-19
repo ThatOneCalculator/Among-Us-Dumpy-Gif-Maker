@@ -2,4 +2,4 @@
 
 # https://dumpy.t1c.dev
 
-![](https://cdn.discordapp.com/attachments/849523719582777367/855647129984827392/palette3.svg)
+![](https://cdn.discordapp.com/attachments/849523719582777367/855647545045024789/palette4.svg)
