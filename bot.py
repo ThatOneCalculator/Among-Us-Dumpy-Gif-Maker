@@ -266,14 +266,9 @@ class TheStuff(commands.Cog):
 			number = 10
 		if number > 30 and number < 36:
 			msg = await ctx.send("Validating vote...")
-			votes = await self.bot.topggpy.get_bot_votes()
-			sussy = True
-			for i in votes:
-				if int(i['id']) == ctx.author.id:
-					sussy = False
-					break
+			voted = await self.bot.topggpy.get_user_vote(ctx.author.id)
 			await asyncio.sleep(0.5)
-			if sussy:
+			if not voted:
 				return await ctx.send("The limit for non-voters is 30! Vote on top.gg to increase it to 35!\nhttps://top.gg/bot/847164104161361921/vote")
 			await msg.delete()
 		if number > 35 or number < 1:
