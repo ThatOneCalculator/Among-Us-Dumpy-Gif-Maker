@@ -339,14 +339,14 @@ class TheStuff(commands.Cog):
 		pingdiffms=pingdiff.microseconds / 1000
 		uptime=afterping - upsince
 		await ping.edit(content=f"""
-		🏓 Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.
-		☎️ API latency is {str(round((pingdiffms),2))} milliseconds.
-		☕ I have been up for {humanfriendly.format_timespan(uptime)}.
-		🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.
-		👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
-		🧑‍💻 I am on version {version}.
-		📈 I have {len(votes):,} on top.gg.
-		""", components=promobuttons)
+🏓 Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.
+☎️ API latency is {str(round((pingdiffms),2))} milliseconds.
+☕ I have been up for {humanfriendly.format_timespan(uptime)}.
+🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.
+👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
+📈 I have {len(votes):,} votes on top.gg.
+🧑‍💻 I am on version {version}.
+""", components=promobuttons)
 
 	@tasks.loop(minutes=10)
 	async def update_status(self):
