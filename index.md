@@ -20,10 +20,11 @@
  <!-- <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/">
       <img src="https://shields.io/badge/Star_on-GitHub-black?logo=github&style=flat" />
    </a> -->
- <iframe src="https://ghbtns.com/github-btn.html?user=thatonecalculator&repo=Among-Us-Dumpy-Gif-Maker&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
-<a href="https://discord.gg/Z7UZPR3bbW/">
+ <a href="https://discord.gg/Z7UZPR3bbW/">
       <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
    </a>
+ <iframe src="https://ghbtns.com/github-btn.html?user=thatonecalculator&repo=Among-Us-Dumpy-Gif-Maker&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+
   <h1 align="center">Among Us Dumpy Gif Maker</h1>
 </p>
 
