@@ -4,12 +4,10 @@ body {
 }
 
 .main-content code {
-    font-size: 0.9rem;
-    color: #abe4ff;
-    background-color: #455760;
-    border-radius: 0.3rem;
+    color: #abe4ff !important;
+    background-color: #455760 !important;
 }
 
 .page-header{
-  display: none; 
+  display: none !important; 
 }
