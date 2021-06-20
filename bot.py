@@ -45,7 +45,7 @@ bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=T
 slash = SlashCommand(bot, sync_commands=True)
 
 promobuttons = [
-	[s
+	[
 		Button(
 			style=ButtonStyle.URL,
 			label="See my GitHub!",
@@ -68,7 +68,7 @@ promobuttons = [
 		style=ButtonStyle.URL,
 		label="Invite to your server!",
 		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-	),
+	)
 ]
 
 class CommandErrorHandler(commands.Cog):
