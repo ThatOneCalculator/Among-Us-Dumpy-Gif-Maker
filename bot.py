@@ -372,8 +372,8 @@ class TheStuff(commands.Cog):
 				if j.shard_id == i.id:
 					gcount += 1
 					mcount += j.member_count
-			if count % 10 == 0 and count != 0:
-				embedlist.append(levelembed)
+			if count % 9 == 0 and count != 0:
+				embedlist.append(embed)
 				embed = discord.Embed(title=f"Bot shards:")
 			count += 1
 			totpings.append(round((i.latency * 1000), 2))
