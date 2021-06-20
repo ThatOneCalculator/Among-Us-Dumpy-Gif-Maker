@@ -348,6 +348,43 @@ class TheStuff(commands.Cog):
 🧑‍💻 I am on version {version}.
 """, components=promobuttons)
 
+	@commands.command()
+	async def shards(self, ctx):
+		shardscounter = []
+		allmembers = 0
+		for guild in bot.guilds:
+			if guild.shard_id not in shardscounter:
+				shardscounter.append(guild.shard_id)
+			allmembers += guild.member_count
+		shards = []
+		for i in shardscounter:
+			shards.append(bot.get_shard(i))
+		embedlist = []
+		totpings = []
+		closedcount = 0
+		count = 0
+		embed = discord.Embed(title=f"Bot shards")
+		for i in shards:
+			gcount = 0
+			mcount = 0
+			for j in bot.guilds:
+				if j.shard_id == i.id:
+					gcount += 1
+					mcount += j.member_count
+			if count % 10 == 0 and count != 0:
+				embedlist.append(levelembed)
+				embed = discord.Embed(title=f"Bot shards:")
+			count += 1
+			totpings.append(round((i.latency * 1000), 2))
+			if i.is_closed():
+				closedcount += 1
+			embed.add_field(name=f"Shard {i.id}", value=f"Guilds: {gcount}, Members: {mcount}, Status: {'Down' if i.is_closed() else 'Ready'}, Ping: {round((i.latency * 1000),2)}")
+			if count == len(shards):
+				embedlist.append(embed)
+		embedlist[-1].add_field(name="Total", value=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
+		shardpaginator = BotEmbedPaginator(ctx, embedlist)
+		await shardpaginator.run()
+
 	@tasks.loop(minutes=10)
 	async def update_status(self):
 		await self.bot.wait_until_ready()
