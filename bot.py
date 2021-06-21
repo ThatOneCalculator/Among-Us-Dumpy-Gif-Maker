@@ -122,7 +122,8 @@ class TopGG(commands.Cog):
 	async def votes(self, ctx):
 		botinfo = await self.bot.topggpy.get_bot_info()
 		votes = botinfo["monthly_points"]
-		await ctx.send(f"I have {int(votes):,} votes on top.gg!",
+		allvotes = botinfo["points"]
+		await ctx.send(f"I have {int(votes):,} mothly votes and {int(allvotes):,} all-time votes on top.gg!",
 			components=[
 				Button(
 					style=ButtonStyle.URL,
@@ -347,7 +348,7 @@ class TheStuff(commands.Cog):
 ☕ I have been up for {humanfriendly.format_timespan(uptime)}.
 🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.
 👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
-📈 I have {int(votes):,} votes on top.gg.
+📈 I have {int(votes):,} monthly votes on top.gg.
 🧑‍💻 I am on version {version}.
 """, components=promobuttons)
 
