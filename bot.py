@@ -323,6 +323,7 @@ class TheStuff(commands.Cog):
 	@commands.command(aliases=["stats"])
 	async def ping(self, ctx):
 		botinfo = await self.bot.topggpy.get_bot_info()
+		print(botinfo)
 		votes = botinfo["monthlyPoints"]
 		shardscounter = []
 		for guild in self.bot.guilds:
