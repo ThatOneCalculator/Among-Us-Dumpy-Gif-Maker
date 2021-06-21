@@ -120,7 +120,8 @@ class TopGG(commands.Cog):
 
 	@commands.command(aliases=["voters", "top", "topgg", "vote"])
 	async def votes(self, ctx):
-		votes = await self.bot.topggpy.get_bot_info()["monthlyPoints"]
+		botinfo = await self.bot.topggpy.get_bot_info()
+		votes = botinfo["monthlyPoints"]
 		await ctx.send(f"I have {int(votes):,} votes on top.gg!",
 			components=[
 				Button(
@@ -321,7 +322,8 @@ class TheStuff(commands.Cog):
 
 	@commands.command(aliases=["stats"])
 	async def ping(self, ctx):
-		votes = await self.bot.topggpy.get_bot_info()["monthlyPoints"]
+		botinfo = await self.bot.topggpy.get_bot_info()
+		votes = botinfo["monthlyPoints"]
 		shardscounter = []
 		for guild in self.bot.guilds:
 			if guild.shard_id not in shardscounter:
