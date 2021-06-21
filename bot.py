@@ -400,7 +400,7 @@ bot.add_cog(CommandErrorHandler(bot))
 
 @bot.event
 async def on_message(message):
-	if message.guild == None:
+	if message.guild == None and message.author.bot == False:
 		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 	if (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
 		return await message.channel.send("**Commands have been disabled in this channel.**")
