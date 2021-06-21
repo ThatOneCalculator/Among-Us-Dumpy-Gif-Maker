@@ -345,7 +345,7 @@ class TheStuff(commands.Cog):
 ☕ I have been up for {humanfriendly.format_timespan(uptime)}.
 🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.
 👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
-📈 I have {len(votes):,} votes on top.gg.
+📈 I have {int(votes):,} votes on top.gg.
 🧑‍💻 I am on version {version}.
 """, components=promobuttons)
 
