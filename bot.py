@@ -386,9 +386,10 @@ class TheStuff(commands.Cog):
 			if count == len(shards):
 				embedlist.append(embed)
 		shardpaginator = BotEmbedPaginator(ctx, embedlist)
-		await shardpaginator.run()
 		staticembed = discord.Embed(title="Total", description=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
 		await ctx.send(embed=staticembed)
+		await shardpaginator.run()
+
 
 	@tasks.loop(minutes=10)
 	async def update_status(self):
