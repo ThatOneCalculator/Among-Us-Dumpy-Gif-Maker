@@ -385,9 +385,10 @@ class TheStuff(commands.Cog):
 			embed.add_field(name=f"Shard {i.id}", value=f"Guilds: {gcount}, Members: {mcount}, Status: {'Down' if i.is_closed() else 'Ready'}, Ping: {round((i.latency * 1000),2)}")
 			if count == len(shards):
 				embedlist.append(embed)
-		embedlist[-1].add_field(name="Total", value=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
 		shardpaginator = BotEmbedPaginator(ctx, embedlist)
 		await shardpaginator.run()
+		staticembed = discord.Embed(title="Total", description=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
+		await ctx.send(embed=staticembed)
 
 	@tasks.loop(minutes=10)
 	async def update_status(self):
