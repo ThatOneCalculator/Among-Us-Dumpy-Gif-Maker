@@ -176,7 +176,7 @@ class HelpCommand(commands.Cog):
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
 		)
-		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
+		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the GPL-3. Thank you support server booster(s): shermy the cat#0002")
 		try:
 			await ctx.send(embed=embed, components=promobuttons)
 		except:
