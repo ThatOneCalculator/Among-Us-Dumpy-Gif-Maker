@@ -176,7 +176,7 @@ class HelpCommand(commands.Cog):
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
 		)
-		embed.set_footer(text=f"Among Us Dumpy Bot version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
+		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the GPL-3. Thank you server boosters: AdminDolphin(OFFICIAL)#6542, shermy the cat#0002")
 		try:
 			await ctx.send(embed=embed, components=promobuttons)
 		except:
@@ -273,7 +273,7 @@ class TheStuff(commands.Cog):
 			await asyncio.sleep(0.2)
 			await msg.delete()
 			if not voted:
-				return await ctx.send(f"The limit for non-voters is 30! {ctx.author.mention}, vote on top.gg to increase it to 35!\nAll you need to do is sign in with Discord and click the button.\nhttps://top.gg/bot/847164104161361921/vote")
+				return await ctx.send(f"The limit for non-voters is 30! {ctx.author.mention}, vote on top.gg to increase it to 35!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 		if number > 35 or number < 1:
 			return await ctx.send("Number must be between 1 and 30 (35 if you vote!) Defaults to 10.",
 				components=[
@@ -308,9 +308,18 @@ class TheStuff(commands.Cog):
 			filename = f"dumpy{messageid}.gif"
 			try:
 				await ctx.send(
-					f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
+					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 					file=discord.File(filename, filename=filename),
 					components=promobuttons
+				)
+				await ctx.send("Remember to invite the bot to your server(s)! I'm trying to get to 15,000!",
+					components=[
+						Button(
+							style=ButtonStyle.URL,
+							label="Click to invite the bot!",
+							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+						)
+					]
 				)
 			except:
 				await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
@@ -349,7 +358,7 @@ class TheStuff(commands.Cog):
 🔮 This guild is on shard {ctx.guild.shard_id}, with a total of {len(shards)} shards.
 👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
 📈 I have {int(votes):,} monthly votes on top.gg.
-🧑‍💻 I am on version {version}.
+🧑‍💻 I am on jar version {version}.
 """, components=promobuttons)
 
 	@commands.command()
