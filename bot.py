@@ -312,11 +312,11 @@ class TheStuff(commands.Cog):
 					file=discord.File(filename, filename=filename),
 					components=promobuttons
 				)
-				await ctx.send("Remember to invite the bot to your server(s)! I'm trying to get to 15,000!",
+				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 15,000, and I'm currently at f{len(bot.guilds):,}!\nClick/tap here: <https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
 					components=[
 						Button(
 							style=ButtonStyle.URL,
-							label="Click to invite the bot!",
+							label="Or click here to invite the bot!",
 							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 						)
 					]
