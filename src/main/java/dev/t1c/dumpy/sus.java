@@ -142,8 +142,10 @@ public class sus {
 					var pixelI = main.getResource("dumpy/" + count + ".png");
 					BufferedImage pixel = ImageIO.read(pixelI);
 					pixel = shader(pixel, image.getRGB(x, y));
-					// overlays it
-					frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
+					// overlays it (if not null)
+					if (pixel != null) {
+					    frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
+					}
 
 					// Handles animating
 					count++;
@@ -221,7 +223,7 @@ public class sus {
 
 	public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
 		Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
-		BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+		BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
 		outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
 		return outputImage;
 	}
@@ -264,7 +266,7 @@ public class sus {
 		}
 
 		// Create a buffered image with transparency
-		BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+		BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
 		// Draw the image on to the buffered image
 		Graphics2D bGr = bimage.createGraphics();
@@ -332,6 +334,13 @@ public class sus {
 	// New pixel shader
 	public static BufferedImage shader(BufferedImage t, int pRgb) {
 		Color entry = new Color(pRgb);
+		// alpha check. Checks for alpha of pixel. If it's transparent enough, it returns null.
+		// alpha check
+                int WHY = (pRgb >> 24) & 0xFF;
+		long lim = Math.round(255.0 * 0.07);
+		if (WHY < lim) {
+		    return null;
+		}
 		// brightness check. If the pixel is too dim, the brightness is floored to the
 		// standard "black" level.
 		float[] hsb = new float[3];
