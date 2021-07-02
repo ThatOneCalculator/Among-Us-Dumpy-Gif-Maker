@@ -171,30 +171,7 @@ public class sus {
 
 		// Combines frames into final GIF
 		System.out.println("Converting....");
-		BufferedImage first = ImageIO.read(new File(dotSlash + "F_1" + extraoutput + ".png"));
-		ImageOutputStream imageoutput = new FileImageOutputStream(new File(output));
-
-		GifSequenceWriter writer = new GifSequenceWriter(imageoutput, first.getType(), 50, true);
-		writer.writeToSequence(first);
-
-		File[] images = new File[] {
-			new File(dotSlash + "F_2" + extraoutput + ".png"),
-			new File(dotSlash + "F_3" + extraoutput + ".png"),
-			new File(dotSlash + "F_4" + extraoutput + ".png"),
-			new File(dotSlash + "F_5" + extraoutput + ".png")
-		};
-
-		for (File i : images) {
-			try {
-				BufferedImage next = ImageIO.read(i);
-				writer.writeToSequence(next);
-			} catch (IOException e) {
-				System.out.println("Couldn't add " + i.toString());
-			}
-		}
-
-		writer.close();
-		imageoutput.close();
+		runCmd("convert -delay 1x20 -loop 0 -alpha set -dispose previous " + dotSlash + "F_*" + extraoutput + ".png  " + output);
 		boolean win = isWindows();
 
 		String[] filenames = new String[] {
