@@ -25,24 +25,23 @@ import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOInvalidTreeException;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+// import javafx.application.Application;
+// import javafx.event.ActionEvent;
+// import javafx.event.EventHandler;
+// import javafx.geometry.Insets;
+// import javafx.scene.Scene;
+// import javafx.scene.control.Button;
+// import javafx.scene.layout.GridPane;
+// import javafx.scene.layout.Pane;
+// import javafx.scene.layout.VBox;
+// import javafx.stage.FileChooser;
+// import javafx.stage.Stage;
 
 public class sus {
 
@@ -73,7 +72,7 @@ public class sus {
 				if (args[0].toLowerCase().indexOf("help") != -1) {
 					System.out.println("""
 
-							`java -jar Among-Us-Dumpy-Gif-Maker-2.0.2-all.jar lines filepath` for adding arguments
+							`java -jar Among-Us-Dumpy-Gif-Maker-3.0.0-all.jar lines filepath` for adding arguments
 
 							*All arguments optional!*
 							- `lines` is the number of lines, which defaults to 9.
@@ -81,7 +80,7 @@ public class sus {
 					System.exit(0);
 				}
 				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 2.0.2");
+					System.out.println("Version 3.0.0");
 					System.exit(0);
 				}
 				try {
