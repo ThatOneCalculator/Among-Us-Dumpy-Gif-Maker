@@ -1,40 +1,31 @@
 plugins {
-	id("com.github.johnrengelman.shadow") version "7.0.0"
-	id("org.openjfx.javafxplugin") version "0.0.10"
-	application
-	java
+  id("com.github.johnrengelman.shadow") version "7.0.0"
+  application
+  java
 }
 
 group = "dev.t1c.amogus"
-version = "3.0.0"
+version = "2.1.0"
 
 repositories {
-	mavenCentral()
-}
-
-javafx {
-	modules("javafx.application", "javafx.event", "javafx.geometry", "javafx.scene", "javafx.stage")
-}
-
-dependencies {
-  // i have no idea if u need any but put it like:
-  // implementation("...")
+   mavenCentral()
 }
 
 application {
-	mainClass.set("dev.t1c.dumpy.sus")
-	java {
-		sourceCompatibility = JavaVersion.VERSION_15
-		targetCompatibility = JavaVersion.VERSION_15
-	}
+    mainClass.set("dev.t1c.dumpy.sus")
+    java {
+        sourceCompatibility = JavaVersion.VERSION_15
+        targetCompatibility = JavaVersion.VERSION_15
+    }
 }
 
-	compileJava {
-		options.encoding = "UTF-8"
-	}
+tasks {
+   compileJava {
+      options.encoding = "UTF-8"
+   }
 
-	build {
-		dependsOn(compileJava)
-		dependsOn(shadowJar)
-	}
+   build {
+      dependsOn(compileJava)
+      dependsOn(shadowJar)
+   }
 }
