@@ -166,7 +166,7 @@ class HelpCommand(commands.Cog):
 		)
 		embed.add_field(
 			name="`!!furry (height) (@person)`",
-			value="The same as `!!dumpy`, but uses a furry template, UwU~",
+			value="The same as `!!dumpy`, but uses a furry template, UwU~ (Template by [twistCMYK](https://twitter.com/twistCMYK))",
 			inline=False
 		)
 		embed.add_field(
