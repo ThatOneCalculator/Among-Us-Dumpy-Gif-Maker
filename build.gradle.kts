@@ -5,10 +5,14 @@ plugins {
 }
 
 group = "dev.t1c.amogus"
-version = "2.1.0"
+version = "3.0.0"
 
 repositories {
    mavenCentral()
+}
+
+dependencies {
+   implementation("commons-cli:commons-cli:1.4")
 }
 
 application {

@@ -15,6 +15,7 @@ import aiofiles
 import aiohttp
 import discord
 import humanfriendly
+import statcord
 import topgg
 from async_timeout import timeout
 from discord.ext import commands, tasks
@@ -36,8 +37,12 @@ with open("topgg.txt", "r") as f:
 	lines = f.readlines()
 	topggtoken = lines[0].strip()
 
+with open("statcord.txt", "r") as f:
+	lines = f.readlines()
+	statcordkey = lines[0].strip()
+
 upsince = datetime.datetime.now()
-version = "2.1.0"
+version = "3.0.0"
 
 intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!!"), intents=intents, chunk_guilds_at_startup=False)
@@ -71,6 +76,17 @@ promobuttons = [
 		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 	)
 ]
+
+
+class StatcordPost(commands.Cog):
+	def __init__(self, bot):
+		self.bot = bot
+		self.api = statcord.Client(self.bot, statcordkey)
+		self.api.start_loop()
+
+	@commands.Cog.listener()
+	async def on_command(self, ctx):
+		self.api.command_run(ctx)
 
 class CommandErrorHandler(commands.Cog):
 
@@ -148,9 +164,14 @@ class HelpCommand(commands.Cog):
 			inline=False
 		)
 		embed.add_field(
-			name="`!!eject <@person>`",
-			value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output."
+			name="`!!furry (height) (@person)`",
+			value="The same as `!!dumpy`, but uses a furry template, UwU~",
+			inline=False
 		)
+		# embed.add_field(
+		# 	name="`!!eject <@person>`",
+		# 	value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output."
+		# )
 		embed.add_field(
 			name="`!!text <text>`",
 			value="Writes something out, but sus."
@@ -195,9 +216,12 @@ class HelpCommand(commands.Cog):
 		await ctx.send("https://discord.gg/VRawXXybvd")
 
 
-def blocking(messageid, number):
+def blocking(messageid, furry, number):
+	fur = ""
+	if furry:
+		fur = "--mode furry"
 	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar {number} attach_{messageid}.png {messageid}")
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {number} --file attach_{messageid}.png {fur} --extraoutput {messageid}")
 	subprocess.check_call(cmd)
 
 async def asyncimage(url, filename):
@@ -220,23 +244,24 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
-		if type(victim) != discord.Member:
-			return await ctx.send("You need to mention someone!")
-		imposter = random.choice(["true", "false"])
-		if "impost" in ctx.message.content:
-			imposter = "true"
-		elif "crewmate" in ctx.message.content:
-			imposter = "false"
-		url = str(victim.avatar_url_as(format="png"))
-		async with ctx.typing():
-			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
-			await ctx.send(
-				f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
-				file=file,
-				components=promobuttons
-			)
-		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
-		subprocess.check_call(rm)
+		await ctx.send("This command has been temporarily disabled. Check back soon!")
+		# if type(victim) != discord.Member:
+		# 	return await ctx.send("You need to mention someone!")
+		# imposter = random.choice(["true", "false"])
+		# if "impost" in ctx.message.content:
+		# 	imposter = "true"
+		# elif "crewmate" in ctx.message.content:
+		# 	imposter = "false"
+		# url = str(victim.avatar_url_as(format="png"))
+		# async with ctx.typing():
+		# 	file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
+		# 	await ctx.send(
+		# 		f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
+		# 		file=file,
+		# 		components=promobuttons
+		# 	)
+		# rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
+		# subprocess.check_call(rm)
 
 	@commands.command(aliases=["font", "write"])
 	@commands.cooldown(1, 5, commands.BucketType.user)
@@ -262,7 +287,7 @@ class TheStuff(commands.Cog):
 		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command(aliases=["twerk", "amogus"])
+	@commands.command(aliases=["twerk", "amogus", "furry", "twist"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
@@ -305,7 +330,10 @@ class TheStuff(commands.Cog):
 				subprocess.check_call(shlex.split(
 					f"bash -c 'rm ./attach_{messageid}.png'"))
 				return await ctx.send("This image is way too long, you're the imposter!")
-			await loop.run_in_executor(None, blocking, messageid, number)
+			furry = False
+			if "furry" in ctx.message.content or "twist" in ctx.message.content:
+				furry = True
+			await loop.run_in_executor(None, blocking, messageid, furry, number)
 			filename = f"dumpy{messageid}.gif"
 			try:
 				await ctx.send(
@@ -421,6 +449,7 @@ class TheStuff(commands.Cog):
 
 bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
+bot.add_cog(StatcordPost(bot))
 bot.add_cog(TheStuff(bot))
 bot.add_cog(TopGG(bot))
 bot.add_cog(CommandErrorHandler(bot))

@@ -26,7 +26,7 @@
 
 
 ### Please credit this repository when you use this program!
-##### Current version: 2.1.0
+##### Current version: 3.0.0
 
 # Instructions
 
@@ -50,23 +50,23 @@
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v2.1.0/Among-Us-Dumpy-Gif-Maker-2.1.0-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v3.0.0/Among-Us-Dumpy-Gif-Maker-3.0.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-2.1.0-all.jar` for defaults
-- `java -jar Among-Us-Dumpy-Gif-Maker-2.1.0-all.jar help/version` for help/version
-- `java -jar Among-Us-Dumpy-Gif-Maker-2.1.0-all.jar lines filepath` for adding arguments
-
-
-#### *All arguments optional!*
-- `lines` is the number of lines, which defaults to 9.
-- `filepath` is a filepath to give it instead of using the file picker.
-
-A file called "dumpy.gif" will be made in the same folder as the jar.
-
+- `java -jar Among-Us-Dumpy-Gif-Maker-3.0.0-all.jar <flags>`
+All flags are optional.
+Flags:
+```
+--background <arg>    Path to custom background
+--extraoutput <arg>   Appends text to output files
+--file <arg>          Path to file, hides file picker
+--help                Shows this message
+--lines <arg>         Changes the number of lines (defaults to 10)
+--mode <arg>          Crewmade mode, currently supports default and furry
+```
 ### From source:
 *Not recommended unless you intend to modify the code!*
 - Need [Gradle](https://gradle.org/)
@@ -75,5 +75,5 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-2.1.0-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.0.0-all.jar
 ```

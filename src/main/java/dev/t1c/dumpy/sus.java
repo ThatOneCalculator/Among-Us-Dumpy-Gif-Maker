@@ -10,6 +10,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 
 import java.awt.image.LookupOp;
 
@@ -31,17 +32,13 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
 
-// import javafx.application.Application;
-// import javafx.event.ActionEvent;
-// import javafx.event.EventHandler;
-// import javafx.geometry.Insets;
-// import javafx.scene.Scene;
-// import javafx.scene.control.Button;
-// import javafx.scene.layout.GridPane;
-// import javafx.scene.layout.Pane;
-// import javafx.scene.layout.VBox;
-// import javafx.stage.FileChooser;
-// import javafx.stage.Stage;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 public class sus {
 
@@ -56,6 +53,7 @@ public class sus {
 
 		var main = new sus();
 		String dotSlash = "./";
+		String background = "dumpy/black.png";
 		boolean windows = isWindows();
 		if (windows) {
 			dotSlash = ".\\";
@@ -63,50 +61,79 @@ public class sus {
 
 		String input = "";
 		String extraoutput = "";
+		String mode = "default";
 		boolean needFile = true;
 
-		int ty = 9; // width value
+		int ty = 10; // width value
 
-		if (args.length > 0) {
-			if (args[0] != null) {
-				if (args[0].toLowerCase().indexOf("help") != -1) {
-					System.out.println("""
+		Options options = new Options();
 
-							`java -jar Among-Us-Dumpy-Gif-Maker-2.1.0-all.jar lines filepath` for adding arguments
+		Option li = Option.builder().longOpt("lines").hasArg().desc("Changes the number of lines (defaults to 10)").build();
+		Option fl = Option.builder().longOpt("file").hasArg().desc("Path to file, hides file picker").build();
+		Option bk = Option.builder().longOpt("background").hasArg().desc("Path to custom background").build();
+		Option md = Option.builder().longOpt("mode").hasArg().desc("Crewmade mode, currently supports default and furry").build();
+		Option eo = Option.builder().longOpt("extraoutput").hasArg().desc("Appends text to output files").build();
+		Option hp = Option.builder().longOpt("help").desc("Shows this message").build();
+		options.addOption(li);
+		options.addOption(fl);
+		options.addOption(bk);
+		options.addOption(md);
+		options.addOption(eo);
+		options.addOption(hp);
 
-							*All arguments optional!*
-							- `lines` is the number of lines, which defaults to 9.
-							- `filepath` is a filepath to give it instead of using the file picker.""");
-					System.exit(0);
-				}
-				if (args[0].toLowerCase().indexOf("version") != -1) {
-					System.out.println("Version 2.1.0");
-					System.exit(0);
-				}
-				try {
-					ty = Integer.parseInt(args[0]);
-				} catch (NumberFormatException e) {
-					System.err.println("Not a number!");
-				}
-			}
-			if (args.length >= 2 && args[1] != null) {
-				input = args[1];
-				needFile = false;
-			}
+		HelpFormatter formatter = new HelpFormatter();
 
-			if (args.length >= 3 && args[2] != null) {
-				extraoutput = args[2];
-				needFile = false;
+		CommandLineParser parser = new DefaultParser();
+		CommandLine cmd = parser.parse(options, args);
+
+		if (cmd.hasOption("help")) {
+			formatter.printHelp("Among Us Dumpy Gif Maker\nAll flags are optional.", options);
+			System.exit(0);
+		}
+
+		if (cmd.hasOption("lines")) {
+			try {
+				ty = Integer.parseInt(cmd.getOptionValue("lines"));
+			} catch (NumberFormatException e) {
+				System.err.println("Lines value is not a number!");
+				System.exit(1);
 			}
 		}
 
-		if (needFile) {
+		if (cmd.hasOption("background")) {
+			background = cmd.getOptionValue("background");
+		}
+
+		if (cmd.hasOption("file")) {
+			input = cmd.getOptionValue("file");
+		}
+		else {
 			input = pickFile();
 		}
 
-		// Gets BG and input file
-		InputStream blackImg = main.getResource("dumpy/black.png");
-		BufferedImage bg = ImageIO.read(blackImg);
+		if (cmd.hasOption("mode")) {
+			mode = cmd.getOptionValue("mode");
+			if (!(mode.equals("furry")) && !(mode.equals("default"))) {
+				System.out.println("Mode has to be default or furry!");
+				System.exit(1);
+			}
+		}
+
+		if (cmd.hasOption("extraoutput")) {
+			extraoutput = cmd.getOptionValue("extraoutput");
+		}
+
+		BufferedImage bg;
+
+		try {
+			InputStream blackImg = main.getResource(background);
+			bg = ImageIO.read(blackImg);
+		}
+		catch (Exception e){
+			File blackImg = new File(background);
+			bg = ImageIO.read(blackImg);
+		}
+
 		BufferedImage r = ImageIO.read(new File(input));
 
 		// Calculates size from height
@@ -116,55 +143,106 @@ public class sus {
 		// Prepares source image
 		BufferedImage image = toBufferedImage(r.getScaledInstance(tx, ty, Image.SCALE_SMOOTH));
 
-		// Actually makes the frames
-		BufferedImage[] frames = new BufferedImage[6];
-
 		// Sets up BG
 		int pad = 10;
 		int ix = (tx * 74) + (pad * 2);
 		int iy = (ty * 63) + (pad * 2);
 
-		// Plots crewmates
-		for (int index = 0; index < frames.length; index++) {
-			// bg
-			frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+		if (mode.equals("furry")) {
 
-			// counts. One for iterating across frames and the other for the line reset
-			int count = index;
-			int count2 = index;
+			// Actually makes the frames
+			BufferedImage[] frames = new BufferedImage[5];
 
-			// iterates through pixels
-			for (int y = 0; y < ty; y++) {
-				for (int x = 0; x < tx; x++) {
+			// Plots crewmates
+			for (int index = 0; index < frames.length; index++) {
+				// bg
+				frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
 
-					// Grabs appropriate pixel frame
-					var pixelI = main.getResource("dumpy/" + count + ".png");
-					BufferedImage pixel = ImageIO.read(pixelI);
-					pixel = shader(pixel, image.getRGB(x, y));
-					// overlays it (if not null)
-					if (pixel != null) {
-					    frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
+				// counts. One for iterating across frames and the other for the line reset
+				int count = index;
+				int count2 = index;
+
+				// iterates through pixels
+				for (int y = 0; y < ty; y++) {
+					for (int x = 0; x < tx; x++) {
+
+						// Grabs appropriate pixel frame
+						var pixelI = main.getResource("dumpy/" + count + "_twist.png");
+						BufferedImage pixel = ImageIO.read(pixelI);
+						pixel = shader(pixel, image.getRGB(x, y));
+						// overlays it (if not null)
+						if (pixel != null) {
+							frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
+						}
+
+						// Handles animating
+						count++;
+						if (count == 5) {
+							count = 0;
+						}
 					}
-
-					// Handles animating
-					count++;
-					if (count == 6) {
-						count = 0;
+					// Handles line resets
+					count2--;
+					if (count2 == -1) {
+						count2 = 4;
 					}
+					count = count2;
 				}
-				// Handles line resets
-				count2--;
-				if (count2 == -1) {
-					count2 = 5;
-				}
-				count = count2;
+				// Writes finished frames
+				ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
+
+				// Gives an idea of progress
+				System.out.println(index);
 			}
-			// Writes finished frames
-			ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
-
-			// Gives an idea of progress
-			System.out.println(index);
 		}
+		else {
+
+			// Actually makes the frames
+			BufferedImage[] frames = new BufferedImage[6];
+
+			// Plots crewmates
+			for (int index = 0; index < frames.length; index++) {
+				// bg
+				frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+
+				// counts. One for iterating across frames and the other for the line reset
+				int count = index;
+				int count2 = index;
+
+				// iterates through pixels
+				for (int y = 0; y < ty; y++) {
+					for (int x = 0; x < tx; x++) {
+
+						// Grabs appropriate pixel frame
+						var pixelI = main.getResource("dumpy/" + count + ".png");
+						BufferedImage pixel = ImageIO.read(pixelI);
+						pixel = shader(pixel, image.getRGB(x, y));
+						// overlays it (if not null)
+						if (pixel != null) {
+							frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
+						}
+
+						// Handles animating
+						count++;
+						if (count == 6) {
+							count = 0;
+						}
+					}
+					// Handles line resets
+					count2--;
+					if (count2 == -1) {
+						count2 = 5;
+					}
+					count = count2;
+				}
+				// Writes finished frames
+				ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
+
+				// Gives an idea of progress
+				System.out.println(index);
+			}
+		}
+
 		// Sets output file name
 		String output = dotSlash + "dumpy" + extraoutput + ".gif";
 
@@ -174,6 +252,7 @@ public class sus {
 		boolean win = isWindows();
 
 		String[] filenames = new String[] {
+			dotSlash + "F_0" + extraoutput + ".png",
 			dotSlash + "F_1" + extraoutput + ".png",
 			dotSlash + "F_2" + extraoutput + ".png",
 			dotSlash + "F_3" + extraoutput + ".png",
@@ -182,10 +261,14 @@ public class sus {
 		};
 
 		for (String i : filenames) {
-			if (win) {
-				runCmd("del " + i);
-			} else {
-				runCmd("rm " + i);
+			try {
+				if (win) {
+					runCmd("del " + i);
+				} else {
+					runCmd("rm " + i);
+				}
+			}
+			catch (Exception e) {
 			}
 		}
 
@@ -312,10 +395,10 @@ public class sus {
 		Color entry = new Color(pRgb);
 		// alpha check. Checks for alpha of pixel. If it's transparent enough, it returns null.
 		// alpha check
-                int WHY = (pRgb >> 24) & 0xFF;
+				int WHY = (pRgb >> 24) & 0xFF;
 		long lim = Math.round(255.0 * 0.07);
 		if (WHY < lim) {
-		    return null;
+			return null;
 		}
 		// brightness check. If the pixel is too dim, the brightness is floored to the
 		// standard "black" level.
