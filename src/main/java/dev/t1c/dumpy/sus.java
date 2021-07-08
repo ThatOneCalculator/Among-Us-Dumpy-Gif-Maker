@@ -152,11 +152,13 @@ public class sus {
 		int bufferedImageArraySize = 6;
 		int count1Check = 6;
 		int count2Reset = 5;
+		String modestring = "";
 
 		if (mode.equals("furry")) {
 			bufferedImageArraySize--;
 			count1Check--;
 			count2Reset--;
+			modestring = "_twist";
 		}
 		// Actually makes the frames
 		BufferedImage[] frames = new BufferedImage[bufferedImageArraySize];
@@ -175,7 +177,7 @@ public class sus {
 				for (int x = 0; x < tx; x++) {
 
 					// Grabs appropriate pixel frame
-					var pixelI = main.getResource("dumpy/" + count + ".png");
+					var pixelI = main.getResource("dumpy/" + count + modestring + ".png");
 					BufferedImage pixel = ImageIO.read(pixelI);
 					pixel = shader(pixel, image.getRGB(x, y));
 					// overlays it (if not null)
