@@ -8,6 +8,7 @@
    </a> <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a>
+   <iframe src="https://ghbtns.com/github-btn.html?user=thatonecalculator&repo=Among-Us-Dumpy-Gif-Maker&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
    <!-- <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/">
       <img src="https://shields.io/badge/Star_on-GitHub-black?logo=github&style=flat" />
    </a> -->
@@ -18,7 +19,7 @@
 </p>
 
 <h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer415</a></h3>
-<p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a> <iframe src="https://ghbtns.com/github-btn.html?user=thatonecalculator&repo=Among-Us-Dumpy-Gif-Maker&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+<p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
 
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
 <h6 align="center"> With help from <a href="https://twitter.com/twistCMYK>TwistCMYK</a>, karl-police, and auguwu!</h6>
