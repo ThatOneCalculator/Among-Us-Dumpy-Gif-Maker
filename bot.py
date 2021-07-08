@@ -302,13 +302,13 @@ class TheStuff(commands.Cog):
 		tocheck = ["remove", "clear", "delete"]
 		res = [i for i in tocheck if(i in argument)]
 		if bool(res):
-			if exists(f"backgrounds/{ctx.author.id}.png"):
-				rmcmd = shlex.split(f"bash -c 'rm ./backgrounds/{ctx.author.id}.png'")
+			if exists(f"background_{ctx.author.id}.png"):
+				rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
 				subprocess.check_call(i)
 				return await ctx.send("Your background has been removed!")
 		if len(ctx.message.attachments) > 0:
 			try:
-				await ctx.message.attachments[0].save(f"./backgrounds/{ctx.author.id}.png")
+				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
 			except Exception as e:
 				await ctx.send(f"```{e}```")
 			return await ctx.send("Saved your background!")
@@ -365,8 +365,8 @@ class TheStuff(commands.Cog):
 			if "furry" in ctx.message.content or "twist" in ctx.message.content:
 				mode = "furry"
 			background = ""
-			if exists(f"./backgrounds/{ctx.author.id}.png"):
-				background = f"--background ./backgrounds/{ctx.author.id}.png"
+			if exists(f"background_{ctx.author.id}.png"):
+				background = f"--background background_{ctx.author.id}.png"
 			await loop.run_in_executor(None, blocking, messageid, mode, number,  background)
 			filename = f"dumpy{messageid}.gif"
 			allmembers = 0
