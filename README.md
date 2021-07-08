@@ -7,7 +7,7 @@
       <img src="https://top.gg/api/widget/servers/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a> <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
-   </a> 
+   </a>
    <!-- <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/">
       <img src="https://shields.io/badge/Star_on-GitHub-black?logo=github&style=flat" />
    </a> -->
@@ -21,7 +21,7 @@
 <p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
 <h6 align="center"> With help from Telk, karl-police, and auguwu!</h6>
-<div align="center"> <img src="https://media.discordapp.net/attachments/810799100940255260/853461754016694312/servericon.gif" height=100></div>
+<div align="center"> <img src="https://cdn.discordapp.com/icons/849516341933506561/a_d4c89d8bd30a116e8ea3808478f73387.gif" height=100></div>
  </p>
 
 
