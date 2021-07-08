@@ -318,6 +318,7 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus", "furry", "twist"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
+		await bot.wait_until_ready()
 		await ctx.send("Welcome to v3! You can now run `!!background` and attach an image to set a custom background!")
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
