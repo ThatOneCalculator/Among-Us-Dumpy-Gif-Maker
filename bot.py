@@ -9,6 +9,7 @@ import sys
 import traceback
 import typing
 import urllib.parse
+from os.path import exists
 from typing import Any, Iterable, Tuple
 
 import aiofiles
@@ -155,7 +156,7 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(
 			title="My commands!",
-			description="Made by ThatOneCalculator#1337 and Dsim64#8145!",
+			description="Made by ThatOneCalculator#1337 and Dsim64#8145! `()` = optional, `<>` = mandatory.",
 			color=0x976BE1
 		)
 		embed.add_field(
@@ -166,6 +167,11 @@ class HelpCommand(commands.Cog):
 		embed.add_field(
 			name="`!!furry (height) (@person)`",
 			value="The same as `!!dumpy`, but uses a furry template, UwU~",
+			inline=False
+		)
+		embed.add_field(
+			name="`!!background (remove)`",
+			value="Attach an image to set a custom background image for `!!dumpy` and `!!furry`. Run `!!background remove` to remove the background.",
 			inline=False
 		)
 		# embed.add_field(
@@ -189,6 +195,10 @@ class HelpCommand(commands.Cog):
 			value="Check the number of votes on top.gg, and vote for the bot."
 		)
 		embed.add_field(
+			name="`!!statcord`",
+			value="Brings you to the bot's statcord page."
+		)
+		embed.add_field(
 			name="`!!literallynobot`",
 			value="Directs you to ThatOneCalculator's main bot LiterallyNoBot."
 		)
@@ -208,6 +218,10 @@ class HelpCommand(commands.Cog):
 		await ctx.send("https://top.gg/bot/646156214237003777")
 
 	@commands.command()
+	async def statcord(self, ctx):
+		await ctx.send("https://beta.statcord.com/bot/847164104161361921")
+
+	@commands.command()
 	async def invite(self, ctx):
 		await ctx.send("https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 
@@ -216,12 +230,9 @@ class HelpCommand(commands.Cog):
 		await ctx.send("https://discord.gg/VRawXXybvd")
 
 
-def blocking(messageid, furry, number):
-	fur = ""
-	if furry:
-		fur = "--mode furry"
+def blocking(messageid, mode, number, background):
 	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {number} --file attach_{messageid}.png {fur} --extraoutput {messageid}")
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {number} --file attach_{messageid}.png --mode {mode} --extraoutput {messageid} {background}")
 	subprocess.check_call(cmd)
 
 async def asyncimage(url, filename):
@@ -286,9 +297,28 @@ class TheStuff(commands.Cog):
 		lb = "\n"
 		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
+	@commands.cooldown(1, 30, commands.BucketType.user)
+	async def background(self, ctx, argument):
+		tocheck = ["remove", "clear", "delete"]
+		res = [i for i in tocheck if(i in argument)]
+		if bool(res):
+			if exists(f"backgrounds/{ctx.author.id}.png"):
+			rmcmd = shlex.split(f"bash -c 'rm ./backgrounds/{ctx.author.id}.png'")
+			subprocess.check_call(i)
+			return await ctx.send("Your background has been removed!")
+		if len(ctx.message.attachments) > 0:
+			try:
+				await ctx.message.attachments[0].save(f"backgrounds/{ctx.author.id}.png")
+			except Exception as e:
+				await ctx.send(f"```{e}```")
+			return await ctx.send("Saved your background!")
+		else:
+			return await ctx.send("You NEED to attach a file in your message to set your background. Try again in 30 seconds.\nTo delete your background, run `!!background delete`.")
+
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus", "furry", "twist"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
+		await ctx.send("Welcome to v3! You can now run `!!background` and attach an image to set a custom background!")
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
@@ -330,10 +360,13 @@ class TheStuff(commands.Cog):
 				subprocess.check_call(shlex.split(
 					f"bash -c 'rm ./attach_{messageid}.png'"))
 				return await ctx.send("This image is way too long, you're the imposter!")
-			furry = False
+			mode = "default"
 			if "furry" in ctx.message.content or "twist" in ctx.message.content:
-				furry = True
-			await loop.run_in_executor(None, blocking, messageid, furry, number)
+				mode = "furry"
+			background = ""
+			if exists(f"backgrounds/{ctx.author.id}.png"):
+				background = f"--background backgrounds.{ctx.author.id}.png"
+			await loop.run_in_executor(None, blocking, messageid, mode, number,  background)
 			filename = f"dumpy{messageid}.gif"
 			try:
 				await ctx.send(

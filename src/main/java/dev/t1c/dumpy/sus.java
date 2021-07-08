@@ -148,99 +148,59 @@ public class sus {
 		int ix = (tx * 74) + (pad * 2);
 		int iy = (ty * 63) + (pad * 2);
 
+		// sets up loop vars
+		int bufferedImageArraySize = 6;
+		int count1Check = 6;
+		int count2Reset = 5;
+
 		if (mode.equals("furry")) {
-
-			// Actually makes the frames
-			BufferedImage[] frames = new BufferedImage[5];
-
-			// Plots crewmates
-			for (int index = 0; index < frames.length; index++) {
-				// bg
-				frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
-
-				// counts. One for iterating across frames and the other for the line reset
-				int count = index;
-				int count2 = index;
-
-				// iterates through pixels
-				for (int y = 0; y < ty; y++) {
-					for (int x = 0; x < tx; x++) {
-
-						// Grabs appropriate pixel frame
-						var pixelI = main.getResource("dumpy/" + count + "_twist.png");
-						BufferedImage pixel = ImageIO.read(pixelI);
-						pixel = shader(pixel, image.getRGB(x, y));
-						// overlays it (if not null)
-						if (pixel != null) {
-							frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
-						}
-
-						// Handles animating
-						count++;
-						if (count == 5) {
-							count = 0;
-						}
-					}
-					// Handles line resets
-					count2--;
-					if (count2 == -1) {
-						count2 = 4;
-					}
-					count = count2;
-				}
-				// Writes finished frames
-				ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
-
-				// Gives an idea of progress
-				System.out.println(index);
-			}
+			bufferedImageArraySize--;
+			count1Check--;
+			count2Reset--;
 		}
-		else {
+		// Actually makes the frames
+		BufferedImage[] frames = new BufferedImage[bufferedImageArraySize];
 
-			// Actually makes the frames
-			BufferedImage[] frames = new BufferedImage[6];
+		// Plots crewmates
+		for (int index = 0; index < frames.length; index++) {
+			// bg
+			frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
 
-			// Plots crewmates
-			for (int index = 0; index < frames.length; index++) {
-				// bg
-				frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+			// counts. One for iterating across frames and the other for the line reset
+			int count = index;
+			int count2 = index;
 
-				// counts. One for iterating across frames and the other for the line reset
-				int count = index;
-				int count2 = index;
+			// iterates through pixels
+			for (int y = 0; y < ty; y++) {
+				for (int x = 0; x < tx; x++) {
 
-				// iterates through pixels
-				for (int y = 0; y < ty; y++) {
-					for (int x = 0; x < tx; x++) {
-
-						// Grabs appropriate pixel frame
-						var pixelI = main.getResource("dumpy/" + count + ".png");
-						BufferedImage pixel = ImageIO.read(pixelI);
-						pixel = shader(pixel, image.getRGB(x, y));
-						// overlays it (if not null)
-						if (pixel != null) {
-							frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
-						}
-
-						// Handles animating
-						count++;
-						if (count == 6) {
-							count = 0;
-						}
+					// Grabs appropriate pixel frame
+					var pixelI = main.getResource("dumpy/" + count + ".png");
+					BufferedImage pixel = ImageIO.read(pixelI);
+					pixel = shader(pixel, image.getRGB(x, y));
+					// overlays it (if not null)
+					if (pixel != null) {
+						frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
 					}
-					// Handles line resets
-					count2--;
-					if (count2 == -1) {
-						count2 = 5;
+
+					// Handles animating
+					count++;
+					if (count == count1Check) {
+						count = 0;
 					}
-					count = count2;
 				}
-				// Writes finished frames
-				ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
-
-				// Gives an idea of progress
-				System.out.println(index);
+				// Handles line resets
+				count2--;
+				if (count2 == -1) {
+					count2 = count2Reset;
+				}
+				count = count2;
 			}
+			// Writes finished frames
+			ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
+
+			// Gives an idea of progress
+			System.out.println(index);
 		}
 
 		// Sets output file name
