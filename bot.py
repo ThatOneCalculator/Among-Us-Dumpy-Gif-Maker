@@ -308,7 +308,7 @@ class TheStuff(commands.Cog):
 				return await ctx.send("Your background has been removed!")
 		if len(ctx.message.attachments) > 0:
 			try:
-				await ctx.message.attachments[0].save(f"backgrounds/{ctx.author.id}.png")
+				await ctx.message.attachments[0].save(f"./backgrounds/{ctx.author.id}.png")
 			except Exception as e:
 				await ctx.send(f"```{e}```")
 			return await ctx.send("Saved your background!")
@@ -365,8 +365,8 @@ class TheStuff(commands.Cog):
 			if "furry" in ctx.message.content or "twist" in ctx.message.content:
 				mode = "furry"
 			background = ""
-			if exists(f"backgrounds/{ctx.author.id}.png"):
-				background = f"--background backgrounds.{ctx.author.id}.png"
+			if exists(f"./backgrounds/{ctx.author.id}.png"):
+				background = f"--background ./backgrounds/{ctx.author.id}.png"
 			await loop.run_in_executor(None, blocking, messageid, mode, number,  background)
 			filename = f"dumpy{messageid}.gif"
 			allmembers = 0
