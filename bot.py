@@ -303,9 +303,9 @@ class TheStuff(commands.Cog):
 		res = [i for i in tocheck if(i in argument)]
 		if bool(res):
 			if exists(f"backgrounds/{ctx.author.id}.png"):
-			rmcmd = shlex.split(f"bash -c 'rm ./backgrounds/{ctx.author.id}.png'")
-			subprocess.check_call(i)
-			return await ctx.send("Your background has been removed!")
+				rmcmd = shlex.split(f"bash -c 'rm ./backgrounds/{ctx.author.id}.png'")
+				subprocess.check_call(i)
+				return await ctx.send("Your background has been removed!")
 		if len(ctx.message.attachments) > 0:
 			try:
 				await ctx.message.attachments[0].save(f"backgrounds/{ctx.author.id}.png")
