@@ -298,7 +298,7 @@ class TheStuff(commands.Cog):
 		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
 	@commands.cooldown(1, 30, commands.BucketType.user)
-	async def background(self, ctx, argument):
+	async def background(self, ctx, argument: str = None):
 		tocheck = ["remove", "clear", "delete"]
 		res = [i for i in tocheck if(i in argument)]
 		if bool(res):
