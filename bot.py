@@ -369,13 +369,16 @@ class TheStuff(commands.Cog):
 				background = f"--background backgrounds.{ctx.author.id}.png"
 			await loop.run_in_executor(None, blocking, messageid, mode, number,  background)
 			filename = f"dumpy{messageid}.gif"
+			allmembers = 0
+			for guild in self.bot.guilds:
+				allmembers += guild.member_count
 			try:
 				await ctx.send(
 					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 					file=discord.File(filename, filename=filename),
 					components=promobuttons
 				)
-				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 15,000, and I'm currently at f{len(bot.guilds):,}!\nClick/tap here: <https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
+				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 1,000,000 users, and I'm currently at {allmembers:,}!\nClick/tap here: <https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
 					components=[
 						Button(
 							style=ButtonStyle.URL,
