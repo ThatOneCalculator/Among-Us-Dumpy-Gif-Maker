@@ -463,7 +463,7 @@ class TheStuff(commands.Cog):
 
 	@tasks.loop(minutes=5)
 	async def update_channels(self):
-		await self.bot-wait_until_ready()
+		await self.bot.wait_until_ready()
 		botinfo = await self.bot.topggpy.get_bot_info()
 		votes = botinfo["monthly_points"]
 		allmembers = 0
