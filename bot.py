@@ -42,6 +42,9 @@ with open("statcord.txt", "r") as f:
 	lines = f.readlines()
 	statcordkey = lines[0].strip()
 
+api = statcord.Client(bot, statcordkey)
+api.start_loop()
+
 upsince = datetime.datetime.now()
 version = "3.0.0"
 
@@ -78,16 +81,6 @@ promobuttons = [
 	)
 ]
 
-
-class StatcordPost(commands.Cog):
-	def __init__(self, bot):
-		self.bot = bot
-		self.api = statcord.Client(self.bot, statcordkey)
-		self.api.start_loop()
-
-	@commands.Cog.listener()
-	async def on_command(self, ctx):
-		self.api.command_run(ctx)
 
 class CommandErrorHandler(commands.Cog):
 
@@ -489,18 +482,17 @@ class TheStuff(commands.Cog):
 
 bot.remove_command("help")
 bot.add_cog(HelpCommand(bot))
-bot.add_cog(StatcordPost(bot))
 bot.add_cog(TheStuff(bot))
 bot.add_cog(TopGG(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
 @bot.event
-async def on_message(message):
-	if message.guild == None and message.author.bot == False:
-		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-	elif (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
-		return await message.channel.send("**Commands have been disabled in this channel.**")
-	await bot.process_commands(message)
+async def on_command(ctx):
+	if ctx.guild == None and ctx.author.bot == False:
+		return await ctx.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+	elif ctx.channel.topic != None and ctx.channel.topic.find("nodumpy") != -1:
+		return await ctx.send("**Commands have been disabled in this channel.**")
+    api.command_run(ctx)
 
 @bot.event
 async def on_ready():
