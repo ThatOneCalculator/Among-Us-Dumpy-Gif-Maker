@@ -164,13 +164,17 @@ public class sus {
 		BufferedImage[] frames = new BufferedImage[bufferedImageArraySize];
 
 		// Plots crewmates
+		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
+		    final int indexx = index;
+		    new Thread(()->{
+        	    try {
 			// bg
-			frames[index] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+			frames[indexx] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
 
 			// counts. One for iterating across frames and the other for the line reset
-			int count = index;
-			int count2 = index;
+			int count = indexx;
+			int count2 = indexx;
 
 			// iterates through pixels
 			for (int y = 0; y < ty; y++) {
@@ -182,7 +186,7 @@ public class sus {
 					pixel = shader(pixel, image.getRGB(x, y));
 					// overlays it (if not null)
 					if (pixel != null) {
-						frames[index] = overlayImages(frames[index], pixel, (x * 74) + pad, (y * 63) + pad);
+						frames[indexx] = overlayImages(frames[indexx], pixel, (x * 74) + pad, (y * 63) + pad);
 					}
 
 					// Handles animating
@@ -199,12 +203,17 @@ public class sus {
 				count = count2;
 			}
 			// Writes finished frames
-			ImageIO.write(frames[index], "PNG", new File(dotSlash + "F_" + index + extraoutput + ".png"));
+			ImageIO.write(frames[indexx], "PNG", new File(dotSlash + "F_" + indexx + extraoutput + ".png"));
 
 			// Gives an idea of progress
-			System.out.println(index);
+			System.out.println(indexx);
+			l.countDown();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+		    }).start();
 		}
-
+                l.await();
 		// Sets output file name
 		String output = dotSlash + "dumpy" + extraoutput + ".gif";
 
