@@ -20,7 +20,7 @@
 <h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer415</a></h3>
 <p align="center"> <a href="https://twitter.com/that1calculator" target="blank"><img src="https://img.shields.io/twitter/follow/that1calculator?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://img.shields.io/twitter/follow/pixer415?logo=twitter&style=for-the-badge" alt="that1calculator"/></a>
-<h6 align="center"> With help from <a href="https://twitter.com/twistCMYK">TwistCMYK</a>, karl-police, and auguwu!</h6>
+<h6 align="center"> With help from <a href="https://twitter.com/twistCMYK">twistCMYK</a>, karl-police, and auguwu!</h6>
 <div align="center"> <img src="https://cdn.discordapp.com/icons/849516341933506561/a_d4c89d8bd30a116e8ea3808478f73387.gif" height=100></div>
  </p>
 
