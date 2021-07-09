@@ -165,7 +165,6 @@ public class sus {
 		// Plots crewmates
 		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
-<<<<<<< HEAD
 			final int indexx = index;
 			new Thread(() -> {
 				try {
@@ -201,7 +200,6 @@ public class sus {
 							count2 = count2Reset;
 						}
 						count = count2;
-=======
 		    final int indexx = index;
 	            // "Finalized series" of variables. To fix "final or effectively final" errors.
 		    final BufferedImage F_bg = bg;
@@ -239,7 +237,6 @@ public class sus {
 					count++;
 					if (count == F_count1Check) {
 						count = 0;
->>>>>>> 05c4df2644fbc3008ae0def3006466f85e8e71f5
 					}
 					// Writes finished frames
 					ImageIO.write(frames[indexx], "PNG", new File(dotSlash + "F_" + indexx + extraoutput + ".png"));
@@ -250,9 +247,7 @@ public class sus {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-<<<<<<< HEAD
 			}).start();
-=======
 				// Handles line resets
 				count2--;
 				if (count2 == -1) {
@@ -270,7 +265,6 @@ public class sus {
                         e.printStackTrace();
                     }
 		    }).start();
->>>>>>> 05c4df2644fbc3008ae0def3006466f85e8e71f5
 		}
 		l.await();
 		// Sets output file name
