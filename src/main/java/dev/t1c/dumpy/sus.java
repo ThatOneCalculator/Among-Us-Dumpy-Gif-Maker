@@ -69,10 +69,12 @@ public class sus {
 
 		Options options = new Options();
 
-		Option li = Option.builder().longOpt("lines").hasArg().desc("Changes the number of lines (defaults to 10)").build();
+		Option li = Option.builder().longOpt("lines").hasArg().desc("Changes the number of lines (defaults to 10)")
+				.build();
 		Option fl = Option.builder().longOpt("file").hasArg().desc("Path to file, hides file picker").build();
 		Option bk = Option.builder().longOpt("background").hasArg().desc("Path to custom background").build();
-		Option md = Option.builder().longOpt("mode").hasArg().desc("Crewmade mode, currently supports default and furry").build();
+		Option md = Option.builder().longOpt("mode").hasArg()
+				.desc("Crewmade mode, currently supports default and furry").build();
 		Option eo = Option.builder().longOpt("extraoutput").hasArg().desc("Appends text to output files").build();
 		Option hp = Option.builder().longOpt("help").desc("Shows this message").build();
 		options.addOption(li);
@@ -166,21 +168,31 @@ public class sus {
 		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
 			final int indexx = index;
+			// "Finalized series" of variables. To fix "final or effectively final" errors.
+			final BufferedImage F_bg = bg;
+			final int F_ty = ty;
+			final int F_tx = tx;
+			final String F_modestring = modestring;
+			final int F_count1Check = count1Check;
+			final int F_count2Reset = count2Reset;
+			final String F_dotSlash = dotSlash;
+			final String F_extraoutput = extraoutput;
+			// Start of new thread
 			new Thread(() -> {
 				try {
 					// bg
-					frames[indexx] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+					frames[indexx] = toBufferedImage(F_bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
 
 					// counts. One for iterating across frames and the other for the line reset
 					int count = indexx;
 					int count2 = indexx;
 
 					// iterates through pixels
-					for (int y = 0; y < ty; y++) {
-						for (int x = 0; x < tx; x++) {
+					for (int y = 0; y < F_ty; y++) {
+						for (int x = 0; x < F_tx; x++) {
 
 							// Grabs appropriate pixel frame
-							var pixelI = main.getResource("dumpy/" + count + modestring + ".png");
+							var pixelI = main.getResource("dumpy/" + count + F_modestring + ".png");
 							BufferedImage pixel = ImageIO.read(pixelI);
 							pixel = shader(pixel, image.getRGB(x, y));
 							// overlays it (if not null)
@@ -190,56 +202,19 @@ public class sus {
 
 							// Handles animating
 							count++;
-							if (count == count1Check) {
+							if (count == F_count1Check) {
 								count = 0;
 							}
 						}
 						// Handles line resets
 						count2--;
 						if (count2 == -1) {
-							count2 = count2Reset;
+							count2 = F_count2Reset;
 						}
 						count = count2;
-		    final int indexx = index;
-	            // "Finalized series" of variables. To fix "final or effectively final" errors.
-		    final BufferedImage F_bg = bg;
-		    final int F_ty = ty;
-		    final int F_tx = tx;
-		    final String F_modestring = modestring;
-		    final int F_count1Check = count1Check;
-		    final int F_count2Reset = count2Reset;
-		    final String F_dotSlash = dotSlash;
-		    final String F_extraoutput = extraoutput;
-	            // Start of new thread
-		    new Thread(()->{
-        	    try {
-			// bg
-			frames[indexx] = toBufferedImage(F_bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
-
-			// counts. One for iterating across frames and the other for the line reset
-			int count = indexx;
-			int count2 = indexx;
-
-			// iterates through pixels
-			for (int y = 0; y < F_ty; y++) {
-				for (int x = 0; x < F_tx; x++) {
-
-					// Grabs appropriate pixel frame
-					var pixelI = main.getResource("dumpy/" + count + F_modestring + ".png");
-					BufferedImage pixel = ImageIO.read(pixelI);
-					pixel = shader(pixel, image.getRGB(x, y));
-					// overlays it (if not null)
-					if (pixel != null) {
-						frames[indexx] = overlayImages(frames[indexx], pixel, (x * 74) + pad, (y * 63) + pad);
-					}
-
-					// Handles animating
-					count++;
-					if (count == F_count1Check) {
-						count = 0;
 					}
 					// Writes finished frames
-					ImageIO.write(frames[indexx], "PNG", new File(dotSlash + "F_" + indexx + extraoutput + ".png"));
+					ImageIO.write(frames[indexx], "PNG", new File(F_dotSlash + "F_" + indexx + F_extraoutput + ".png"));
 
 					// Gives an idea of progress
 					System.out.println(indexx);
@@ -248,23 +223,6 @@ public class sus {
 					e.printStackTrace();
 				}
 			}).start();
-				// Handles line resets
-				count2--;
-				if (count2 == -1) {
-					count2 = F_count2Reset;
-				}
-				count = count2;
-			}
-			// Writes finished frames
-			ImageIO.write(frames[indexx], "PNG", new File(F_dotSlash + "F_" + indexx + F_extraoutput + ".png"));
-
-			// Gives an idea of progress
-			System.out.println(indexx);
-			l.countDown();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-		    }).start();
 		}
 		l.await();
 		// Sets output file name
