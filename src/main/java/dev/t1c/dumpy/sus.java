@@ -165,6 +165,7 @@ public class sus {
 		// Plots crewmates
 		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
+<<<<<<< HEAD
 			final int indexx = index;
 			new Thread(() -> {
 				try {
@@ -200,6 +201,45 @@ public class sus {
 							count2 = count2Reset;
 						}
 						count = count2;
+=======
+		    final int indexx = index;
+	            // "Finalized series" of variables. To fix "final or effectively final" errors.
+		    final BufferedImage F_bg = bg;
+		    final int F_ty = ty;
+		    final int F_tx = tx;
+		    final String F_modestring = modestring;
+		    final int F_count1Check = count1Check;
+		    final int F_count2Reset = count2Reset;
+		    final String F_dotSlash = dotSlash;
+		    final String F_extraoutput = extraoutput;
+	            // Start of new thread
+		    new Thread(()->{
+        	    try {
+			// bg
+			frames[indexx] = toBufferedImage(F_bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+
+			// counts. One for iterating across frames and the other for the line reset
+			int count = indexx;
+			int count2 = indexx;
+
+			// iterates through pixels
+			for (int y = 0; y < F_ty; y++) {
+				for (int x = 0; x < F_tx; x++) {
+
+					// Grabs appropriate pixel frame
+					var pixelI = main.getResource("dumpy/" + count + F_modestring + ".png");
+					BufferedImage pixel = ImageIO.read(pixelI);
+					pixel = shader(pixel, image.getRGB(x, y));
+					// overlays it (if not null)
+					if (pixel != null) {
+						frames[indexx] = overlayImages(frames[indexx], pixel, (x * 74) + pad, (y * 63) + pad);
+					}
+
+					// Handles animating
+					count++;
+					if (count == F_count1Check) {
+						count = 0;
+>>>>>>> 05c4df2644fbc3008ae0def3006466f85e8e71f5
 					}
 					// Writes finished frames
 					ImageIO.write(frames[indexx], "PNG", new File(dotSlash + "F_" + indexx + extraoutput + ".png"));
@@ -210,7 +250,27 @@ public class sus {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+<<<<<<< HEAD
 			}).start();
+=======
+				// Handles line resets
+				count2--;
+				if (count2 == -1) {
+					count2 = F_count2Reset;
+				}
+				count = count2;
+			}
+			// Writes finished frames
+			ImageIO.write(frames[indexx], "PNG", new File(F_dotSlash + "F_" + indexx + F_extraoutput + ".png"));
+
+			// Gives an idea of progress
+			System.out.println(indexx);
+			l.countDown();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+		    }).start();
+>>>>>>> 05c4df2644fbc3008ae0def3006466f85e8e71f5
 		}
 		l.await();
 		// Sets output file name
