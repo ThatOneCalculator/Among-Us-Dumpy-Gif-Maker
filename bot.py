@@ -162,7 +162,7 @@ class HelpCommand(commands.Cog):
 			inline=False
 		)
 		embed.add_field(
-			name="`!!background (remove)`",
+			name="`!!background (delete)`",
 			value="Attach an image to set a custom background image for `!!dumpy` and `!!furry`. Run `!!background delete` to delete the background.",
 			inline=False
 		)
@@ -296,7 +296,7 @@ class TheStuff(commands.Cog):
 			if exists(f"background_{ctx.author.id}.png"):
 				rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
 				subprocess.check_call(rmcmd)
-				return await ctx.send("Your background has been removed!")
+				return await ctx.send("Your background has been deleted!")
 		if len(ctx.message.attachments) > 0:
 			try:
 				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
