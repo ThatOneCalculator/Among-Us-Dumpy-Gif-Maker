@@ -299,13 +299,14 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 30, commands.BucketType.user)
 	async def background(self, ctx, argument: str = None):
-		tocheck = ["remove", "clear", "delete"]
-		res = [i for i in tocheck if(i in argument)]
-		if bool(res):
-			if exists(f"background_{ctx.author.id}.png"):
-				rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
-				subprocess.check_call(i)
-				return await ctx.send("Your background has been removed!")
+		if argument != None:
+			tocheck = ["remove", "clear", "delete"]
+			res = [i for i in tocheck if(i in argument)]
+			if bool(res):
+				if exists(f"background_{ctx.author.id}.png"):
+					rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
+					subprocess.check_call(i)
+					return await ctx.send("Your background has been removed!")
 		if len(ctx.message.attachments) > 0:
 			try:
 				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
