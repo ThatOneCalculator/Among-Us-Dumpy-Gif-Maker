@@ -300,7 +300,7 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 30, commands.BucketType.user)
 	@commands.command()
 	async def background(self, ctx, argument: str = None):
-		if argument != None and argument.lower() == "delete"
+		if argument != None and argument == "delete"
 			if exists(f"background_{ctx.author.id}.png"):
 				rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
 				subprocess.check_call(rmcmd)
