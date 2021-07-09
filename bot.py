@@ -244,7 +244,7 @@ class TheStuff(commands.Cog):
 		self.update_status.start()
 		self.update_channels.start()
 
-	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
 		await ctx.send("This command has been temporarily disabled. Check back soon!")
