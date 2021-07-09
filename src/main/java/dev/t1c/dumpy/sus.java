@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import java.awt.image.LookupTable;
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageTypeSpecifier;
