@@ -107,8 +107,7 @@ public class sus {
 
 		if (cmd.hasOption("file")) {
 			input = cmd.getOptionValue("file");
-		}
-		else {
+		} else {
 			input = pickFile();
 		}
 
@@ -129,8 +128,7 @@ public class sus {
 		try {
 			InputStream blackImg = main.getResource(background);
 			bg = ImageIO.read(blackImg);
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			File blackImg = new File(background);
 			bg = ImageIO.read(blackImg);
 		}
@@ -167,70 +165,67 @@ public class sus {
 		// Plots crewmates
 		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
-		    final int indexx = index;
-		    new Thread(()->{
-        	    try {
-			// bg
-			frames[indexx] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+			final int indexx = index;
+			new Thread(() -> {
+				try {
+					// bg
+					frames[indexx] = toBufferedImage(bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
 
-			// counts. One for iterating across frames and the other for the line reset
-			int count = indexx;
-			int count2 = indexx;
+					// counts. One for iterating across frames and the other for the line reset
+					int count = indexx;
+					int count2 = indexx;
 
-			// iterates through pixels
-			for (int y = 0; y < ty; y++) {
-				for (int x = 0; x < tx; x++) {
+					// iterates through pixels
+					for (int y = 0; y < ty; y++) {
+						for (int x = 0; x < tx; x++) {
 
-					// Grabs appropriate pixel frame
-					var pixelI = main.getResource("dumpy/" + count + modestring + ".png");
-					BufferedImage pixel = ImageIO.read(pixelI);
-					pixel = shader(pixel, image.getRGB(x, y));
-					// overlays it (if not null)
-					if (pixel != null) {
-						frames[indexx] = overlayImages(frames[indexx], pixel, (x * 74) + pad, (y * 63) + pad);
+							// Grabs appropriate pixel frame
+							var pixelI = main.getResource("dumpy/" + count + modestring + ".png");
+							BufferedImage pixel = ImageIO.read(pixelI);
+							pixel = shader(pixel, image.getRGB(x, y));
+							// overlays it (if not null)
+							if (pixel != null) {
+								frames[indexx] = overlayImages(frames[indexx], pixel, (x * 74) + pad, (y * 63) + pad);
+							}
+
+							// Handles animating
+							count++;
+							if (count == count1Check) {
+								count = 0;
+							}
+						}
+						// Handles line resets
+						count2--;
+						if (count2 == -1) {
+							count2 = count2Reset;
+						}
+						count = count2;
 					}
+					// Writes finished frames
+					ImageIO.write(frames[indexx], "PNG", new File(dotSlash + "F_" + indexx + extraoutput + ".png"));
 
-					// Handles animating
-					count++;
-					if (count == count1Check) {
-						count = 0;
-					}
+					// Gives an idea of progress
+					System.out.println(indexx);
+					l.countDown();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				// Handles line resets
-				count2--;
-				if (count2 == -1) {
-					count2 = count2Reset;
-				}
-				count = count2;
-			}
-			// Writes finished frames
-			ImageIO.write(frames[indexx], "PNG", new File(dotSlash + "F_" + indexx + extraoutput + ".png"));
-
-			// Gives an idea of progress
-			System.out.println(indexx);
-			l.countDown();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-		    }).start();
+			}).start();
 		}
-                l.await();
+		l.await();
 		// Sets output file name
 		String output = dotSlash + "dumpy" + extraoutput + ".gif";
 
 		// Combines frames into final GIF
 		System.out.println("Converting....");
-		runCmd("convert -delay 1x20 -loop 0 -alpha set -dispose previous " + dotSlash + "F_*" + extraoutput + ".png  " + output);
+		runCmd("convert -delay 1x20 -loop 0 -alpha set -dispose previous " + dotSlash + "F_*" + extraoutput + ".png  "
+				+ output);
 		boolean win = isWindows();
 
-		String[] filenames = new String[] {
-			dotSlash + "F_0" + extraoutput + ".png",
-			dotSlash + "F_1" + extraoutput + ".png",
-			dotSlash + "F_2" + extraoutput + ".png",
-			dotSlash + "F_3" + extraoutput + ".png",
-			dotSlash + "F_4" + extraoutput + ".png",
-			dotSlash + "F_5" + extraoutput + ".png"
-		};
+		String[] filenames = new String[] { dotSlash + "F_0" + extraoutput + ".png",
+				dotSlash + "F_1" + extraoutput + ".png", dotSlash + "F_2" + extraoutput + ".png",
+				dotSlash + "F_3" + extraoutput + ".png", dotSlash + "F_4" + extraoutput + ".png",
+				dotSlash + "F_5" + extraoutput + ".png" };
 
 		for (String i : filenames) {
 			try {
@@ -239,8 +234,7 @@ public class sus {
 				} else {
 					runCmd("rm " + i);
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 			}
 		}
 
@@ -252,7 +246,8 @@ public class sus {
 		System.out.println("Done.");
 	}
 
-	public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
+	public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight)
+			throws IOException {
 		Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
 		BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
 		outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
@@ -365,9 +360,10 @@ public class sus {
 	// New pixel shader
 	public static BufferedImage shader(BufferedImage t, int pRgb) {
 		Color entry = new Color(pRgb);
-		// alpha check. Checks for alpha of pixel. If it's transparent enough, it returns null.
+		// alpha check. Checks for alpha of pixel. If it's transparent enough, it
+		// returns null.
 		// alpha check
-				int WHY = (pRgb >> 24) & 0xFF;
+		int WHY = (pRgb >> 24) & 0xFF;
 		long lim = Math.round(255.0 * 0.07);
 		if (WHY < lim) {
 			return null;
@@ -450,9 +446,10 @@ class ImageFilter extends FileFilter {
 }
 
 /*
-Shamelessly stolen from
-https://memorynotfound.com/generate-gif-image-java-delay-infinite-loop-example/
-*/
+ * Shamelessly stolen from
+ * https://memorynotfound.com/generate-gif-image-java-delay-infinite-loop-
+ * example/
+ */
 
 class GifSequenceWriter {
 
