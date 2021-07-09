@@ -69,12 +69,10 @@ public class sus {
 
 		Options options = new Options();
 
-		Option li = Option.builder().longOpt("lines").hasArg().desc("Changes the number of lines (defaults to 10)")
-				.build();
+		Option li = Option.builder().longOpt("lines").hasArg().desc("Changes the number of lines (defaults to 10)").build();
 		Option fl = Option.builder().longOpt("file").hasArg().desc("Path to file, hides file picker").build();
 		Option bk = Option.builder().longOpt("background").hasArg().desc("Path to custom background").build();
-		Option md = Option.builder().longOpt("mode").hasArg()
-				.desc("Crewmade mode, currently supports default and furry").build();
+		Option md = Option.builder().longOpt("mode").hasArg().desc("Crewmade mode, currently supports default and furry").build();
 		Option eo = Option.builder().longOpt("extraoutput").hasArg().desc("Appends text to output files").build();
 		Option hp = Option.builder().longOpt("help").desc("Shows this message").build();
 		options.addOption(li);
