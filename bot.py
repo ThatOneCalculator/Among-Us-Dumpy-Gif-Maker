@@ -469,11 +469,15 @@ class TheStuff(commands.Cog):
 	@tasks.loop(minutes=5)
 	async def update_channels(self):
 		await self.bot.wait_until_ready()
+		await asyncio.sleep(10)
 		botinfo = await self.bot.topggpy.get_bot_info()
 		votes = botinfo["monthly_points"]
 		allmembers = 0
-		for guild in self.bot.guilds:
-			allmembers += guild.member_count
+		try:
+			for guild in self.bot.guilds:
+				allmembers += guild.member_count
+		except:
+			pass
 		guild = bot.get_guild(849516341933506561)
 		await guild.get_channel(861384764383428658).edit(name=f"Servers: {len(bot.guilds):,}")
 		await guild.get_channel(861384798429380618).edit(name=f"Users: {allmembers:,}")
