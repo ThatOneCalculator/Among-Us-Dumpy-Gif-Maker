@@ -42,9 +42,6 @@ with open("statcord.txt", "r") as f:
 	lines = f.readlines()
 	statcordkey = lines[0].strip()
 
-api = statcord.Client(bot, statcordkey)
-api.start_loop()
-
 upsince = datetime.datetime.now()
 version = "3.0.0"
 
@@ -53,6 +50,8 @@ bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!!"), i
 ddb = DiscordComponents(bot)
 bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
 slash = SlashCommand(bot, sync_commands=True)
+api = statcord.Client(bot, statcordkey)
+api.start_loop()
 
 promobuttons = [
 	[
