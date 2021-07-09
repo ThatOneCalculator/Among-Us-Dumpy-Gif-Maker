@@ -334,6 +334,8 @@ class TheStuff(commands.Cog):
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+			elif len(ctx.message.embeds) > 0:
+				await asyncimage(ctx.message.embeds[0].url, f"attach_{messageid}.png")
 			else:
 				if victim != None and type(victim) == discord.Member:
 					await asyncimage(str(victim.avatar_url_as(format='png', size=128)), f"attach_{messageid}.png")
@@ -344,6 +346,9 @@ class TheStuff(commands.Cog):
 							if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
 								await message.attachments[0].save(f"attach_{messageid}.png")
 								sus = False
+							elif len(message.embeds) > 0:
+								await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
+								sus = false
 					except Exception as e:
 						return await ctx.send("I couldn't find an image, you sussy baka!")
 			await asyncio.sleep(0.2)
