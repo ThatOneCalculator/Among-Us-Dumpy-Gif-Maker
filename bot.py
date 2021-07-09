@@ -492,7 +492,7 @@ async def on_command(ctx):
 		return await ctx.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
 	elif ctx.channel.topic != None and ctx.channel.topic.find("nodumpy") != -1:
 		return await ctx.send("**Commands have been disabled in this channel.**")
-    api.command_run(ctx)
+	api.command_run(ctx)
 
 @bot.event
 async def on_ready():
