@@ -219,7 +219,7 @@ class HelpCommand(commands.Cog):
 
 	@commands.command()
 	async def statcord(self, ctx):
-		await ctx.send("https://beta.statcord.com/bot/847164104161361921")
+		await ctx.send("https://statcord.com/bot/847164104161361921")
 
 	@commands.command()
 	async def invite(self, ctx):
@@ -377,11 +377,11 @@ class TheStuff(commands.Cog):
 					file=discord.File(filename, filename=filename),
 					components=promobuttons
 				)
-				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 1,000,000 users, and I'm currently at {allmembers:,}!\nClick/tap here: <https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
+				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 1,000,000 users, and I'm currently at {allmembers:,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
 					components=[
 						Button(
 							style=ButtonStyle.URL,
-							label="Or click here to invite the bot!",
+							label="Tap here!",
 							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 						)
 					]
