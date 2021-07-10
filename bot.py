@@ -346,7 +346,7 @@ class TheStuff(commands.Cog):
 							if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
 								await message.attachments[0].save(f"attach_{messageid}.png")
 								sus = False
-							elif len(message.embeds) > 0:
+							elif len(message.embeds) > 0 and message.author != ctx.guild.me:
 								await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
 								sus = false
 					except Exception as e:
@@ -491,11 +491,15 @@ bot.add_cog(TopGG(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
 @bot.event
+async def on_message(message):
+	if message.guild == None and message.author.bot == False:
+		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+	elif (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
+		return await message.channel.send("**Commands have been disabled in this channel.**")
+	await bot.process_commands(message)
+
+@bot.event
 async def on_command(ctx):
-	if ctx.guild == None and ctx.author.bot == False:
-		return await ctx.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
-	elif ctx.channel.topic != None and ctx.channel.topic.find("nodumpy") != -1:
-		return await ctx.send("**Commands have been disabled in this channel.**")
 	api.command_run(ctx)
 
 @bot.event
