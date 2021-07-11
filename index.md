@@ -37,7 +37,7 @@
 
 
 ### Please credit this repository when you use this program!
-##### Current version: 3.1.0
+##### Current version: 3.1.1
 
 # Instructions
 
@@ -61,13 +61,13 @@
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v3.1.0/Among-Us-Dumpy-Gif-Maker-3.1.0-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v3.1.1/Among-Us-Dumpy-Gif-Maker-3.1.1-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-3.1.0-all.jar <flags>`
+- `java -jar Among-Us-Dumpy-Gif-Maker-3.1.1-all.jar <flags>`
 All flags are optional.
 Flags:
 ```
@@ -86,5 +86,5 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.1.0-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.1.1-all.jar
 ```
