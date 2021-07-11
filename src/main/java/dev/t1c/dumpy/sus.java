@@ -228,7 +228,7 @@ public class sus {
 
 		// Combines frames into final GIF
 		System.out.println("Converting....");
-		runCmd("convert -dispose previous -delay 1x20 -loop 0 -alpha set" + dotSlash + "F_*" + extraoutput + ".png " + output);
+		runCmd("convert -dispose 2 -delay 1x20 -loop 0 -alpha set" + dotSlash + "F_*" + extraoutput + ".png " + output);
 		boolean win = isWindows();
 
 		String[] filenames = new String[] { dotSlash + "F_0" + extraoutput + ".png",

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.t1c.amogus"
-version = "3.1.1"
+version = "3.1.2"
 
 repositories {
    mavenCentral()
