@@ -43,7 +43,7 @@ with open("statcord.txt", "r") as f:
 	statcordkey = lines[0].strip()
 
 upsince = datetime.datetime.now()
-version = "3.1.0"
+version = "3.1.1"
 
 intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!!"), intents=intents, chunk_guilds_at_startup=False)
