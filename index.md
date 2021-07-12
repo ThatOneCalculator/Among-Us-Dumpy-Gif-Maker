@@ -7,14 +7,14 @@
 
 
 <p align="center">
-   <a href="https://discord.com/api/oauth2/authorize?client_id=8471641041613.1.31&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
    <br><br>
-   <a href="https://top.gg/bot/8471641041613.1.31/">
-      <img src="https://top.gg/api/widget/status/8471641041613.1.31.svg" alt="Among Us Dumpy Bot" />
-   </a> <a href="https://top.gg/bot/8471641041613.1.31/">
-      <img src="https://top.gg/api/widget/servers/8471641041613.1.31.svg" alt="Among Us Dumpy Bot" />
-   </a> <a href="https://top.gg/bot/8471641041613.1.31/">
-      <img src="https://top.gg/api/widget/upvotes/8471641041613.1.31.svg" alt="Among Us Dumpy Bot" />
+   <a href="https://top.gg/bot/847164104161361921/">
+      <img src="https://top.gg/api/widget/status/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a> <a href="https://top.gg/bot/847164104161361921/">
+      <img src="https://top.gg/api/widget/servers/847164104161361921.svg" alt="Among Us Dumpy Bot" />
+   </a> <a href="https://top.gg/bot/847164104161361921/">
+      <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a>
  
    <!-- <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/">
@@ -41,7 +41,7 @@
 
 # Instructions
 
-# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=8471641041613.1.31&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a>
+# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a>
 ##### The help command is `!!help`.
 
 # Run as a program:
@@ -88,3 +88,4 @@ gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
 java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.1.3-all.jar
 ```
+
