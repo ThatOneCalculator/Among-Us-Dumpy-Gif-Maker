@@ -292,11 +292,25 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 30, commands.BucketType.user)
 	@commands.command()
 	async def background(self, ctx, argument: str = None):
-		if argument != None and argument == "delete":
-			if exists(f"background_{ctx.author.id}.png"):
-				rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
-				subprocess.check_call(rmcmd)
-				return await ctx.send("Your background has been deleted!")
+        if argument != None:
+            argument = argument.lower()
+            if argument in ["delete", "default", "remove", "gray", "grey"]:
+                if exists(f"background_{ctx.author.id}.png"):
+                    rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
+                    subprocess.check_call(rmcmd)
+                    return await ctx.send("Your background has been deleted!")
+            elif argument.startswith("#"):
+                if len(argument) != 7:
+                    return await ctx.send("Invalid length! Example: `#0ab32c`")
+                await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"background_{ctx.author.id}.png")
+                return await ctx.send("Set your background!")
+            else:
+                if exists(f"backgrounds/{argument}.png"):
+                    cpcmd = shlex.split(f"bash -c 'cp ./{argument}.png ../background_{ctx.author.id}.png'")
+                    subprocess.check_call(cpcmd)
+                    return await ctx.send("Set your background!")
+                else:
+                    return await ctx.send("I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
 		if len(ctx.message.attachments) > 0:
 			try:
 				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
@@ -374,7 +388,7 @@ class TheStuff(commands.Cog):
 					file=discord.File(filename, filename=filename),
 					components=promobuttons
 				)
-				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 1,000,000 users, and I'm currently at {allmembers:,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
+				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(self.bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
 					components=[
 						Button(
 							style=ButtonStyle.URL,
