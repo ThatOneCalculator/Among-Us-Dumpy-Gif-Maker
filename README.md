@@ -39,7 +39,7 @@
     - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
     - Also works with [OpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
 - ImageMagick
-    - [Windows (static, v6.9.X)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-6.9.12-17-Q8-x64-static.exe)
+    - [Windows (static, v6.9.X)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-6.9.12-19-Q16-x64-static.exe)
     - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
     - Linux: use package manager.
 
