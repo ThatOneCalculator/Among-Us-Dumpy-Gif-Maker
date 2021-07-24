@@ -311,7 +311,7 @@ class TheStuff(commands.Cog):
 					return await ctx.send("Set your background!")
 				else:
 					return await ctx.send("I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
-		if len(ctx.message.attachments) > 0:
+		elif len(ctx.message.attachments) > 0:
 			try:
 				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
 			except Exception as e:
