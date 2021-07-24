@@ -289,24 +289,24 @@ class TheStuff(commands.Cog):
 		lb = "\n"
 		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
-	@commands.cooldown(1, 30, commands.BucketType.user)
+	@commands.cooldown(1, 15, commands.BucketType.user)
 	@commands.command()
-	async def background(self, ctx, argument: str = None):
-		if argument != None:
-			argument = argument.lower()
-			if argument in ["delete", "default", "remove", "gray", "grey"]:
+	async def background(self, ctx, *, ar: str = None):
+		if ar != None:
+			ar = ar.lower()
+			if ar in ["delete", "default", "remove", "gray", "grey"]:
 				if exists(f"background_{ctx.author.id}.png"):
 					rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
 					subprocess.check_call(rmcmd)
 					return await ctx.send("Your background has been deleted!")
-			elif argument.startswith("#"):
-				if len(argument) != 7:
+			elif ar.startswith("#"):
+				if len(ar) != 7:
 					return await ctx.send("Invalid length! Example: `#0ab32c`")
 				await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"background_{ctx.author.id}.png")
 				return await ctx.send("Set your background!")
 			else:
-				if exists(f"backgrounds/{argument}.png"):
-					cpcmd = shlex.split(f"bash -c 'cp ./{argument}.png ../background_{ctx.author.id}.png'")
+				if exists(f"backgrounds/{ar}.png"):
+					cpcmd = shlex.split(f"bash -c 'cp ./{ar}.png ../background_{ctx.author.id}.png'")
 					subprocess.check_call(cpcmd)
 					return await ctx.send("Set your background!")
 				else:
