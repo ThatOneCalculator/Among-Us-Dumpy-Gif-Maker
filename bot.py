@@ -291,7 +291,7 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 15, commands.BucketType.user)
 	@commands.command()
-	async def background(self, ctx, *, ar: str = None):
+	async def background(self, ctx, *, ar: str):
 		if ar != None:
 			ar = ar.lower()
 			if ar in ["delete", "default", "remove", "gray", "grey"]:
