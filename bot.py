@@ -291,7 +291,7 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 15, commands.BucketType.user)
 	@commands.command()
-	async def background(self, ctx, *, ar: str):
+	async def background(self, ctx, *, ar: str = None):
 		if ar != None:
 			ar = ar.lower()
 			if ar in ["delete", "default", "remove", "gray", "grey"]:
@@ -306,7 +306,7 @@ class TheStuff(commands.Cog):
 				return await ctx.send("Set your background!")
 			else:
 				if exists(f"backgrounds/{ar}.png"):
-					cpcmd = shlex.split(f"bash -c 'cp ./{ar}.png ../background_{ctx.author.id}.png'")
+					cpcmd = shlex.split(f"bash -c 'cp ./backgrounds/{ar}.png ./background_{ctx.author.id}.png'")
 					subprocess.check_call(cpcmd)
 					return await ctx.send("Set your background!")
 				else:
