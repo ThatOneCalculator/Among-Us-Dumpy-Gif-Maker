@@ -162,8 +162,8 @@ class HelpCommand(commands.Cog):
 			inline=False
 		)
 		embed.add_field(
-			name="`!!background (delete)`",
-			value="Attach an image to set a custom background image for `!!dumpy` and `!!furry`. Run `!!background delete` to delete the background.",
+			name="`!!background (option)`",
+			value="Set a custom background image for `!!dumpy` and `!!furry`. Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.",
 			inline=False
 		)
 		# embed.add_field(
@@ -199,7 +199,7 @@ class HelpCommand(commands.Cog):
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
 		)
-		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the GPL-3. Thank you support server booster(s): AdminDolphin(OFFICIAL)#6542")
+		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the GPL-3. Thank you support server booster(s): s-zenmode#9999, Tama#0002, and BlazeX777#2272")
 		try:
 			await ctx.send(embed=embed, components=promobuttons)
 		except:
@@ -289,29 +289,29 @@ class TheStuff(commands.Cog):
 		lb = "\n"
 		await ctx.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
-	@commands.cooldown(1, 30, commands.BucketType.user)
+	@commands.cooldown(1, 15, commands.BucketType.user)
 	@commands.command()
-	async def background(self, ctx, argument: str = None):
-        if argument != None:
-            argument = argument.lower()
-            if argument in ["delete", "default", "remove", "gray", "grey"]:
-                if exists(f"background_{ctx.author.id}.png"):
-                    rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
-                    subprocess.check_call(rmcmd)
-                    return await ctx.send("Your background has been deleted!")
-            elif argument.startswith("#"):
-                if len(argument) != 7:
-                    return await ctx.send("Invalid length! Example: `#0ab32c`")
-                await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"background_{ctx.author.id}.png")
-                return await ctx.send("Set your background!")
-            else:
-                if exists(f"backgrounds/{argument}.png"):
-                    cpcmd = shlex.split(f"bash -c 'cp ./{argument}.png ../background_{ctx.author.id}.png'")
-                    subprocess.check_call(cpcmd)
-                    return await ctx.send("Set your background!")
-                else:
-                    return await ctx.send("I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
-		if len(ctx.message.attachments) > 0:
+	async def background(self, ctx, *, ar: str = None):
+		if ar != None:
+			ar = ar.lower()
+			if ar in ["delete", "default", "remove", "gray", "grey"]:
+				if exists(f"background_{ctx.author.id}.png"):
+					rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
+					subprocess.check_call(rmcmd)
+					return await ctx.send("Your background has been deleted!")
+			elif ar.startswith("#"):
+				if len(ar) != 7:
+					return await ctx.send("Invalid length! Example: `#0ab32c`")
+				await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"background_{ctx.author.id}.png")
+				return await ctx.send("Set your background!")
+			else:
+				if exists(f"backgrounds/{ar}.png"):
+					cpcmd = shlex.split(f"bash -c 'cp ./backgrounds/{ar}.png ./background_{ctx.author.id}.png'")
+					subprocess.check_call(cpcmd)
+					return await ctx.send("Set your background!")
+				else:
+					return await ctx.send("I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
+		elif len(ctx.message.attachments) > 0:
 			try:
 				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
 			except Exception as e:
@@ -324,7 +324,7 @@ class TheStuff(commands.Cog):
 	@commands.command(aliases=["twerk", "amogus", "furry", "twist"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
 		await bot.wait_until_ready()
-		await ctx.send("Welcome to v3! You can now run `!!background` and attach an image to set a custom background!")
+		await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int:
@@ -417,16 +417,15 @@ class TheStuff(commands.Cog):
 		shards = []
 		for i in shardscounter:
 			shards.append(self.bot.get_shard(i))
-		allmembers=0
+		allmembers = 0
 		for guild in self.bot.guilds:
 			allmembers += guild.member_count
-		ping=await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
-		beforeping=datetime.datetime.now()
-		await ping.edit(content="Pinging!")
-		afterping=datetime.datetime.now()
-		pingdiff=afterping - beforeping
-		pingdiffms=pingdiff.microseconds / 1000
-		uptime=afterping - upsince
+		beforeping = datetime.datetime.now()
+		ping = await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
+		afterping = datetime.datetime.now()
+		pingdiff = afterping - beforeping
+		pingdiffms = pingdiff.microseconds / 1000
+		uptime = afterping - upsince
 		await ping.edit(content=f"""
 🏓 Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.
 ☎️ API latency is {str(round((pingdiffms),2))} milliseconds.
