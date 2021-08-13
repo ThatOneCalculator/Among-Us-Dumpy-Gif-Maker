@@ -148,7 +148,7 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(
 			title="My commands!",
-			description="Made by ThatOneCalculator#1337 and Dsim64#8145! `()` = optional, `<>` = mandatory.",
+			description="Made by ThatOneCalculator#0001 and Dsim64#8145! `()` = optional, `<>` = mandatory.",
 			color=0x976BE1
 		)
 		embed.add_field(
