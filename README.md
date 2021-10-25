@@ -65,7 +65,7 @@ Flags:
 --file <arg>          Path to file, hides file picker
 --help                Shows this message
 --lines <arg>         Changes the number of lines (defaults to 10)
---mode <arg>          Crewmade mode, currently supports default and furry
+--mode <arg>          Crewmate mode, currently supports default and furry
 ```
 ### From source:
 *Not recommended unless you intend to modify the code!*
