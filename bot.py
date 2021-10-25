@@ -247,24 +247,21 @@ class TheStuff(commands.Cog):
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
-		await ctx.send("This command has been temporarily disabled. Check back soon!")
-		# if type(victim) != discord.Member:
-		# 	return await ctx.send("You need to mention someone!")
-		# imposter = random.choice(["true", "false"])
-		# if "impost" in ctx.message.content:
-		# 	imposter = "true"
-		# elif "crewmate" in ctx.message.content:
-		# 	imposter = "false"
-		# url = str(victim.avatar_url_as(format="png"))
-		# async with ctx.typing():
-		# 	file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
-		# 	await ctx.send(
-		# 		f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
-		# 		file=file,
-		# 		components=promobuttons
-		# 	)
-		# rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
-		# subprocess.check_call(rm)
+		# await ctx.send("This command has been temporarily disabled. Check back soon!")
+		if type(victim) != discord.Member: return await ctx.send("You need to mention someone!")
+		imposter = random.choice(["true", "false"])
+		if "impost" in ctx.message.content: imposter = "true"
+		elif "crewmate" in ctx.message.content: imposter = "false"
+		url = str(victim.avatar_url_as(format="png"))
+		async with ctx.typing():
+			file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={victim.name[0:35]}&imposter={imposter}", f"eject{ctx.message.id}.gif")
+			await ctx.send(
+				f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
+				file=file,
+				components=promobuttons
+			)
+		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
+		subprocess.check_call(rm)
 
 	@commands.command(aliases=["font", "write"])
 	@commands.cooldown(1, 5, commands.BucketType.user)
@@ -295,30 +292,26 @@ class TheStuff(commands.Cog):
 		if ar != None:
 			ar = ar.lower()
 			if ar in ["delete", "default", "remove", "gray", "grey"]:
-				if exists(f"background_{ctx.author.id}.png"):
-					rmcmd = shlex.split(f"bash -c 'rm background_{ctx.author.id}.png'")
+				if exists(f"custom_bgs/background_{ctx.author.id}.png"):
+					rmcmd = shlex.split(f"bash -c 'rm custom_bgs/background_{ctx.author.id}.png'")
 					subprocess.check_call(rmcmd)
 					return await ctx.send("Your background has been deleted!")
 			elif ar.startswith("#"):
-				if len(ar) != 7:
-					return await ctx.send("Invalid length! Example: `#0ab32c`")
-				await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"background_{ctx.author.id}.png")
+				if len(ar) != 7: return await ctx.send("Invalid length! Example: `#0ab32c`")
+				await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"custom_bgs/background_{ctx.author.id}.png")
 				return await ctx.send("Set your background!")
 			else:
 				if exists(f"backgrounds/{ar}.png"):
-					cpcmd = shlex.split(f"bash -c 'cp ./backgrounds/{ar}.png ./background_{ctx.author.id}.png'")
+					cpcmd = shlex.split(f"bash -c 'cp ./backgrounds/{ar}.png ./custom_bgs/background_{ctx.author.id}.png'")
 					subprocess.check_call(cpcmd)
 					return await ctx.send("Set your background!")
 				else:
 					return await ctx.send("I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
 		elif len(ctx.message.attachments) > 0:
-			try:
-				await ctx.message.attachments[0].save(f"background_{ctx.author.id}.png")
-			except Exception as e:
-				await ctx.send(f"```{e}```")
+			try: await ctx.message.attachments[0].save(f"custom_bgs/background_{ctx.author.id}.png")
+			except Exception as e: await ctx.send(f"```{e}```")
 			return await ctx.send("Saved your background!")
-		else:
-			return await ctx.send("You NEED to attach a file in your message to set your background. Try again in 30 seconds.\nTo delete your background, run `!!background delete`.")
+		else: return await ctx.send("You NEED to attach a file in your message to set your background. Try again in 30 seconds.\nTo delete your background, run `!!background delete`.")
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus", "furry", "twist"])
@@ -327,15 +320,13 @@ class TheStuff(commands.Cog):
 		await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
-		if type(number) != int:
-			number = 10
+		if type(number) != int: number = 10
 		if number > 30 and number < 36:
 			msg = await ctx.send("Validating vote...")
 			voted = await self.bot.topggpy.get_user_vote(ctx.author.id)
 			await asyncio.sleep(0.2)
 			await msg.delete()
-			if not voted:
-				return await ctx.send(f"The limit for non-voters is 30! {ctx.author.mention}, vote on top.gg to increase it to 35!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
+			if not voted: return await ctx.send(f"The limit for non-voters is 30! {ctx.author.mention}, vote on top.gg to increase it to 35!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 		if number > 35 or number < 1:
 			return await ctx.send("Number must be between 1 and 30 (35 if you vote!) Defaults to 10.",
 				components=[
@@ -354,7 +345,7 @@ class TheStuff(commands.Cog):
 				if victim != None and type(victim) == discord.Member:
 					await asyncimage(str(victim.avatar_url_as(format='png', size=128)), f"attach_{messageid}.png")
 				else:
-					sus=True
+					sus = True
 					try:
 						async for message in ctx.channel.history(limit=20):
 							if len(message.attachments) > 0 and sus and message.author != ctx.guild.me:
@@ -362,26 +353,20 @@ class TheStuff(commands.Cog):
 								sus = False
 							elif len(message.embeds) > 0 and message.author != ctx.guild.me:
 								await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
-								sus = false
-					except Exception as e:
-						return await ctx.send("I couldn't find an image, you sussy baka!")
-			await asyncio.sleep(0.2)
+								sus = False
+					except Exception as e: return await ctx.send("I couldn't find an image, you sussy baka!")
+			await asyncio.sleep(0.1)
 			img = Image.open(f"attach_{messageid}.png")
 			if img.height / img.width <= 0.05:
-				subprocess.check_call(shlex.split(
-					f"bash -c 'rm ./attach_{messageid}.png'"))
-				return await ctx.send("This image is way too long, you're the imposter!")
+				subprocess.check_call(shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"))
+				return await ctx.send("This image is way too long, you're the impostor!")
 			mode = "default"
-			if "furry" in ctx.message.content or "twist" in ctx.message.content:
-				mode = "furry"
-			background = ""
-			if exists(f"background_{ctx.author.id}.png"):
-				background = f"--background background_{ctx.author.id}.png"
-			await loop.run_in_executor(None, blocking, messageid, mode, number,  background)
+			if "furry" in ctx.message.content or "twist" in ctx.message.content: mode = "furry"
+			background = f"--background custom_bgs/background_{ctx.author.id}.png" if exists(f"custom_bgs/background_{ctx.author.id}.png") else ""
+			await loop.run_in_executor(None, blocking, messageid, mode, number, background)
 			filename = f"dumpy{messageid}.gif"
 			allmembers = 0
-			for guild in self.bot.guilds:
-				allmembers += guild.member_count
+			for guild in self.bot.guilds: allmembers += guild.member_count
 			try:
 				await ctx.send(
 					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
@@ -397,14 +382,12 @@ class TheStuff(commands.Cog):
 						)
 					]
 				)
-			except:
-				await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
+			except: await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 			rmcmds = [
 				shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
 				shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
 			]
-			for i in rmcmds:
-				subprocess.check_call(i)
+			for i in rmcmds: subprocess.check_call(i)
 
 	@commands.command(aliases=["stats"])
 	async def ping(self, ctx):
@@ -412,14 +395,11 @@ class TheStuff(commands.Cog):
 		votes = botinfo["monthly_points"]
 		shardscounter = []
 		for guild in self.bot.guilds:
-			if guild.shard_id not in shardscounter:
-				shardscounter.append(guild.shard_id)
+			if guild.shard_id not in shardscounter: shardscounter.append(guild.shard_id)
 		shards = []
-		for i in shardscounter:
-			shards.append(self.bot.get_shard(i))
+		for i in shardscounter: shards.append(self.bot.get_shard(i))
 		allmembers = 0
-		for guild in self.bot.guilds:
-			allmembers += guild.member_count
+		for guild in self.bot.guilds: allmembers += guild.member_count
 		beforeping = datetime.datetime.now()
 		ping = await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
 		afterping = datetime.datetime.now()
