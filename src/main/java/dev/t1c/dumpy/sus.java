@@ -398,27 +398,37 @@ public class sus {
 	}
 
 	// New pixel shader
-	public static BufferedImage shader(BufferedImage t, int pRgb) {
-		Color entry = new Color(pRgb);
-		// alpha check. Checks for alpha of pixel. If it's transparent enough, it
-		// returns null.
-		// alpha check
-		int WHY = (pRgb >> 24) & 0xFF;
-		long lim = Math.round(255.0 * 0.07);
-		if (WHY < lim) {
-			return null;
-		}
-		// brightness check. If the pixel is too dim, the brightness is floored to the
-		// standard "black" level.
-		float[] hsb = new float[3];
+  	 public static BufferedImage shader(BufferedImage t, int pRgb) {
+  	    Color entry = new Color(pRgb);
+     // alpha check
+      int WHY = (pRgb >> 24) & 0xFF;
+      long lim = Math.round(255.0 * 0.07);
+      if (WHY < lim) {
+          return null;
+      }
+    	// brightness check. If the pixel is too dim, the brightness is floored to the standard "black" level.
+	  	float[] hsb = new float[3];
 		Color.RGBtoHSB(entry.getRed(), entry.getGreen(), entry.getBlue(), hsb);
-		float blackLevel = 0.200f;
+		float blackLevel = 0.200f; 
 		if (hsb[2] < blackLevel) {
 			entry = new Color(Color.HSBtoRGB(hsb[0], hsb[1], blackLevel));
 		}
+      		// "Blue's Clues" shadow fix: Fixes navy blue shadows.
+      		shadeDefault = 0.66;
+      		double factor = Math.abs(shadeDefault - (double)hsb[0]);
+      		factor = (1.0 / 6.0) - factor;
+      		if (factor > 0) {
+      			factor = factor * 2;
+          		//System.out.println(shadeDefault + ", " + factor);
+          		shadeDefault = shadeDefault - factor;
+      		} 
 		// shading.
-		Color shade = new Color((int) ((double) entry.getRed() * 0.66), (int) ((double) entry.getGreen() * 0.66),
-				(int) ((double) entry.getBlue() * 0.66));
+      		Color shade = null;
+      		try {
+		    shade = new Color((int)((double)entry.getRed() * shadeDefault), (int)((double)entry.getGreen() * shadeDefault), (int)((double)entry.getBlue() * shadeDefault));
+      		} catch (IllegalArgumentException iae) {
+          	    System.out.println("ERROR: " + shadeDefault + ", " + factor);
+      		}
 		Color.RGBtoHSB(shade.getRed(), shade.getGreen(), shade.getBlue(), hsb);
 		hsb[0] = hsb[0] - 0.0635f;
 		if (hsb[0] < 0.0f) {
@@ -431,8 +441,8 @@ public class sus {
 		t = toARGB(t);
 		BufferedImage convertedImage = lookup.filter(t, null);
 		convertedImage = lookup2.filter(convertedImage, null);
-		return convertedImage;
-	}
+        	return convertedImage;
+        }
 
 	// Indexed image error (https://stackoverflow.com/a/19594979)
 	public static BufferedImage toARGB(Image i) {
