@@ -161,9 +161,39 @@ public class sus {
 			count2Reset--;
 			modestring = "_twist";
 		}
+		
 		// Actually makes the frames
 		BufferedImage[] frames = new BufferedImage[bufferedImageArraySize];
-
+		
+		// these constants are now variables.
+     	    	double fac = 1.00;
+     		int mox = 74;
+     		int moy = 63;
+     		BufferedImage[] moguses = new BufferedImage[6];
+     		for (int it = 0; it < 6; it++) {
+                    var temp = main.getResource("dumpy/" + count + F_modestring + ".png");
+		    moguses[it] = ImageIO.read(temp);
+      	  	}
+		
+		// dynamic resizer
+      		if (ix > 1000 || iy > 1000) {
+          		if (ix > iy) {
+              			fac = 1000.0 / (double)ix;
+          		} else {
+          	        	fac = 1000.0 / (double)iy;
+          		}
+          		// Resizes crewmates
+         		mox = (int)Math.round((double)mox * fac);
+        		moy = (int)Math.round((double)moy * fac);
+                	for (int itt = 0; itt < 6; itt++) {
+                    		moguses[itt] = toBufferedImage(moguses[itt].getScaledInstance(mox, moy, Image.SCALE_DEFAULT));
+                	}
+          		// Resizing for BG
+          		pad = (int)((double)pad * fac);
+          		ix = (mox * tx) + (pad * 2); 
+          		iy = (moy * ty) + (pad * 2);
+      		}
+		
 		// Plots crewmates
 		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
@@ -177,6 +207,11 @@ public class sus {
 			final int F_count2Reset = count2Reset;
 			final String F_dotSlash = dotSlash;
 			final String F_extraoutput = extraoutput;
+			final int ixF = ix; // new series of "modified" variables
+       		        final int iyF = iy;
+        		final int moxF = mox;
+        		final int moyF = moy;
+        		final int padF = pad;
 			// Start of new thread
 			new Thread(() -> {
 				try {
@@ -192,12 +227,11 @@ public class sus {
 						for (int x = 0; x < F_tx; x++) {
 
 							// Grabs appropriate pixel frame
-							var pixelI = main.getResource("dumpy/" + count + F_modestring + ".png");
-							BufferedImage pixel = ImageIO.read(pixelI);
+							BufferedImage pixel = moguses[count]; // No more constant reading!
 							pixel = shader(pixel, image.getRGB(x, y));
 							// overlays it (if not null)
 							if (pixel != null) {
-								frames[indexx] = overlayImages(frames[indexx], pixel, (x * 74) + pad, (y * 63) + pad);
+								frames[indexx] = overlayImages(frames[indexx], pixel, (x * moxF) + padF, (y * moyF) + padF);
 							}
 
 							// Handles animating
@@ -248,12 +282,6 @@ public class sus {
 				}
 			} catch (Exception e) {
 			}
-		}
-
-		// Resizes if necessary
-		BufferedImage resize = ImageIO.read(new File(output));
-		if (resize.getHeight() > 1000 || resize.getWidth() > 1000) {
-			runCmd("convert " + output + " -resize 1000x1000 " + output);
 		}
 		System.out.println("Done.");
 	}
