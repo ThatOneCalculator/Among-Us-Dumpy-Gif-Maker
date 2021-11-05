@@ -48,6 +48,7 @@ public class sus {
 
 	public static Color c = Color.decode("#C51111");
 	public static Color c2 = new Color(122, 8, 56);
+	public static double shadeDefault = 0.00;
 
 	// MAIN
 	public static void main(String[] args) throws Exception {
@@ -171,7 +172,7 @@ public class sus {
      		int moy = 63;
      		BufferedImage[] moguses = new BufferedImage[6];
      		for (int it = 0; it < 6; it++) {
-                    var temp = main.getResource("dumpy/" + count + F_modestring + ".png");
+                    var temp = main.getResource("dumpy/" + it + modestring + ".png");
 		    moguses[it] = ImageIO.read(temp);
       	  	}
 		
