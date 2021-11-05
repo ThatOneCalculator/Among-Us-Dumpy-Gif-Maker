@@ -37,7 +37,7 @@
 
 
 ### Please credit this repository when you use this program!
-##### Current version: 3.1.3
+##### Current version: 3.2.0
 
 # Instructions
 
@@ -61,13 +61,13 @@
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v3.1.3/Among-Us-Dumpy-Gif-Maker-3.1.3-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v3.2.0/Among-Us-Dumpy-Gif-Maker-3.2.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-3.1.3-all.jar <flags>`
+- `java -jar Among-Us-Dumpy-Gif-Maker-3.2.0-all.jar <flags>`
 All flags are optional.
 Flags:
 ```
@@ -76,7 +76,7 @@ Flags:
 --file <arg>          Path to file, hides file picker
 --help                Shows this message
 --lines <arg>         Changes the number of lines (defaults to 10)
---mode <arg>          Crewmade mode, currently supports default and furry
+--mode <arg>          Crewmate mode, currently supports default and furry
 ```
 ### From source:
 *Not recommended unless you intend to modify the code!*
@@ -86,6 +86,6 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.1.3-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.2.0-all.jar
 ```
 
