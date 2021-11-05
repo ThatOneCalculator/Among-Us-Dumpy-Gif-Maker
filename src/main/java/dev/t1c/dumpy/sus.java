@@ -217,7 +217,7 @@ public class sus {
 			new Thread(() -> {
 				try {
 					// bg
-					frames[indexx] = toBufferedImage(F_bg.getScaledInstance(ix, iy, Image.SCALE_SMOOTH));
+					frames[indexx] = toBufferedImage(F_bg.getScaledInstance(ixF, iyF, Image.SCALE_SMOOTH));
 
 					// counts. One for iterating across frames and the other for the line reset
 					int count = indexx;
