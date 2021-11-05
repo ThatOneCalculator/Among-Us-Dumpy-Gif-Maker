@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.t1c.amogus"
-version = "3.1.3"
+version = "3.2.0"
 
 repositories {
    mavenCentral()
@@ -18,8 +18,8 @@ dependencies {
 application {
     mainClass.set("dev.t1c.dumpy.sus")
     java {
-        sourceCompatibility = JavaVersion.VERSION_15
-        targetCompatibility = JavaVersion.VERSION_15
+        sourceCompatibility = JavaVersion.VERSION_16
+        targetCompatibility = JavaVersion.VERSION_16
     }
 }
 

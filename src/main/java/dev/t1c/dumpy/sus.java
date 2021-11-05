@@ -162,39 +162,39 @@ public class sus {
 			count2Reset--;
 			modestring = "_twist";
 		}
-		
+
 		// Actually makes the frames
 		BufferedImage[] frames = new BufferedImage[bufferedImageArraySize];
-		
+
 		// these constants are now variables.
-     	    	double fac = 1.00;
-     		int mox = 74;
-     		int moy = 63;
-     		BufferedImage[] moguses = new BufferedImage[6];
-     		for (int it = 0; it < 6; it++) {
-                    var temp = main.getResource("dumpy/" + it + modestring + ".png");
-		    moguses[it] = ImageIO.read(temp);
-      	  	}
-		
+	 			double fac = 1.00;
+	 		int mox = 74;
+	 		int moy = 63;
+	 		BufferedImage[] moguses = new BufferedImage[6];
+	 		for (int it = 0; it < 6; it++) {
+					var temp = main.getResource("dumpy/" + it + modestring + ".png");
+			moguses[it] = ImageIO.read(temp);
+	  	  	}
+
 		// dynamic resizer
-      		if (ix > 1000 || iy > 1000) {
-          		if (ix > iy) {
-              			fac = 1000.0 / (double)ix;
-          		} else {
-          	        	fac = 1000.0 / (double)iy;
-          		}
-          		// Resizes crewmates
-         		mox = (int)Math.round((double)mox * fac);
-        		moy = (int)Math.round((double)moy * fac);
-                	for (int itt = 0; itt < 6; itt++) {
-                    		moguses[itt] = toBufferedImage(moguses[itt].getScaledInstance(mox, moy, Image.SCALE_DEFAULT));
-                	}
-          		// Resizing for BG
-          		pad = (int)((double)pad * fac);
-          		ix = (mox * tx) + (pad * 2); 
-          		iy = (moy * ty) + (pad * 2);
-      		}
-		
+	  		if (ix > 1000 || iy > 1000) {
+		  		if (ix > iy) {
+			  			fac = 1000.0 / (double)ix;
+		  		} else {
+		  				fac = 1000.0 / (double)iy;
+		  		}
+		  		// Resizes crewmates
+		 		mox = (int)Math.round((double)mox * fac);
+				moy = (int)Math.round((double)moy * fac);
+					for (int itt = 0; itt < 6; itt++) {
+							moguses[itt] = toBufferedImage(moguses[itt].getScaledInstance(mox, moy, Image.SCALE_DEFAULT));
+					}
+		  		// Resizing for BG
+		  		pad = (int)((double)pad * fac);
+		  		ix = (mox * tx) + (pad * 2);
+		  		iy = (moy * ty) + (pad * 2);
+	  		}
+
 		// Plots crewmates
 		CountDownLatch l = new CountDownLatch(frames.length);
 		for (int index = 0; index < frames.length; index++) {
@@ -209,10 +209,10 @@ public class sus {
 			final String F_dotSlash = dotSlash;
 			final String F_extraoutput = extraoutput;
 			final int ixF = ix; // new series of "modified" variables
-       		        final int iyF = iy;
-        		final int moxF = mox;
-        		final int moyF = moy;
-        		final int padF = pad;
+	   				final int iyF = iy;
+				final int moxF = mox;
+				final int moyF = moy;
+				final int padF = pad;
 			// Start of new thread
 			new Thread(() -> {
 				try {
@@ -400,36 +400,36 @@ public class sus {
 
 	// New pixel shader
   	 public static BufferedImage shader(BufferedImage t, int pRgb) {
-  	    Color entry = new Color(pRgb);
-     // alpha check
-      int WHY = (pRgb >> 24) & 0xFF;
-      long lim = Math.round(255.0 * 0.07);
-      if (WHY < lim) {
-          return null;
-      }
-    	// brightness check. If the pixel is too dim, the brightness is floored to the standard "black" level.
+  		Color entry = new Color(pRgb);
+	 // alpha check
+	  int WHY = (pRgb >> 24) & 0xFF;
+	  long lim = Math.round(255.0 * 0.07);
+	  if (WHY < lim) {
+		  return null;
+	  }
+		// brightness check. If the pixel is too dim, the brightness is floored to the standard "black" level.
 	  	float[] hsb = new float[3];
 		Color.RGBtoHSB(entry.getRed(), entry.getGreen(), entry.getBlue(), hsb);
-		float blackLevel = 0.200f; 
+		float blackLevel = 0.200f;
 		if (hsb[2] < blackLevel) {
 			entry = new Color(Color.HSBtoRGB(hsb[0], hsb[1], blackLevel));
 		}
-      		// "Blue's Clues" shadow fix: Fixes navy blue shadows.
-      		shadeDefault = 0.66;
-      		double factor = Math.abs(shadeDefault - (double)hsb[0]);
-      		factor = (1.0 / 6.0) - factor;
-      		if (factor > 0) {
-      			factor = factor * 2;
-          		//System.out.println(shadeDefault + ", " + factor);
-          		shadeDefault = shadeDefault - factor;
-      		} 
+	  		// "Blue's Clues" shadow fix: Fixes navy blue shadows.
+	  		shadeDefault = 0.66;
+	  		double factor = Math.abs(shadeDefault - (double)hsb[0]);
+	  		factor = (1.0 / 6.0) - factor;
+	  		if (factor > 0) {
+	  			factor = factor * 2;
+		  		//System.out.println(shadeDefault + ", " + factor);
+		  		shadeDefault = shadeDefault - factor;
+	  		}
 		// shading.
-      		Color shade = null;
-      		try {
-		    shade = new Color((int)((double)entry.getRed() * shadeDefault), (int)((double)entry.getGreen() * shadeDefault), (int)((double)entry.getBlue() * shadeDefault));
-      		} catch (IllegalArgumentException iae) {
-          	    System.out.println("ERROR: " + shadeDefault + ", " + factor);
-      		}
+	  		Color shade = null;
+	  		try {
+			shade = new Color((int)((double)entry.getRed() * shadeDefault), (int)((double)entry.getGreen() * shadeDefault), (int)((double)entry.getBlue() * shadeDefault));
+	  		} catch (IllegalArgumentException iae) {
+		  		System.out.println("ERROR: " + shadeDefault + ", " + factor);
+	  		}
 		Color.RGBtoHSB(shade.getRed(), shade.getGreen(), shade.getBlue(), hsb);
 		hsb[0] = hsb[0] - 0.0635f;
 		if (hsb[0] < 0.0f) {
@@ -442,8 +442,8 @@ public class sus {
 		t = toARGB(t);
 		BufferedImage convertedImage = lookup.filter(t, null);
 		convertedImage = lookup2.filter(convertedImage, null);
-        	return convertedImage;
-        }
+			return convertedImage;
+		}
 
 	// Indexed image error (https://stackoverflow.com/a/19594979)
 	public static BufferedImage toARGB(Image i) {
