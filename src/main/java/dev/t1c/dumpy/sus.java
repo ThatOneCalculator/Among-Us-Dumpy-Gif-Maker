@@ -170,8 +170,8 @@ public class sus {
 	 			double fac = 1.00;
 	 		int mox = 74;
 	 		int moy = 63;
-	 		BufferedImage[] moguses = new BufferedImage[6];
-	 		for (int it = 0; it < 6; it++) {
+	 		BufferedImage[] moguses = new BufferedImage[bufferedImageArraySize];
+	 		for (int it = 0; it < bufferedImageArraySize; it++) {
 					var temp = main.getResource("dumpy/" + it + modestring + ".png");
 			moguses[it] = ImageIO.read(temp);
 	  	  	}
