@@ -7,7 +7,7 @@ _jar="Among-Us-Dumpy-Gif-Maker-${_pkgver}-all.jar"
 
 pkgname="${_pkgname}"
 pkgver="${_pkgver}"
-pkgrel=4
+pkgrel=1
 pkgdesc="A tool that lets you make Among Us Dumpy GIFs"
 arch=("x86_64")
 url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"

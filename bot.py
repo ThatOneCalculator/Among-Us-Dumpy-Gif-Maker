@@ -366,7 +366,11 @@ class TheStuff(commands.Cog):
 			await loop.run_in_executor(None, blocking, messageid, mode, number, background)
 			filename = f"dumpy{messageid}.gif"
 			allmembers = 0
-			for guild in self.bot.guilds: allmembers += guild.member_count
+			for guild in self.bot.guilds:
+				try:
+					allmembers += guild.member_count
+				except:
+					pass
 			try:
 				await ctx.send(
 					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
@@ -399,7 +403,11 @@ class TheStuff(commands.Cog):
 		shards = []
 		for i in shardscounter: shards.append(self.bot.get_shard(i))
 		allmembers = 0
-		for guild in self.bot.guilds: allmembers += guild.member_count
+		for guild in self.bot.guilds:
+			try:
+				allmembers += guild.member_count
+			except:
+				pass
 		beforeping = datetime.datetime.now()
 		ping = await ctx.send(f":ping_pong: Pong! Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.")
 		afterping = datetime.datetime.now()
@@ -423,7 +431,10 @@ class TheStuff(commands.Cog):
 		for guild in bot.guilds:
 			if guild.shard_id not in shardscounter:
 				shardscounter.append(guild.shard_id)
-			allmembers += guild.member_count
+			try:
+				allmembers += guild.member_count
+			except:
+				pass
 		shards = []
 		for i in shardscounter:
 			shards.append(bot.get_shard(i))
@@ -463,7 +474,10 @@ class TheStuff(commands.Cog):
 		allmembers = 0
 		try:
 			for guild in self.bot.guilds:
-				allmembers += guild.member_count
+				try:
+					allmembers += guild.member_count
+				except:
+					pass
 		except:
 			pass
 		guild = bot.get_guild(849516341933506561)
