@@ -166,10 +166,10 @@ class HelpCommand(commands.Cog):
 			value="Set a custom background image for `!!dumpy` and `!!furry`. Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.",
 			inline=False
 		)
-		# embed.add_field(
-		# 	name="`!!eject <@person>`",
-		# 	value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output."
-		# )
+		embed.add_field(
+		 	name="`!!eject <@person>`",
+		 	value="Sees if someone is the imposter! You can also do `!!crewmate` and `!!imposter` to guarantee the output."
+		)
 		embed.add_field(
 			name="`!!text <text>`",
 			value="Writes something out, but sus."
@@ -191,10 +191,6 @@ class HelpCommand(commands.Cog):
 			value="Brings you to the bot's statcord page."
 		)
 		embed.add_field(
-			name="`!!literallynobot`",
-			value="Directs you to ThatOneCalculator's main bot LiterallyNoBot."
-		)
-		embed.add_field(
 			name="Tips and tricks",
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
@@ -204,10 +200,6 @@ class HelpCommand(commands.Cog):
 			await ctx.send(embed=embed, components=promobuttons)
 		except:
 			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
-
-	@commands.command()
-	async def literallynobot(self, ctx):
-		await ctx.send("https://top.gg/bot/646156214237003777")
 
 	@commands.command()
 	async def statcord(self, ctx):
