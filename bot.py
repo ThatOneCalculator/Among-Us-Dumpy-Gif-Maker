@@ -317,18 +317,18 @@ class TheStuff(commands.Cog):
 	@commands.command(aliases=["twerk", "amogus", "furry", "twist"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
 		await bot.wait_until_ready()
-		await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
+		# await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
 		if type(number) != int: number = 10
-		if number > 30 and number < 36:
-			msg = await ctx.send("Validating vote...")
+		if number > 35 and number < 41:
+			msg = await ctx.send("Validating vote... <:a:amongassdumpy:851566828596887554>")
 			voted = await self.bot.topggpy.get_user_vote(ctx.author.id)
 			await asyncio.sleep(0.2)
 			await msg.delete()
-			if not voted: return await ctx.send(f"The limit for non-voters is 30! {ctx.author.mention}, vote on top.gg to increase it to 35!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
-		if number > 35 or number < 1:
-			return await ctx.send("Number must be between 1 and 30 (35 if you vote!) Defaults to 10.",
+			if not voted and ctx.author.id != 454847501787463680: return await ctx.send(f"The limit for non-voters is 35! {ctx.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
+		if number > 40 or number < 1:
+			return await ctx.send("Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
 				components=[
 					Button(
 						style=ButtonStyle.URL,
