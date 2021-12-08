@@ -39,6 +39,10 @@
 ### Please credit this repository when you use this program!
 ##### Current version: 3.2.1
 
+### Testemonials
+"Among Us Dumpy Bot is the best Discord bot ever" -Mutahar (SomeOrdinaryGamers)
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Zqa2QjUJE2E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 # Instructions
 
 # Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a>
