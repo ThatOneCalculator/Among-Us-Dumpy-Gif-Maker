@@ -25,14 +25,12 @@
 <div align="center"> <img src="https://cdn.discordapp.com/icons/849516341933506561/a_d4c89d8bd30a116e8ea3808478f73387.gif" height=100></div>
  </p>
 
-
-
-"Among Us Dumpy Bot is the best Discord bot ever" - Mutahar 
-https://cdn.discordapp.com/attachments/849517202193514556/918288158364405780/simplescreenrecorder-2021-12-08_15.47.22.mp4
-
-
 ### Please credit this repository when you use this program!
 ##### Current version: 3.2.1
+
+### Testemonials
+
+["Among Us Dumpy Bot is the best Discord bot ever" -Mutahar (SomeOrdinaryGamers)](https://youtube.com/clip/Ugkxu7XdTjB6B15ZLTeorgE5x-0rT1IsOD4X)
 
 # Instructions
 
