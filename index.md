@@ -41,9 +41,7 @@
 
 ### Testemonials
 "Among Us Dumpy Bot is the best Discord bot ever" -Mutahar (SomeOrdinaryGamers)
-<video controls>
-  <source src="https://cdn.discordapp.com/attachments/849517202193514556/918288158364405780/simplescreenrecorder-2021-12-08_15.47.22.mp4" type="video/mp4">
-</video>
+<video class="video-8eMOth" height="236" poster="https://media.discordapp.net/attachments/849517202193514556/918288158364405780/simplescreenrecorder-2021-12-08_15.47.22.mp4?format=jpeg&amp;width=300&amp;height=177" preload="metadata" width="400" src="https://cdn.discordapp.com/attachments/849517202193514556/918288158364405780/simplescreenrecorder-2021-12-08_15.47.22.mp4"></video>
 
 
 # Instructions
