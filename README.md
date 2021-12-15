@@ -30,7 +30,7 @@
 
 ### Testemonials
 
-["Among Us Dumpy Bot is the best Discord bot ever" -Mutahar (SomeOrdinaryGamers)](https://youtube.com/clip/Ugkxu7XdTjB6B15ZLTeorgE5x-0rT1IsOD4X)
+["Among Us Dumpy Bot is the best Discord bot" -Mutahar (SomeOrdinaryGamers)](https://youtube.com/clip/Ugkxu7XdTjB6B15ZLTeorgE5x-0rT1IsOD4X)
 
 # Instructions
 
