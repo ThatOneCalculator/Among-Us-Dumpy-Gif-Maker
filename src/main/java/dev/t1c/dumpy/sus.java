@@ -6,21 +6,17 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.awt.image.LookupOp;
+import java.awt.image.LookupTable;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-
-import java.awt.image.LookupOp;
-
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import java.awt.image.LookupTable;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
 import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
@@ -29,6 +25,7 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -39,7 +36,6 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
 public class sus {
 
@@ -64,7 +60,6 @@ public class sus {
 		String input = "";
 		String extraoutput = "";
 		String mode = "default";
-		boolean needFile = true;
 
 		int ty = 10; // width value
 
@@ -75,7 +70,7 @@ public class sus {
 		Option fl = Option.builder().longOpt("file").hasArg().desc("Path to file, hides file picker").build();
 		Option bk = Option.builder().longOpt("background").hasArg().desc("Path to custom background").build();
 		Option md = Option.builder().longOpt("mode").hasArg()
-				.desc("Crewmate mode, currently supports default and furry").build();
+				.desc("Crewmate mode, currently supports default, furry, isaac, and bounce").build();
 		Option eo = Option.builder().longOpt("extraoutput").hasArg().desc("Appends text to output files").build();
 		Option hp = Option.builder().longOpt("help").desc("Shows this message").build();
 		options.addOption(li);
@@ -116,8 +111,9 @@ public class sus {
 
 		if (cmd.hasOption("mode")) {
 			mode = cmd.getOptionValue("mode");
-			if (!(mode.equals("furry")) && !(mode.equals("default"))) {
-				System.out.println("Mode has to be default or furry!");
+			String[] validModes = { "default", "furry", "isaac", "bounce" };
+			if (!Arrays.asList(validModes).contains(mode)) {
+				System.out.println("Mode has to be default, furry, isaac, or bounce!");
 				System.exit(1);
 			}
 		}
@@ -145,15 +141,12 @@ public class sus {
 		// Prepares source image
 		BufferedImage image = toBufferedImage(r.getScaledInstance(tx, ty, Image.SCALE_SMOOTH));
 
-		// Sets up BG
-		int pad = 10;
-		int ix = (tx * 74) + (pad * 2);
-		int iy = (ty * 63) + (pad * 2);
-
 		// sets up loop vars
 		int bufferedImageArraySize = 6;
 		int count1Check = 6;
 		int count2Reset = 5;
+		int sourceX = 74;
+		int sourceY = 63;
 		String modestring = "";
 
 		if (mode.equals("furry")) {
@@ -163,37 +156,54 @@ public class sus {
 			modestring = "_twist";
 		}
 
+		else if (mode.equals("isaac")) {
+			modestring = "_isaac";
+		}
+
+		else if (mode.equals("bounce")) {
+			bufferedImageArraySize -= 2;
+			count1Check -= 2;
+			count2Reset -= 2;
+			sourceY = 74;
+			modestring = "_bounce";
+		}
+
+		// Sets up BG
+		int pad = 10;
+		int ix = (tx * sourceX) + (pad * 2);
+		int iy = (ty * sourceY) + (pad * 2);
+
 		// Actually makes the frames
 		BufferedImage[] frames = new BufferedImage[bufferedImageArraySize];
 
 		// these constants are now variables.
-	 			double fac = 1.00;
-	 		int mox = 74;
-	 		int moy = 63;
-	 		BufferedImage[] moguses = new BufferedImage[bufferedImageArraySize];
-	 		for (int it = 0; it < bufferedImageArraySize; it++) {
-					var temp = main.getResource("dumpy/" + it + modestring + ".png");
+		double fac = 1.00;
+		int mox = 74;
+		int moy = 63;
+		BufferedImage[] moguses = new BufferedImage[bufferedImageArraySize];
+		for (int it = 0; it < bufferedImageArraySize; it++) {
+			var temp = main.getResource("dumpy/" + it + modestring + ".png");
 			moguses[it] = ImageIO.read(temp);
-	  	  	}
+		}
 
 		// dynamic resizer
-	  		if (ix > 1000 || iy > 1000) {
-		  		if (ix > iy) {
-			  			fac = 1000.0 / (double)ix;
-		  		} else {
-		  				fac = 1000.0 / (double)iy;
-		  		}
-		  		// Resizes crewmates
-		 		mox = (int)Math.round((double)mox * fac);
-				moy = (int)Math.round((double)moy * fac);
-					for (int itt = 0; itt < 6; itt++) {
-							moguses[itt] = toBufferedImage(moguses[itt].getScaledInstance(mox, moy, Image.SCALE_DEFAULT));
-					}
-		  		// Resizing for BG
-		  		pad = (int)((double)pad * fac);
-		  		ix = (mox * tx) + (pad * 2);
-		  		iy = (moy * ty) + (pad * 2);
-	  		}
+		if (ix > 1000 || iy > 1000) {
+			if (ix > iy) {
+				fac = 1000.0 / (double) ix;
+			} else {
+				fac = 1000.0 / (double) iy;
+			}
+			// Resizes crewmates
+			mox = (int) Math.round((double) mox * fac);
+			moy = (int) Math.round((double) moy * fac);
+			for (int itt = 0; itt < bufferedImageArraySize; itt++) {
+				moguses[itt] = toBufferedImage(moguses[itt].getScaledInstance(mox, moy, Image.SCALE_DEFAULT));
+			}
+			// Resizing for BG
+			pad = (int) ((double) pad * fac);
+			ix = (mox * tx) + (pad * 2);
+			iy = (moy * ty) + (pad * 2);
+		}
 
 		// Plots crewmates
 		CountDownLatch l = new CountDownLatch(frames.length);
@@ -203,16 +213,15 @@ public class sus {
 			final BufferedImage F_bg = bg;
 			final int F_ty = ty;
 			final int F_tx = tx;
-			final String F_modestring = modestring;
 			final int F_count1Check = count1Check;
 			final int F_count2Reset = count2Reset;
 			final String F_dotSlash = dotSlash;
 			final String F_extraoutput = extraoutput;
 			final int ixF = ix; // new series of "modified" variables
-	   				final int iyF = iy;
-				final int moxF = mox;
-				final int moyF = moy;
-				final int padF = pad;
+			final int iyF = iy;
+			final int moxF = mox;
+			final int moyF = moy;
+			final int padF = pad;
 			// Start of new thread
 			new Thread(() -> {
 				try {
@@ -232,7 +241,8 @@ public class sus {
 							pixel = shader(pixel, image.getRGB(x, y));
 							// overlays it (if not null)
 							if (pixel != null) {
-								frames[indexx] = overlayImages(frames[indexx], pixel, (x * moxF) + padF, (y * moyF) + padF);
+								frames[indexx] = overlayImages(frames[indexx], pixel, (x * moxF) + padF,
+										(y * moyF) + padF);
 							}
 
 							// Handles animating
@@ -399,37 +409,39 @@ public class sus {
 	}
 
 	// New pixel shader
-  	 public static BufferedImage shader(BufferedImage t, int pRgb) {
-  		Color entry = new Color(pRgb);
-	 // alpha check
-	  int WHY = (pRgb >> 24) & 0xFF;
-	  long lim = Math.round(255.0 * 0.07);
-	  if (WHY < lim) {
-		  return null;
-	  }
-		// brightness check. If the pixel is too dim, the brightness is floored to the standard "black" level.
-	  	float[] hsb = new float[3];
+	public static BufferedImage shader(BufferedImage t, int pRgb) {
+		Color entry = new Color(pRgb);
+		// alpha check
+		int WHY = (pRgb >> 24) & 0xFF;
+		long lim = Math.round(255.0 * 0.07);
+		if (WHY < lim) {
+			return null;
+		}
+		// brightness check. If the pixel is too dim, the brightness is floored to the
+		// standard "black" level.
+		float[] hsb = new float[3];
 		Color.RGBtoHSB(entry.getRed(), entry.getGreen(), entry.getBlue(), hsb);
 		float blackLevel = 0.200f;
 		if (hsb[2] < blackLevel) {
 			entry = new Color(Color.HSBtoRGB(hsb[0], hsb[1], blackLevel));
 		}
-	  		// "Blue's Clues" shadow fix: Fixes navy blue shadows.
-	  		shadeDefault = 0.66;
-	  		double factor = Math.abs(shadeDefault - (double)hsb[0]);
-	  		factor = (1.0 / 6.0) - factor;
-	  		if (factor > 0) {
-	  			factor = factor * 2;
-		  		//System.out.println(shadeDefault + ", " + factor);
-		  		shadeDefault = shadeDefault - factor;
-	  		}
+		// "Blue's Clues" shadow fix: Fixes navy blue shadows.
+		shadeDefault = 0.66;
+		double factor = Math.abs(shadeDefault - (double) hsb[0]);
+		factor = (1.0 / 6.0) - factor;
+		if (factor > 0) {
+			factor = factor * 2;
+			// System.out.println(shadeDefault + ", " + factor);
+			shadeDefault = shadeDefault - factor;
+		}
 		// shading.
-	  		Color shade = null;
-	  		try {
-			shade = new Color((int)((double)entry.getRed() * shadeDefault), (int)((double)entry.getGreen() * shadeDefault), (int)((double)entry.getBlue() * shadeDefault));
-	  		} catch (IllegalArgumentException iae) {
-		  		System.out.println("ERROR: " + shadeDefault + ", " + factor);
-	  		}
+		Color shade = null;
+		try {
+			shade = new Color((int) ((double) entry.getRed() * shadeDefault),
+					(int) ((double) entry.getGreen() * shadeDefault), (int) ((double) entry.getBlue() * shadeDefault));
+		} catch (IllegalArgumentException iae) {
+			System.out.println("ERROR: " + shadeDefault + ", " + factor);
+		}
 		Color.RGBtoHSB(shade.getRed(), shade.getGreen(), shade.getBlue(), hsb);
 		hsb[0] = hsb[0] - 0.0635f;
 		if (hsb[0] < 0.0f) {
@@ -442,8 +454,8 @@ public class sus {
 		t = toARGB(t);
 		BufferedImage convertedImage = lookup.filter(t, null);
 		convertedImage = lookup2.filter(convertedImage, null);
-			return convertedImage;
-		}
+		return convertedImage;
+	}
 
 	// Indexed image error (https://stackoverflow.com/a/19594979)
 	public static BufferedImage toARGB(Image i) {
