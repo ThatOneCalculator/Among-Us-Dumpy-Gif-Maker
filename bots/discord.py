@@ -14,7 +14,7 @@ from typing import Any, Iterable, Tuple
 
 import aiofiles
 import aiohttp
-import discord
+import discord as dsc
 import humanfriendly
 import statcord
 import topgg
@@ -46,7 +46,7 @@ with open("statcord.txt", "r") as f:
 upsince = datetime.datetime.now()
 version = "4.0.0"
 
-intents = discord.Intents.default()
+intents = dsc.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
 	"!!"), intents=intents, chunk_guilds_at_startup=False)
 ddb = DiscordComponents(bot)
@@ -150,7 +150,7 @@ class HelpCommand(commands.Cog):
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
-		embed = discord.Embed(
+		embed = dsc.Embed(
 			title="My commands!",
 			description="Made by ThatOneCalculator#0001 and Dsim64#8145! `()` = optional, `<>` = mandatory.",
 			color=0x976BE1
@@ -241,7 +241,7 @@ async def asyncimage(url, filename):
 			await f.write(await resp.read())
 			await f.close()
 	img = Image.open(filename)
-	file = discord.File(filename, filename=filename)
+	file = dsc.File(filename, filename=filename)
 	return file
 
 
@@ -254,8 +254,8 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
-	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
-		if type(victim) != discord.Member:
+	async def eject(self, ctx, *, victim: typing.Union[dsc.Member, str] = ""):
+		if type(victim) != dsc.Member:
 			return await ctx.send("You need to mention someone!")
 		imposter = random.choice(["true", "false"])
 		if "impost" in ctx.message.content:
@@ -331,7 +331,7 @@ class TheStuff(commands.Cog):
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.command(aliases=["twerk", "amogus", "furry", "twist", "isaac", "bounce"])
-	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
+	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[dsc.Member, str] = None):
 		await bot.wait_until_ready()
 		# await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
 		loop = asyncio.get_running_loop()
@@ -358,7 +358,7 @@ class TheStuff(commands.Cog):
 			elif len(ctx.message.embeds) > 0:
 				await asyncimage(ctx.message.embeds[0].url, f"attach_{messageid}.png")
 			else:
-				if victim != None and type(victim) == discord.Member:
+				if victim != None and type(victim) == dsc.Member:
 					await asyncimage(str(victim.avatar_url_as(format='png', size=128)), f"attach_{messageid}.png")
 				else:
 					sus = True
@@ -395,7 +395,7 @@ class TheStuff(commands.Cog):
 			try:
 				await ctx.send(
 					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
-					file=discord.File(filename, filename=filename),
+					file=dsc.File(filename, filename=filename),
 					components=promobuttons
 				)
 				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(self.bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
@@ -466,7 +466,7 @@ class TheStuff(commands.Cog):
 		totpings = []
 		closedcount = 0
 		count = 0
-		embed = discord.Embed(title=f"Bot shards")
+		embed = dsc.Embed(title=f"Bot shards")
 		for i in shards:
 			gcount = 0
 			mcount = 0
@@ -476,7 +476,7 @@ class TheStuff(commands.Cog):
 					mcount += j.member_count
 			if count % 9 == 0 and count != 0:
 				embedlist.append(embed)
-				embed = discord.Embed(title=f"Bot shards:")
+				embed = dsc.Embed(title=f"Bot shards:")
 			count += 1
 			totpings.append(round((i.latency * 1000), 2))
 			if i.is_closed():
@@ -486,7 +486,7 @@ class TheStuff(commands.Cog):
 			if count == len(shards):
 				embedlist.append(embed)
 		shardpaginator = BotEmbedPaginator(ctx, embedlist)
-		staticembed = discord.Embed(
+		staticembed = dsc.Embed(
 			title="Total", description=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
 		await ctx.send(embed=staticembed)
 		await shardpaginator.run()
@@ -515,7 +515,7 @@ class TheStuff(commands.Cog):
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await asyncio.sleep(10)
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(bot.guilds):,}  servers!"))
+		await bot.change_presence(activity=dsc.Activity(type=dsc.ActivityType.watching, name=f"!!help on {len(bot.guilds):,}  servers!"))
 
 
 bot.remove_command("help")
