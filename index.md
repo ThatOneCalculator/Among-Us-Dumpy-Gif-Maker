@@ -1,5 +1,5 @@
 <link rel="shortcut icon" type="image/x-icon" href="https://cdn.discordapp.com/attachments/849523719582777367/855599737608601640/emote.gif"/>
- <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 <meta name="theme-color" content="#FCE40C"/>
 <meta name="description" content="Among Us Dumpy Gif Maker!">
 <meta property="og:image" content="https://cdn.discordapp.com/icons/849516341933506561/a_31c9be842b1a47f2fe939a1415b75f8b.gif"/>
@@ -7,7 +7,9 @@
 
 
 <p align="center">
-   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="40"/></a>
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="50"/></a>
+   <br>
+   <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="35"/></a>
    <br><br>
    <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/status/847164104161361921.svg" alt="Among Us Dumpy Bot" />
@@ -16,46 +18,41 @@
    </a> <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a>
- 
-   <!-- <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/">
-      <img src="https://shields.io/badge/Star_on-GitHub-black?logo=github&style=flat" />
-   </a> -->
    <a href="https://discord.gg/Z7UZPR3bbW/">
       <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
    </a>
-   <iframe src="https://ghbtns.com/github-btn.html?user=thatonecalculator&repo=Among-Us-Dumpy-Gif-Maker&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+ <iframe src="https://ghbtns.com/github-btn.html?user=thatonecalculator&repo=Among-Us-Dumpy-Gif-Maker&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
   <h1 align="center">Among Us Dumpy Gif Maker</h1>
 </p>
 
 <h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer415</a></h3>
-<p align="center"> 
+<p align="center">
    <a href="https://voring.me/@thatonecalculator" target="blank"><img src="https://shields.io/badge/follow-@thatonecalculator-3088D4?logo=mastodon&style=for-the-badge" alt="voring.me (mastodon)"/></a>
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://shields.io/badge/follow-@pixer415-1DA1F2?logo=twitter&style=for-the-badge" alt="twitter"/></a>
 <h6 align="center"> With help from <a href="https://twitter.com/twistCMYK">twistCMYK</a>, karl-police, and auguwu!</h6>
 <div align="center"> <img src="https://cdn.discordapp.com/icons/849516341933506561/a_d4c89d8bd30a116e8ea3808478f73387.gif" height=100></div>
- </p>
-
+</p>
 
 ### Please credit this repository when you use this program!
-##### Current version: 3.2.1
+##### Current version: 4.0.0
 
-### Testemonials
+### Testimonials
+
 "Among Us Dumpy Bot is the best Discord bot" -Mutahar (SomeOrdinaryGamers)
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/L0iXa3ckmMQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
 # Instructions
 
-# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a>
+# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a> or <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="25"/></a>
 ##### The help command is `!!help`.
 
 # Run as a program:
 ## Requirements:
-- Java Runtime Environment 15 or newer
+- Java Runtime Environment 16
     - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
     - Also works with [OpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
 - ImageMagick
-    - [Windows (static, v6.9.x)](https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-6.9.12-17-Q8-x64-static.exe)
+    - [Windows (static, v6.9.X)](https://archive.org/download/image-magick-6.9.12-19-q-16-x-64-static/ImageMagick-6.9.12-19-Q16-x64-static.exe)
     - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
     - Linux: use package manager.
 
@@ -66,13 +63,13 @@
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v3.2.1/Among-Us-Dumpy-Gif-Maker-3.2.1-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v4.0.0/Among-Us-Dumpy-Gif-Maker-4.0.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-3.2.1-all.jar <flags>`
+- `java -jar Among-Us-Dumpy-Gif-Maker-4.0.0-all.jar <flags>`
 All flags are optional.
 Flags:
 ```
@@ -81,8 +78,9 @@ Flags:
 --file <arg>          Path to file, hides file picker
 --help                Shows this message
 --lines <arg>         Changes the number of lines (defaults to 10)
---mode <arg>          Crewmate mode, currently supports default and furry
+--mode <arg>          Crewmate mode, currently supports default, furry, isaac, and bounce
 ```
+
 ### From source:
 *Not recommended unless you intend to modify the code!*
 - Need [Gradle](https://gradle.org/)
@@ -91,6 +89,7 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-3.2.1-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-4.0.0-all.jar
 ```
 
+Please note that the Discord/Revolt bots are not designed to be self-hosted, and I will not be providing support for self-hosting them.
