@@ -128,7 +128,7 @@ Revolt bot specifically made by ThatOneCalculator (\@t1c)
 			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
 		else:
 			if victim != None and type(victim) == revolt.Member:
-				await asyncimage(str(victim.avatar.url, f"attach_{messageid}.png")
+				await asyncimage(str(victim.avatar.url, f"attach_{messageid}.png"))
 			else:
 				return await ctx.send("I couldn't find an image, you sussy baka!")
 			await asyncio.sleep(0.1)
