@@ -338,7 +338,7 @@ class TheStuff(commands.Cog):
 		messageid = str(ctx.message.id)
 		if type(number) != int: number = 10
 		if number > 35 and number < 41:
-			msg = await ctx.send("Validating vote... <:a:amongassdumpy:851566828596887554>")
+			msg = await ctx.send("Validating vote... <a:amongassdumpy:851566828596887554>")
 			voted = await self.bot.topggpy.get_user_vote(ctx.author.id)
 			await asyncio.sleep(0.2)
 			await msg.delete()
