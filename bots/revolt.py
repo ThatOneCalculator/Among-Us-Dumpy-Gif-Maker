@@ -124,14 +124,13 @@ Revolt bot specifically made by ThatOneCalculator (\@t1c)
 			number = 10
 		if number > 40 or number < 1:
 			return await ctx.send("Number must be between 1 and 40! Defaults to 10.")
-		async with ctx.typing():
-			if len(ctx.message.attachments) > 0:
-				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+		if len(ctx.message.attachments) > 0:
+			await ctx.message.attachments[0].save(f"attach_{messageid}.png")
+		else:
+			if victim != None and type(victim) == revolt.Member:
+				await asyncimage(str(victim.avatar.url, f"attach_{messageid}.png")
 			else:
-				if victim != None and type(victim) == revolt.Member:
-					await asyncimage(str(victim.avatar.url, f"attach_{messageid}.png")
-				else:
-					return await ctx.send("I couldn't find an image, you sussy baka!")
+				return await ctx.send("I couldn't find an image, you sussy baka!")
 			await asyncio.sleep(0.1)
 			img = Image.open(f"attach_{messageid}.png")
 			if img.height / img.width <= 0.05:
