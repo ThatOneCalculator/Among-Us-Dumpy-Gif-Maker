@@ -205,24 +205,15 @@ class HelpCommand(commands.Cog):
 			value="Brings you to the bot's statcord page."
 		)
 		embed.add_field(
-			name="`!!literallynobot`",
-			value="Directs you to ThatOneCalculator's main bot LiterallyNoBot."
-		)
-		embed.add_field(
 			name="Tips and tricks",
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
 		)
-		embed.set_footer(
-			text=f"Among Us Dumpy Bot jar version {version}. Licensed under the GPL-3. Thank you support server booster(s): s-zenmode#9999, Tama#0002, and BlazeX777#2272")
+		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the AGPL-3.")
 		try:
 			await ctx.send(embed=embed, components=promobuttons)
 		except:
 			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
-
-	@commands.command()
-	async def literallynobot(self, ctx):
-		await ctx.send("https://top.gg/bot/646156214237003777")
 
 	@commands.command()
 	async def statcord(self, ctx):

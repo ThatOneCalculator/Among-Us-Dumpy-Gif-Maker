@@ -43,3 +43,6 @@ build
 
 # Ignore AUR
 aur/
+
+# Ignore VSCode
+.vscode/
