@@ -167,7 +167,7 @@ class HelpCommand(commands.Cog):
 		)
 		embed.add_field(
 			name="`!!sans (height) (@person)`",
-			value="The same as `!!dumpy`, but uses the Sans template (Template by [Coco](https://twitter.com/CocotheMunchkin)).",
+			value="The same as `!!dumpy`, but uses the Sans template <a:sansdumpy:922243828109439107> (Template by [Coco](https://twitter.com/CocotheMunchkin)).",
 			inline=False
 		)
 		embed.add_field(
