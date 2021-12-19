@@ -362,7 +362,7 @@ class TheStuff(commands.Cog):
 									  Button(
 										  style=ButtonStyle.URL,
 										  label="Vote on top.gg!",
-										  emoji=emoji_sustopgg,
+										  emoji=bot.get_emoji(922252075667185716),
 										  url="https://top.gg/bot/847164104161361921/vote"
 									  )
 								  ])
@@ -422,7 +422,7 @@ class TheStuff(commands.Cog):
 								   Button(
 									   style=ButtonStyle.URL,
 									   label="Tap here!",
-									   emoji=emoji_amongass,
+									   emoji=bot.get_emoji(851566828596887554),
 									   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 								   )
 							   ]
