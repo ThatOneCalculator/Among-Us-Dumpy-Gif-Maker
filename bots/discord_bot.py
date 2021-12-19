@@ -56,6 +56,37 @@ slash = SlashCommand(bot, sync_commands=True)
 api = statcord.Client(bot, statcordkey)
 api.start_loop()
 
+def promobuttons():
+	return [
+		[
+			Button(
+				style=ButtonStyle.URL,
+				label="GitHub",
+				emoji=bot.get_emoji(922251058527473784),
+				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
+			),
+
+			Button(
+				style=ButtonStyle.URL,
+				label="Support server",
+				emoji=bot.get_emoji(922251654869434448),
+				url="https://discord.gg/VRawXXybvd"
+			),
+
+			Button(
+				style=ButtonStyle.URL,
+				label="Vote on top.gg!",
+				emoji=bot.get_emoji(922252075667185716),
+				url="https://top.gg/bot/847164104161361921/vote"
+			)
+		],
+		Button(
+			style=ButtonStyle.URL,
+			label="Invite to your server!",
+			emoji=bot.get_emoji(851566828596887554),
+			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+		)
+	]
 
 class CommandErrorHandler(commands.Cog):
 
@@ -121,38 +152,6 @@ class TopGG(commands.Cog):
 
 
 class HelpCommand(commands.Cog):
-
-	def promobuttons(self):
-		return [
-			[
-				Button(
-					style=ButtonStyle.URL,
-					label="GitHub",
-					emoji=self.bot.get_emoji(922251058527473784),
-					url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
-				),
-
-				Button(
-					style=ButtonStyle.URL,
-					label="Support server",
-					emoji=self.bot.get_emoji(922251654869434448),
-					url="https://discord.gg/VRawXXybvd"
-				),
-
-				Button(
-					style=ButtonStyle.URL,
-					label="Vote on top.gg!",
-					emoji=self.bot.get_emoji(922252075667185716),
-					url="https://top.gg/bot/847164104161361921/vote"
-				)
-			],
-			Button(
-				style=ButtonStyle.URL,
-				label="Invite to your server!",
-				emoji=self.bot.get_emoji(851566828596887554),
-				url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-			)
-		]
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
@@ -223,7 +222,7 @@ class HelpCommand(commands.Cog):
 		embed.set_footer(
 			text=f"Among Us Dumpy Bot jar version {version}. Licensed under the AGPL-3.")
 		try:
-			await ctx.send(embed=embed, components=self.promobuttons())
+			await ctx.send(embed=embed, components=promobuttons())
 		except:
 			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
 
@@ -264,38 +263,6 @@ class TheStuff(commands.Cog):
 		self.update_status.start()
 		self.update_channels.start()
 
-	def promobuttons(self):
-		return [
-			[
-				Button(
-					style=ButtonStyle.URL,
-					label="GitHub",
-					emoji=self.bot.get_emoji(922251058527473784),
-					url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
-				),
-
-				Button(
-					style=ButtonStyle.URL,
-					label="Support server",
-					emoji=self.bot.get_emoji(922251654869434448),
-					url="https://discord.gg/VRawXXybvd"
-				),
-
-				Button(
-					style=ButtonStyle.URL,
-					label="Vote on top.gg!",
-					emoji=self.bot.get_emoji(922252075667185716),
-					url="https://top.gg/bot/847164104161361921/vote"
-				)
-			],
-			Button(
-				style=ButtonStyle.URL,
-				label="Invite to your server!",
-				emoji=self.bot.get_emoji(851566828596887554),
-				url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-			)
-		]
-
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
 	async def eject(self, ctx, *, victim: typing.Union[discord.Member, str] = ""):
@@ -312,7 +279,7 @@ class TheStuff(commands.Cog):
 			await ctx.send(
 				f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 				file=file,
-				components=self.promobuttons()
+				components=promobuttons()
 			)
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
@@ -327,7 +294,7 @@ class TheStuff(commands.Cog):
 		await ctx.send(
 			f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 			file=file,
-			components=self.promobuttons()
+			components=promobuttons()
 		)
 
 	@commands.command()
@@ -448,7 +415,7 @@ class TheStuff(commands.Cog):
 				await ctx.send(
 					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 					file=discord.File(filename, filename=filename),
-					components=self.promobuttons()
+					components=promobuttons()
 				)
 				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(self.bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
 							   components=[
@@ -500,7 +467,7 @@ class TheStuff(commands.Cog):
 👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
 📈 I have {int(votes):,} monthly votes on top.gg.
 🧑‍💻 I am on jar version {version}.
-""", components=self.promobuttons())
+""", components=promobuttons())
 
 	@commands.command()
 	async def shards(self, ctx):
