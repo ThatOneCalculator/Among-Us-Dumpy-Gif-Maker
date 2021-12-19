@@ -140,15 +140,15 @@ class TopGG(commands.Cog):
 		votes = botinfo["monthly_points"]
 		allvotes = botinfo["points"]
 		await ctx.send(f"I have {int(votes):,} mothly votes and {int(allvotes):,} all-time votes on top.gg!",
-					   components=[
-						   Button(
-							   style=ButtonStyle.URL,
-							   label="Vote on top.gg!",
-							   emoji=bot.get_emoji(922252075667185716),
-							   url="https://top.gg/bot/847164104161361921/vote"
-						   )
-					   ]
-					   )
+						components=[
+							Button(
+								style=ButtonStyle.URL,
+								label="Vote on top.gg!",
+								emoji=bot.get_emoji(922252075667185716),
+								url="https://top.gg/bot/847164104161361921/vote"
+							)
+						]
+						)
 
 
 class HelpCommand(commands.Cog):
@@ -358,14 +358,14 @@ class TheStuff(commands.Cog):
 				return await ctx.send(f"The limit for non-voters is 35! {ctx.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 		if number > 40 or number < 1:
 			return await ctx.send("Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
-								  components=[
-									  Button(
-										  style=ButtonStyle.URL,
-										  label="Vote on top.gg!",
-										  emoji=bot.get_emoji(922252075667185716),
-										  url="https://top.gg/bot/847164104161361921/vote"
-									  )
-								  ])
+									components=[
+										Button(
+											style=ButtonStyle.URL,
+											label="Vote on top.gg!",
+											emoji=bot.get_emoji(922252075667185716),
+											url="https://top.gg/bot/847164104161361921/vote"
+										)
+									])
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
@@ -418,15 +418,15 @@ class TheStuff(commands.Cog):
 					components=promobuttons()
 				)
 				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(self.bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
-							   components=[
-								   Button(
-									   style=ButtonStyle.URL,
-									   label="Tap here!",
-									   emoji=bot.get_emoji(851566828596887554),
-									   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-								   )
-							   ]
-							   )
+								components=[
+									Button(
+										style=ButtonStyle.URL,
+										label="Tap here!",
+										emoji=bot.get_emoji(851566828596887554),
+										url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+									)
+								]
+								)
 			except:
 				await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 			rmcmds = [
@@ -536,7 +536,7 @@ class TheStuff(commands.Cog):
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await asyncio.sleep(10)
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(bot.guilds):,}  servers!"))
+		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"!!help on {len(bot.guilds):,} servers!"))
 
 
 bot.remove_command("help")
