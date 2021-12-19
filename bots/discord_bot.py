@@ -564,10 +564,13 @@ async def on_command(ctx):
 @bot.event
 async def on_ready():
 	print("Ready")
-	support_guild = bot.get_guild(849516341933506561)
-	if not support_guild.chunked:
-		await support_guild.chunk()
-		print("Chunked support server!")
+	try:
+		support_guild = bot.get_guild(849516341933506561)
+		if not support_guild.chunked:
+			await support_guild.chunk()
+			print("Chunked support server!")
+	except:
+		pass
 	global emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead
 	emoji_amongass = bot.get_emoji(851566828596887554)
 	emoji_sustopgg = bot.get_emoji(922252075667185716)
