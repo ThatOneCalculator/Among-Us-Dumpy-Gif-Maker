@@ -37,6 +37,8 @@ class Client(commands.CommandsClient):
 Makes a dumpy gif from whatever image you post or from a person's avatar. Height can be a number between 2 and 35, the default is 10. If you tag a person after the height, it will use their avatar instead of the last image in chat.
 ### $\color{#FF76AB}\blacksquare$ `!!furry`:
 The same as `!!dumpy`, but uses the furry template, UwU~ (Template by [twistCMYK](https://twitter.com/twistCMYK)).
+### $\color{#FF76AB}\blacksquare$ `!!sans`:
+The same as `!!dumpy`, but uses the Sans template (Template by [Coco](https://twitter.com/CocotheMunchkin)).
 ### $\color{#FF76AB}\blacksquare$ `!!isaac`:
 The same as `!!dumpy`, but uses the Binding of Isaac template.
 ### $\color{#FF76AB}\blacksquare$ `!!bounce`:

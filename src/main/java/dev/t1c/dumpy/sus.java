@@ -70,7 +70,7 @@ public class sus {
 		Option fl = Option.builder().longOpt("file").hasArg().desc("Path to file, hides file picker").build();
 		Option bk = Option.builder().longOpt("background").hasArg().desc("Path to custom background").build();
 		Option md = Option.builder().longOpt("mode").hasArg()
-				.desc("Crewmate mode, currently supports default, furry, isaac, and bounce").build();
+				.desc("Crewmate mode, currently supports default, furry, sans, isaac, and bounce").build();
 		Option eo = Option.builder().longOpt("extraoutput").hasArg().desc("Appends text to output files").build();
 		Option hp = Option.builder().longOpt("help").desc("Shows this message").build();
 		options.addOption(li);
@@ -111,9 +111,9 @@ public class sus {
 
 		if (cmd.hasOption("mode")) {
 			mode = cmd.getOptionValue("mode");
-			String[] validModes = { "default", "furry", "isaac", "bounce" };
+			String[] validModes = { "default", "furry", "sans", "isaac", "bounce" };
 			if (!Arrays.asList(validModes).contains(mode)) {
-				System.out.println("Mode has to be default, furry, isaac, or bounce!");
+				System.out.println("Mode has to be default, furry, sans, isaac, or bounce!");
 				System.exit(1);
 			}
 		}
@@ -158,6 +158,10 @@ public class sus {
 
 		else if (mode.equals("isaac")) {
 			modestring = "_isaac";
+		}
+
+		else if (mode.equals("sans")) {
+			modestring = "_sans";
 		}
 
 		else if (mode.equals("bounce")) {

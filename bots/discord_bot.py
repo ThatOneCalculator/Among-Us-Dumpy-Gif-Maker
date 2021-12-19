@@ -44,7 +44,7 @@ with open("statcord.txt", "r") as f:
 	statcordkey = lines[0].strip()
 
 upsince = datetime.datetime.now()
-version = "4.0.0"
+version = "4.1.0"
 
 intents = discord.Intents.default()
 bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(
@@ -152,7 +152,7 @@ class HelpCommand(commands.Cog):
 	async def help_(self, ctx):
 		embed = discord.Embed(
 			title="My commands!",
-			description="Made by ThatOneCalculator#0001 and Dsim64#8145! `()` = optional, `<>` = mandatory.",
+			description="Made by ThatOneCalculator#0001 and pixer415#8145! `()` = optional, `<>` = mandatory.",
 			color=0x976BE1
 		)
 		embed.add_field(
@@ -163,6 +163,11 @@ class HelpCommand(commands.Cog):
 		embed.add_field(
 			name="`!!furry (height) (@person)`",
 			value="The same as `!!dumpy`, but uses the furry template, UwU~ (Template by [twistCMYK](https://twitter.com/twistCMYK)).",
+			inline=False
+		)
+		embed.add_field(
+			name="`!!sans (height) (@person)`",
+			value="The same as `!!dumpy`, but uses the Sans template (Template by [Coco](https://twitter.com/CocotheMunchkin)).",
 			inline=False
 		)
 		embed.add_field(
@@ -330,7 +335,7 @@ class TheStuff(commands.Cog):
 			return await ctx.send("You NEED to attach a file in your message to set your background. Try again in 30 seconds.\nTo delete your background, run `!!background delete`.")
 
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.command(aliases=["twerk", "amogus", "furry", "twist", "isaac", "bounce"])
+	@commands.command(aliases=["twerk", "amogus", "furry", "twist", "isaac", "bounce", "sans"])
 	async def dumpy(self, ctx, number: typing.Union[int, str] = 10, victim: typing.Union[discord.Member, str] = None):
 		await bot.wait_until_ready()
 		# await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
@@ -383,6 +388,8 @@ class TheStuff(commands.Cog):
 				mode = "isaac"
 			elif "bounce" in ctx.message.content:
 				mode = "bounce"
+			elif "sans" in ctx.message.content or "undertale" in ctx.message.content:
+				mode = "sans"
 			background = f"--background custom_bgs/background_{ctx.author.id}.png" if exists(f"custom_bgs/background_{ctx.author.id}.png") else ""
 			await loop.run_in_executor(None, blocking, messageid, mode, number, background)
 			filename = f"dumpy{messageid}.gif"
