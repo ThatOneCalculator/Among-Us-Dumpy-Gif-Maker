@@ -54,7 +54,7 @@ bot.topggpy = topgg.DBLClient(
 	bot, topggtoken, autopost=True, post_shard_count=True)
 slash = SlashCommand(bot, sync_commands=True)
 api = statcord.Client(bot, statcordkey)
-emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead = discord.Emoji()
+emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead = ""
 api.start_loop()
 
 promobuttons = [
