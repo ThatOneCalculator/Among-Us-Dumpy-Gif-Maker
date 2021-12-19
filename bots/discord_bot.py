@@ -60,25 +60,29 @@ promobuttons = [
 	[
 		Button(
 			style=ButtonStyle.URL,
-			label="See my GitHub!",
+			label="GitHub",
+			emoji="<:gitsus:922251058527473784>"
 			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
 		),
 
 		Button(
 			style=ButtonStyle.URL,
-			label="Join the support server!",
+			label="Support server",
+			emoji="<:crewmatedead:922251654869434448>"
 			url="https://discord.gg/VRawXXybvd"
 		),
 
 		Button(
 			style=ButtonStyle.URL,
 			label="Vote on top.gg!",
+			emoji="<:sustopgg:922252075667185716>"
 			url="https://top.gg/bot/847164104161361921/vote"
 		)
 	],
 	Button(
 		style=ButtonStyle.URL,
 		label="Invite to your server!",
+		emoji="<a:amongassdumpy:851566828596887554>"
 		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 	)
 ]
@@ -140,6 +144,7 @@ class TopGG(commands.Cog):
 						   Button(
 							   style=ButtonStyle.URL,
 							   label="Vote on top.gg!",
+							   emoji="<:sustopgg:922252075667185716>"
 							   url="https://top.gg/bot/847164104161361921/vote"
 						   )
 					   ]
@@ -214,7 +219,8 @@ class HelpCommand(commands.Cog):
 			value="- You can add `nodumpy` to a channel topic to disable the bot there.\n- If you need more lines, go to the GitHub and use the desktop version.",
 			inline=False
 		)
-		embed.set_footer(text=f"Among Us Dumpy Bot jar version {version}. Licensed under the AGPL-3.")
+		embed.set_footer(
+			text=f"Among Us Dumpy Bot jar version {version}. Licensed under the AGPL-3.")
 		try:
 			await ctx.send(embed=embed, components=promobuttons)
 		except:
@@ -341,22 +347,25 @@ class TheStuff(commands.Cog):
 		# await ctx.send("The `!!background` command has been updated! Run `!!background delete` to remove your current background, run `!!background color` for a solid color, `!!background #AAAAAA` for a custom color background, `!!background flag` for pride flags (gay, lesbian, trans, etc) and run `!!background` and attach an image for a custom image as a background.")
 		loop = asyncio.get_running_loop()
 		messageid = str(ctx.message.id)
-		if type(number) != int: number = 10
+		if type(number) != int:
+			number = 10
 		if number > 35 and number < 41:
-			msg = await ctx.send("Validating vote... <a:amongassdumpy:851566828596887554>")
+			msg = await ctx.send("Validating vote... <:sustopgg:922252075667185716>")
 			voted = await self.bot.topggpy.get_user_vote(ctx.author.id)
 			await asyncio.sleep(0.2)
 			await msg.delete()
-			if not voted and ctx.author.id != 454847501787463680: return await ctx.send(f"The limit for non-voters is 35! {ctx.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
+			if not voted and ctx.author.id != 454847501787463680:
+				return await ctx.send(f"The limit for non-voters is 35! {ctx.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 		if number > 40 or number < 1:
 			return await ctx.send("Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
-				components=[
-					Button(
-						style=ButtonStyle.URL,
-						label="Vote on top.gg!",
-						url="https://top.gg/bot/847164104161361921/vote"
-					)
-				])
+								  components=[
+									  Button(
+										  style=ButtonStyle.URL,
+										  label="Vote on top.gg!",
+										  url="https://top.gg/bot/847164104161361921/vote"
+										  emoji="<:sustopgg:922252075667185716>"
+									  )
+								  ])
 		async with ctx.typing():
 			if len(ctx.message.attachments) > 0:
 				await ctx.message.attachments[0].save(f"attach_{messageid}.png")
@@ -375,11 +384,13 @@ class TheStuff(commands.Cog):
 							elif len(message.embeds) > 0 and message.author != ctx.guild.me:
 								await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
 								sus = False
-					except Exception as e: return await ctx.send("I couldn't find an image, you sussy baka!")
+					except Exception as e:
+						return await ctx.send("I couldn't find an image, you sussy baka!")
 			await asyncio.sleep(0.1)
 			img = Image.open(f"attach_{messageid}.png")
 			if img.height / img.width <= 0.05:
-				subprocess.check_call(shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"))
+				subprocess.check_call(shlex.split(
+					f"bash -c 'rm ./attach_{messageid}.png'"))
 				return await ctx.send("This image is way too long, you're the impostor!")
 			mode = "default"
 			if "furry" in ctx.message.content or "twist" in ctx.message.content:
@@ -390,7 +401,8 @@ class TheStuff(commands.Cog):
 				mode = "bounce"
 			elif "sans" in ctx.message.content or "undertale" in ctx.message.content:
 				mode = "sans"
-			background = f"--background custom_bgs/background_{ctx.author.id}.png" if exists(f"custom_bgs/background_{ctx.author.id}.png") else ""
+			background = f"--background custom_bgs/background_{ctx.author.id}.png" if exists(
+				f"custom_bgs/background_{ctx.author.id}.png") else ""
 			await loop.run_in_executor(None, blocking, messageid, mode, number, background)
 			filename = f"dumpy{messageid}.gif"
 			allmembers = 0
@@ -406,21 +418,23 @@ class TheStuff(commands.Cog):
 					components=promobuttons
 				)
 				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(self.bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
-					components=[
-						Button(
-							style=ButtonStyle.URL,
-							label="Tap here!",
-							url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-						)
-					]
-				)
-			except: await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
+							   components=[
+								   Button(
+									   style=ButtonStyle.URL,
+									   label="Tap here!",
+									   emoji="<a:amongassdumpy:851566828596887554>"
+									   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+								   )
+							   ]
+							   )
+			except:
+				await ctx.send("An error occurred! I might not have the permission `Attach Files` in this channel.")
 			rmcmds = [
 				shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
 				shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
 			]
-			for i in rmcmds: subprocess.check_call(i)
-
+			for i in rmcmds:
+				subprocess.check_call(i)
 
 	@commands.command(aliases=["stats"])
 	async def ping(self, ctx):
