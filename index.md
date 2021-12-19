@@ -41,6 +41,8 @@
 "Among Us Dumpy Bot is the best Discord bot" -Mutahar (SomeOrdinaryGamers)
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/L0iXa3ckmMQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+### [Examples (click)](https://dumpy.t1c.dev/examples)
+
 # Instructions
 
 # Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a> or <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="25"/></a>
