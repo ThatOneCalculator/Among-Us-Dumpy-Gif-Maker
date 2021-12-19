@@ -61,28 +61,28 @@ promobuttons = [
 		Button(
 			style=ButtonStyle.URL,
 			label="GitHub",
-			emoji="<:gitsus:922251058527473784>"
+			emoji="<:gitsus:922251058527473784>",
 			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
 		),
 
 		Button(
 			style=ButtonStyle.URL,
 			label="Support server",
-			emoji="<:crewmatedead:922251654869434448>"
+			emoji="<:crewmatedead:922251654869434448>",
 			url="https://discord.gg/VRawXXybvd"
 		),
 
 		Button(
 			style=ButtonStyle.URL,
 			label="Vote on top.gg!",
-			emoji="<:sustopgg:922252075667185716>"
+			emoji="<:sustopgg:922252075667185716>",
 			url="https://top.gg/bot/847164104161361921/vote"
 		)
 	],
 	Button(
 		style=ButtonStyle.URL,
 		label="Invite to your server!",
-		emoji="<a:amongassdumpy:851566828596887554>"
+		emoji="<a:amongassdumpy:851566828596887554>",
 		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 	)
 ]
@@ -144,7 +144,7 @@ class TopGG(commands.Cog):
 						   Button(
 							   style=ButtonStyle.URL,
 							   label="Vote on top.gg!",
-							   emoji="<:sustopgg:922252075667185716>"
+							   emoji="<:sustopgg:922252075667185716>",
 							   url="https://top.gg/bot/847164104161361921/vote"
 						   )
 					   ]
@@ -362,8 +362,8 @@ class TheStuff(commands.Cog):
 									  Button(
 										  style=ButtonStyle.URL,
 										  label="Vote on top.gg!",
+										  emoji="<:sustopgg:922252075667185716>",
 										  url="https://top.gg/bot/847164104161361921/vote"
-										  emoji="<:sustopgg:922252075667185716>"
 									  )
 								  ])
 		async with ctx.typing():
@@ -422,7 +422,7 @@ class TheStuff(commands.Cog):
 								   Button(
 									   style=ButtonStyle.URL,
 									   label="Tap here!",
-									   emoji="<a:amongassdumpy:851566828596887554>"
+									   emoji="<a:amongassdumpy:851566828596887554>",
 									   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 								   )
 							   ]
