@@ -62,28 +62,28 @@ promobuttons = [
 		Button(
 			style=ButtonStyle.URL,
 			label="GitHub",
-			# emoji="<:gitsus:922251058527473784>",
+			emoji=emoji_gitsus,
 			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
 		),
 
 		Button(
 			style=ButtonStyle.URL,
 			label="Support server",
-			# emoji="<:crewmatedead:922251654869434448>",
+			emoji=emoji_crewmatedead,
 			url="https://discord.gg/VRawXXybvd"
 		),
 
 		Button(
 			style=ButtonStyle.URL,
 			label="Vote on top.gg!",
-			# emoji="<:sustopgg:922252075667185716>",
+			emoji=emoji_sustopgg,
 			url="https://top.gg/bot/847164104161361921/vote"
 		)
 	],
 	Button(
 		style=ButtonStyle.URL,
 		label="Invite to your server!",
-		# emoji="<a:amongassdumpy:851566828596887554>",
+		emoji=emoji_amongass,
 		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 	)
 ]
@@ -145,7 +145,7 @@ class TopGG(commands.Cog):
 						   Button(
 							   style=ButtonStyle.URL,
 							   label="Vote on top.gg!",
-							   # emoji="<:sustopgg:922252075667185716>",
+							   emoji=emoji_sustopgg,
 							   url="https://top.gg/bot/847164104161361921/vote"
 						   )
 					   ]
@@ -363,7 +363,7 @@ class TheStuff(commands.Cog):
 									  Button(
 										  style=ButtonStyle.URL,
 										  label="Vote on top.gg!",
-										  # emoji="<:sustopgg:922252075667185716>",
+										  emoji=emoji_sustopgg,
 										  url="https://top.gg/bot/847164104161361921/vote"
 									  )
 								  ])
@@ -423,7 +423,7 @@ class TheStuff(commands.Cog):
 								   Button(
 									   style=ButtonStyle.URL,
 									   label="Tap here!",
-									   # emoji=emoji_amongass,
+									   emoji=emoji_amongass,
 									   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 								   )
 							   ]
@@ -564,17 +564,10 @@ async def on_command(ctx):
 @bot.event
 async def on_ready():
 	print("Ready")
-	# try:
-	# 	support_guild = bot.get_guild(849516341933506561)
-	# 	if not support_guild.chunked:
-	# 		await support_guild.chunk()
-	# 		print("Chunked support server!")
-	# except:
-	# 	pass
-	# global emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead
-	# emoji_amongass = bot.get_emoji(851566828596887554)
-	# emoji_sustopgg = bot.get_emoji(922252075667185716)
-	# emoji_gitsus = bot.get_emoji(922251058527473784)
-	# emoji_crewmatedead = bot.get_emoji(922251654869434448)
+	global emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead
+	emoji_amongass = bot.get_emoji(851566828596887554)
+	emoji_sustopgg = bot.get_emoji(922252075667185716)
+	emoji_gitsus = bot.get_emoji(922251058527473784)
+	emoji_crewmatedead = bot.get_emoji(922251654869434448)
 
 bot.run(token)
