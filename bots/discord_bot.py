@@ -54,6 +54,7 @@ bot.topggpy = topgg.DBLClient(
 	bot, topggtoken, autopost=True, post_shard_count=True)
 slash = SlashCommand(bot, sync_commands=True)
 api = statcord.Client(bot, statcordkey)
+emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead = None
 api.start_loop()
 
 promobuttons = [
@@ -422,7 +423,7 @@ class TheStuff(commands.Cog):
 								   Button(
 									   style=ButtonStyle.URL,
 									   label="Tap here!",
-									   emoji="<a:amongassdumpy:851566828596887554>",
+									   emoji=emoji_amongass,
 									   url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
 								   )
 							   ]
@@ -563,5 +564,10 @@ async def on_command(ctx):
 @bot.event
 async def on_ready():
 	print("Ready")
+	global emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead
+	emoji_amongass = bot.get_emoji(851566828596887554)
+	emoji_sustopgg = bot.get_emoji(922252075667185716)
+	emoji_gitsus = bot.get_emoji(922251058527473784)
+	emoji_crewmatedead = bot.get_emoji(922251654869434448)
 
 bot.run(token)
