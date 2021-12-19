@@ -122,7 +122,7 @@ class TopGG(commands.Cog):
 
 class HelpCommand(commands.Cog):
 
-    def promobuttons(self):
+	def promobuttons(self):
 		return [
 			[
 				Button(
