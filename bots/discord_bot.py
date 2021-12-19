@@ -54,39 +54,7 @@ bot.topggpy = topgg.DBLClient(
 	bot, topggtoken, autopost=True, post_shard_count=True)
 slash = SlashCommand(bot, sync_commands=True)
 api = statcord.Client(bot, statcordkey)
-emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead = "", "", "", ""
 api.start_loop()
-
-promobuttons = [
-	[
-		Button(
-			style=ButtonStyle.URL,
-			label="GitHub",
-			emoji=emoji_gitsus,
-			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
-		),
-
-		Button(
-			style=ButtonStyle.URL,
-			label="Support server",
-			emoji=emoji_crewmatedead,
-			url="https://discord.gg/VRawXXybvd"
-		),
-
-		Button(
-			style=ButtonStyle.URL,
-			label="Vote on top.gg!",
-			emoji=emoji_sustopgg,
-			url="https://top.gg/bot/847164104161361921/vote"
-		)
-	],
-	Button(
-		style=ButtonStyle.URL,
-		label="Invite to your server!",
-		emoji=emoji_amongass,
-		url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
-	)
-]
 
 
 class CommandErrorHandler(commands.Cog):
@@ -145,7 +113,7 @@ class TopGG(commands.Cog):
 						   Button(
 							   style=ButtonStyle.URL,
 							   label="Vote on top.gg!",
-							   emoji=emoji_sustopgg,
+							   emoji=bot.get_emoji(922252075667185716),
 							   url="https://top.gg/bot/847164104161361921/vote"
 						   )
 					   ]
@@ -153,6 +121,42 @@ class TopGG(commands.Cog):
 
 
 class HelpCommand(commands.Cog):
+
+	def __init__(self, bot):
+		emoji_amongass = bot.get_emoji(851566828596887554)
+		emoji_sustopgg = bot.get_emoji(922252075667185716)
+		emoji_gitsus = bot.get_emoji(922251058527473784)
+		emoji_crewmatedead = bot.get_emoji(922251654869434448)
+		self.promobuttons = [
+			[
+				Button(
+					style=ButtonStyle.URL,
+					label="GitHub",
+					emoji=emoji_gitsus,
+					url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
+				),
+
+				Button(
+					style=ButtonStyle.URL,
+					label="Support server",
+					emoji=emoji_crewmatedead,
+					url="https://discord.gg/VRawXXybvd"
+				),
+
+				Button(
+					style=ButtonStyle.URL,
+					label="Vote on top.gg!",
+					emoji=emoji_sustopgg,
+					url="https://top.gg/bot/847164104161361921/vote"
+				)
+			],
+			Button(
+				style=ButtonStyle.URL,
+				label="Invite to your server!",
+				emoji=emoji_amongass,
+				url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+			)
+		]
 
 	@commands.command(name="help")
 	async def help_(self, ctx):
@@ -223,7 +227,7 @@ class HelpCommand(commands.Cog):
 		embed.set_footer(
 			text=f"Among Us Dumpy Bot jar version {version}. Licensed under the AGPL-3.")
 		try:
-			await ctx.send(embed=embed, components=promobuttons)
+			await ctx.send(embed=embed, components=self.promobuttons)
 		except:
 			await ctx.send("Hey! I need the `Embed Links` and the `Attach Files` permission in this channel to work properly.")
 
@@ -263,6 +267,40 @@ class TheStuff(commands.Cog):
 		self.bot = bot
 		self.update_status.start()
 		self.update_channels.start()
+		emoji_amongass = bot.get_emoji(851566828596887554)
+		emoji_sustopgg = bot.get_emoji(922252075667185716)
+		emoji_gitsus = bot.get_emoji(922251058527473784)
+		emoji_crewmatedead = bot.get_emoji(922251654869434448)
+		self.promobuttons = [
+			[
+				Button(
+					style=ButtonStyle.URL,
+					label="GitHub",
+					emoji=emoji_gitsus,
+					url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
+				),
+
+				Button(
+					style=ButtonStyle.URL,
+					label="Support server",
+					emoji=emoji_crewmatedead,
+					url="https://discord.gg/VRawXXybvd"
+				),
+
+				Button(
+					style=ButtonStyle.URL,
+					label="Vote on top.gg!",
+					emoji=emoji_sustopgg,
+					url="https://top.gg/bot/847164104161361921/vote"
+				)
+			],
+			Button(
+				style=ButtonStyle.URL,
+				label="Invite to your server!",
+				emoji=emoji_amongass,
+				url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+			)
+		]
 
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.command(aliases=["sus", "imposter", "impostor", "crewmate"])
@@ -280,7 +318,7 @@ class TheStuff(commands.Cog):
 			await ctx.send(
 				f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 				file=file,
-				components=promobuttons
+				components=self.promobuttons
 			)
 		rm = shlex.split(f"bash -c 'rm ./eject{ctx.message.id}.gif'")
 		subprocess.check_call(rm)
@@ -295,7 +333,7 @@ class TheStuff(commands.Cog):
 		await ctx.send(
 			f"{ctx.author.mention} Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 			file=file,
-			components=promobuttons
+			components=self.promobuttons
 		)
 
 	@commands.command()
@@ -416,7 +454,7 @@ class TheStuff(commands.Cog):
 				await ctx.send(
 					f"{ctx.author.mention} Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 					file=discord.File(filename, filename=filename),
-					components=promobuttons
+					components=self.promobuttons
 				)
 				await ctx.send(f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(self.bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
 							   components=[
@@ -468,7 +506,7 @@ class TheStuff(commands.Cog):
 👪 I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.
 📈 I have {int(votes):,} monthly votes on top.gg.
 🧑‍💻 I am on jar version {version}.
-""", components=promobuttons)
+""", components=self.promobuttons)
 
 	@commands.command()
 	async def shards(self, ctx):
@@ -564,10 +602,5 @@ async def on_command(ctx):
 @bot.event
 async def on_ready():
 	print("Ready")
-	global emoji_amongass, emoji_sustopgg, emoji_gitsus, emoji_crewmatedead
-	emoji_amongass = bot.get_emoji(851566828596887554)
-	emoji_sustopgg = bot.get_emoji(922252075667185716)
-	emoji_gitsus = bot.get_emoji(922251058527473784)
-	emoji_crewmatedead = bot.get_emoji(922251654869434448)
 
 bot.run(token)
