@@ -14,7 +14,7 @@ from typing import Any, Iterable, Tuple
 
 import aiofiles
 import aiohttp
-import disnake as discord
+import disnake
 import humanfriendly
 import topgg
 from async_timeout import timeout
@@ -43,7 +43,7 @@ with open("statcord.txt", "r") as f:
 upsince = datetime.datetime.now()
 version = "4.1.0"
 
-intents = discord.Intents.default()
+intents = disnake.Intents.default()
 bot = commands.AutoShardedBot(
 	command_prefix=commands.when_mentioned_or("!!"),
 	intents=intents,
@@ -100,7 +100,7 @@ async def asyncimage(url, filename):
 			await f.write(await resp.read())
 			await f.close()
 	img = Image.open(filename)
-	file = discord.File(filename, filename=filename)
+	file = disnake.File(filename, filename=filename)
 	return file
 
 
@@ -176,11 +176,11 @@ class Tasks(commands.Cog):
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await asyncio.sleep(10)
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
+		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
 
 
 @commands.slash_command(description="Check the number of votes on top.gg, and vote for the bot.")
-async def votes(inter: discord.ApplicationCommandInteraction):
+async def votes(inter: disnake.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
 	allvotes = botinfo["points"]
@@ -196,12 +196,12 @@ async def votes(inter: discord.ApplicationCommandInteraction):
 					)
 
 @commands.slash_command(description="Brings you to the bot's statcord page.")
-async def statcord(inter: discord.ApplicationCommandInteraction):
+async def statcord(inter: disnake.ApplicationCommandInteraction):
 	await inter.send(content="https://statcord.com/bot/847164104161361921")
 
 @commands.cooldown(1, 10, commands.BucketType.user)
 @commands.slash_command(description="Sees if someone is the impostor!")
-async def eject(inter: discord.ApplicationCommandInteraction, person: discord.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
+async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
 	if impostor == "Random":
 		outcome = random.choice(["true", "false"])
 	elif impostor ==  "True":
@@ -220,7 +220,7 @@ async def eject(inter: discord.ApplicationCommandInteraction, person: discord.Me
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @commands.slash_command(description="Writes something out, but sus.")
-async def text(inter: discord.ApplicationCommandInteraction, text: str):
+async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	mytext = urllib.parse.quote(text).upper()
 	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
 	await inter.send(
@@ -231,7 +231,7 @@ async def text(inter: discord.ApplicationCommandInteraction, text: str):
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @commands.slash_command(description="Makes a tall sussy impostor!")
-async def tall(inter: discord.ApplicationCommandInteraction, number: int):
+async def tall(inter: disnake.ApplicationCommandInteraction, number: int):
 	if number == None or type(number) != int:
 		number = 0
 	if number > 20:
@@ -241,7 +241,7 @@ async def tall(inter: discord.ApplicationCommandInteraction, number: int):
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @commands.slash_command(description="Set a custom background image for `/dumpy` (and subsequent commands. Run `/background delete` to remove your current background, run `/background color` for a solid color, `/background #AAAAAA` for a custom color background, `/background flag` for pride flags (gay, lesbian, trans, etc and run `/background` and attach an image for a custom image as a background.")
-async def background(inter: discord.ApplicationCommandInteraction, bg_choice: str = None):
+async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = None):
 	if bg_choice != None:
 		bg_choice = bg_choice.lower()
 		if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
@@ -272,7 +272,7 @@ async def background(inter: discord.ApplicationCommandInteraction, bg_choice: st
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @commands.slash_command(description="Makes a dumpy gif from whatever image you want! By default, it will use the last image in chat. Height can be a number between 1 and 40, the default is 10. If you add `person`, it will use that person's avatar. If you add `image_url`, it will use the image in that url (must be jpg or png).")
-async def dumpy(inter: discord.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: discord.Member = None, image_url: str = None):
+async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: disnake.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	loop = asyncio.get_running_loop()
 	messageid = str(inter.id)
@@ -329,7 +329,7 @@ async def dumpy(inter: discord.ApplicationCommandInteraction, mode: str=commands
 			pass
 	try:
 		await inter.send(content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
-			file=discord.File(filename, filename=filename),
+			file=disnake.File(filename, filename=filename),
 			components=promobuttons()
 		)
 		await inter.send(content=f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands >",
@@ -352,7 +352,7 @@ async def dumpy(inter: discord.ApplicationCommandInteraction, mode: str=commands
 		subprocess.check_call(i)
 
 @commands.slash_command(description="Gives some helpful information about the bot.")
-async def info(inter: discord.ApplicationCommandInteraction):
+async def info(inter: disnake.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
 	shardscounter = []
@@ -374,7 +374,7 @@ async def info(inter: discord.ApplicationCommandInteraction):
 	pingdiff = afterping - beforeping
 	pingdiffms = pingdiff.microseconds / 1000
 	uptime = afterping - upsince
-	embed = discord.Embed(
+	embed = disnake.Embed(
 		title="Among Us Dumpy Bot",
 		description="Made by ThatOneCalculator#0001 and pixer415#8145! `()` = optional, `<>` = mandatory.",
 		color=0x976BE1,
@@ -423,7 +423,7 @@ async def info(inter: discord.ApplicationCommandInteraction):
 	await ping.edit(content=None, embed=embed, components=promobuttons())
 
 @commands.slash_command(description="Shows all bot shards.")
-async def shards(inter: discord.ApplicationCommandInteraction):
+async def shards(inter: disnake.ApplicationCommandInteraction):
 	shardscounter = []
 	allmembers = 0
 	for guild in bot.guilds:
@@ -440,7 +440,7 @@ async def shards(inter: discord.ApplicationCommandInteraction):
 	totpings = []
 	closedcount = 0
 	count = 0
-	embed = discord.Embed(title=f"Bot shards")
+	embed = disnake.Embed(title=f"Bot shards")
 	for i in shards:
 		gcount = 0
 		mcount = 0
@@ -450,7 +450,7 @@ async def shards(inter: discord.ApplicationCommandInteraction):
 				mcount += j.member_count
 		if count % 9 == 0 and count != 0:
 			embedlist.append(embed)
-			embed = discord.Embed(title=f"Bot shards:")
+			embed = disnake.Embed(title=f"Bot shards:")
 		count += 1
 		totpings.append(round((i.latency * 1000), 2))
 		if i.is_closed():
@@ -460,7 +460,7 @@ async def shards(inter: discord.ApplicationCommandInteraction):
 		if count == len(shards):
 			embedlist.append(embed)
 	shardpaginator = BotEmbedPaginator(ctx, embedlist)
-	staticembed = discord.Embed(
+	staticembed = disnake.Embed(
 		title="Total", description=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
 	await inter.send(embed=staticembed)
 	await shardpaginator.run()
