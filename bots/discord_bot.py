@@ -18,7 +18,6 @@ import disnake
 import humanfriendly
 import topgg
 from async_timeout import timeout
-from discord_components import (Button, ButtonStyle, DiscordComponents, InteractionType)
 from disnake.ext import commands, tasks
 from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
 from PIL import Image
@@ -57,29 +56,27 @@ bot.statcord_client = StatcordClient(bot, statcordkey)
 def promobuttons():
 	return [
 		[
-			Button(
-				style=ButtonStyle.URL,
+			disnake.Button(
+				style=disnake.ButtonStyle.link,
 				label="GitHub",
 				emoji=bot.get_emoji(922251058527473784),
 				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
 			),
-
-			Button(
-				style=ButtonStyle.URL,
+			disnake.Button(
+				style=disnake.ButtonStyle.link,
 				label="Support server",
 				emoji=bot.get_emoji(922251654869434448),
 				url="https://discord.gg/VRawXXybvd"
 			),
-
-			Button(
-				style=ButtonStyle.URL,
+			disnake.Button(
+				style=disnake.ButtonStyle.link,
 				label="Vote on top.gg!",
 				emoji=bot.get_emoji(922252075667185716),
 				url="https://top.gg/bot/847164104161361921/vote"
 			)
 		],
-		Button(
-			style=ButtonStyle.URL,
+		disnake.Button(
+			style=disnake.ButtonStyle.link,
 			label="Invite to your server!",
 			emoji=bot.get_emoji(851566828596887554),
 			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands "
@@ -269,8 +266,8 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	if number > 40 or number < 1:
 		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
 								components=[
-									Button(
-										style=ButtonStyle.URL,
+									disnake.Button(
+										style=disnake.ButtonStyle.link,
 										label="Vote on top.gg!",
 										emoji=bot.get_emoji(922252075667185716),
 										url="https://top.gg/bot/847164104161361921/vote"
