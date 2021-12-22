@@ -461,7 +461,7 @@ async def shards(inter):
 	shardpaginator = BotEmbedPaginator(ctx, embedlist)
 	staticembed = discord.Embed(
 		title="Total", description=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
-	await inter.send(content=embed=staticembed)
+	await inter.send(embed=staticembed)
 	await shardpaginator.run()
 
 
