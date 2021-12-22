@@ -176,7 +176,7 @@ class Tasks(commands.Cog):
 	async def update_status(self):
 		await self.bot.wait_until_ready()
 		await asyncio.sleep(10)
-		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"/help on {len(bot.guilds):,} servers!"))
+		await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
 
 
 @commands.slash_command(description="Check the number of votes on top.gg, and vote for the bot.")
