@@ -47,7 +47,8 @@ intents = discord.Intents.default()
 bot = commands.AutoShardedBot(
 	command_prefix=commands.when_mentioned_or("!!"),
 	intents=intents,
-	chunk_guilds_at_startup=False
+	chunk_guilds_at_startup=False,
+	sync_commands=True
 )
 ddb = DiscordComponents(bot)
 bot.topggpy = topgg.DBLClient(
@@ -82,7 +83,7 @@ def promobuttons():
 			style=ButtonStyle.URL,
 			label="Invite to your server!",
 			emoji=bot.get_emoji(851566828596887554),
-			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands "
 		)
 	]
 
@@ -331,13 +332,13 @@ async def dumpy(inter, mode: str=commands.Param(choices=["default", "furry", "sa
 			file=discord.File(filename, filename=filename),
 			components=promobuttons()
 		)
-		await inter.send(content=f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot>",
+		await inter.send(content=f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands >",
 						components=[
 							Button(
 								style=ButtonStyle.URL,
 								label="Tap here!",
 								emoji=bot.get_emoji(851566828596887554),
-								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot"
+								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands "
 							)
 						]
 						)
@@ -473,9 +474,9 @@ bot.add_cog(CommandErrorHandler(bot))
 @bot.event
 async def on_message(message):
 	if message.guild == None and message.author.bot == False:
-		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot")
+		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands ")
 	if message.content.startswith("!!"):
-		return await message.channel.send("I have moved to slash commands! Type `/` and select me to get started. All commands are the same, but they start with `/` instead of `!!`. You can also type `/info` for more help.")
+		return await message.channel.send("I have moved to slash commands! Type `/` and select me to get started. All commands are the same, but they start with `/` instead of `!!`. You can also type `/info` for more info.\n\nIf you do not see slash commands, ask a server administrator or the server owner to click this link to reinvite the bot with slash command permissions: https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands")
 	# elif (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
 	# 	return await message.channel.send("**Commands have been disabled in this channel.**")
 	await bot.process_commands(message)
