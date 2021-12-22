@@ -55,28 +55,28 @@ bot.statcord_client = StatcordClient(bot, statcordkey)
 def promobuttons():
 	return ActionRow(
             Button(
-                style=ButtonStyle.URL,
+                style=ButtonStyle.link,
                 label="GitHub",
                 emoji=bot.get_emoji(922251058527473784),
                 url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
             ),
 
             Button(
-                style=ButtonStyle.URL,
+                style=ButtonStyle.link,
                 label="Support server",
                 emoji=bot.get_emoji(922251654869434448),
                 url="https://discord.gg/VRawXXybvd"
             ),
 
             Button(
-                style=ButtonStyle.URL,
+                style=ButtonStyle.link,
                 label="Vote on top.gg!",
                 emoji=bot.get_emoji(922252075667185716),
                 url="https://top.gg/bot/847164104161361921/vote"
             ),
 
             Button(
-                style=ButtonStyle.URL,
+                style=ButtonStyle.link,
                 label="Invite to your server!",
                 emoji=bot.get_emoji(851566828596887554),
                 url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands"
