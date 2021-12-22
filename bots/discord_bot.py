@@ -18,7 +18,6 @@ import disnake
 import humanfriendly
 import topgg
 from async_timeout import timeout
-from disnake import  ActionRow, Button, ButtonStyle
 from disnake.ext import commands, tasks
 from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
 from PIL import Image
@@ -53,35 +52,34 @@ bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=T
 bot.statcord_client = StatcordClient(bot, statcordkey)
 
 def promobuttons():
-	return ActionRow(
-            Button(
-                style=ButtonStyle.link,
-                label="GitHub",
-                emoji=bot.get_emoji(922251058527473784),
-                url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
-            ),
-
-            Button(
-                style=ButtonStyle.link,
-                label="Support server",
-                emoji=bot.get_emoji(922251654869434448),
-                url="https://discord.gg/VRawXXybvd"
-            ),
-
-            Button(
-                style=ButtonStyle.link,
-                label="Vote on top.gg!",
-                emoji=bot.get_emoji(922252075667185716),
-                url="https://top.gg/bot/847164104161361921/vote"
-            ),
-
-            Button(
-                style=ButtonStyle.link,
-                label="Invite to your server!",
-                emoji=bot.get_emoji(851566828596887554),
-                url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands"
+	return [
+		[
+			disnake.ui.Button(
+				style=disnake.ButtonStyle.link,
+				label="GitHub",
+				emoji=bot.get_emoji(922251058527473784),
+				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
+			),
+			disnake.ui.Button(
+				style=disnake.ButtonStyle.link,
+				label="Support server",
+				emoji=bot.get_emoji(922251654869434448),
+				url="https://discord.gg/VRawXXybvd"
+			),
+			disnake.ui.Button(
+				style=disnake.ButtonStyle.link,
+				label="Vote on top.gg!",
+				emoji=bot.get_emoji(922252075667185716),
+				url="https://top.gg/bot/847164104161361921/vote"
+			)
+		],
+		disnake.ui.Button(
+			style=disnake.ButtonStyle.link,
+			label="Invite to your server!",
+			emoji=bot.get_emoji(851566828596887554),
+			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands"
         )
-    ) 
+		]
 
 def blocking(messageid, mode, number, background):
 	cmd = shlex.split(
@@ -266,7 +264,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	if number > 40 or number < 1:
 		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
 								components=[
-									disnake.Button(
+									disnake.ui.Button(
 										style=disnake.ButtonStyle.link,
 										label="Vote on top.gg!",
 										emoji=bot.get_emoji(922252075667185716),
