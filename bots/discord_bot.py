@@ -193,7 +193,7 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
-		components=PromoButtons()
+		view=PromoButtons()
 	)
 	rm = shlex.split(f"bash -c 'rm ./eject{inter.id}.gif'")
 	subprocess.check_call(rm)
@@ -206,7 +206,7 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
-		components=PromoButtons()
+		view=PromoButtons()
 	)
 
 @commands.cooldown(1, 15, commands.BucketType.user)
@@ -296,7 +296,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 		await inter.edit_original_message(
 			content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 			file=disnake.File(filename, filename=filename),
-			components=PromoButtons()
+			view=PromoButtons()
 			)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
@@ -372,7 +372,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 		value=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info.",
 		inline=False
 	)
-	await inter.send(content=None, embed=embed, components=PromoButtons())
+	await inter.send(content=None, embed=embed, view=PromoButtons())
 
 bot.remove_command("help")
 bot.add_cog(Tasks(bot))
