@@ -219,37 +219,74 @@ async def tall(inter: disnake.ApplicationCommandInteraction, height: int):
 	lb = "\n"
 	await inter.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * height}<:tallamongus_3:853680372554268702>")
 
+async def autocomplete_bg_choices(inter: disnake.ApplicationCommandInteraction, user_input: str):
+		CHOICES = [
+			"transparent", 
+			"#", 
+			"gray", 
+			"white", 
+			"black", 
+			"red", 
+			"orange", 
+			"yellow", 
+			"green", 
+			"blue", 
+			"purple", 
+			"pink",
+			"brown",
+			"asexual", 
+			"aromantic", 
+			"agender",
+			"aroace",
+			"bisexual",
+			"boyflux",
+			"demiboy",
+			"demigirl",
+			"gay",
+			"genderfluid",
+			"genderflux",
+			"lesbian",
+			"nonbinary",
+			"omnisexual",
+			"pansexual",
+			"polyamorous",
+			"polysexual",
+			"pride",
+			"transgender",
+			"vincian"
+			]
+		return [i for i in CHOICES if user_input.lower() in i]
+
 @commands.cooldown(1, 15, commands.BucketType.user)
-@bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, delete, any color, or any pride flag.")
-async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = None):
+@bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, any color, or any pride flag.")
+async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = commands.Param(autocomplete=autocomplete_bg_choices)):
 	await inter.response.defer()
-	if bg_choice != None:
-		bg_choice = bg_choice.lower()
-		if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
-			if exists(f"custom_bgs/background_{inter.author.id}.png"):
-				rmcmd = shlex.split(
-					f"bash -c 'rm custom_bgs/background_{inter.author.id}.png'")
-				subprocess.check_call(rmcmd)
-				return await inter.edit_original_message(content="Your background has been deleted!")
-		elif bg_choice.startswith("#"):
-			if len(bg_choice) != 7:
-				return await inter.edit_original_message(content="Invalid length! Example: `#0ab32c`")
-			await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"custom_bgs/background_{inter.author.id}.png")
+	bg_choice = bg_choice.lower()
+	if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
+		if exists(f"custom_bgs/background_{inter.author.id}.png"):
+			rmcmd = shlex.split(
+				f"bash -c 'rm custom_bgs/background_{inter.author.id}.png'")
+			subprocess.check_call(rmcmd)
+			return await inter.edit_original_message(content="Your background has been deleted!")
+	elif bg_choice.startswith("#"):
+		if len(bg_choice) != 7:
+			return await inter.edit_original_message(content="Invalid length! Example: `#0ab32c`")
+		await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"custom_bgs/background_{inter.author.id}.png")
+		return await inter.edit_original_message(content="Set your background!")
+	else:
+		if exists(f"backgrounds/{bg_choice}.png"):
+			cpcmd = shlex.split(
+				f"bash -c 'cp ./backgrounds/{bg_choice}.png ./custom_bgs/background_{inter.author.id}.png'")
+			subprocess.check_call(cpcmd)
 			return await inter.edit_original_message(content="Set your background!")
 		else:
-			if exists(f"backgrounds/{bg_choice}.png"):
-				cpcmd = shlex.split(
-					f"bash -c 'cp ./backgrounds/{bg_choice}.png ./custom_bgs/background_{inter.author.id}.png'")
-				subprocess.check_call(cpcmd)
-				return await inter.edit_original_message(content="Set your background!")
-			else:
-				return await inter.edit_original_message(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
-	elif len(inter) > 0:
-		try:
-			await inter.attachments[0].save(f"custom_bgs/background_{inter.author.id}.png")
-		except Exception as e:
-			await inter.edit_original_message(content=f"```{e}```")
-		return await inter.edit_original_message(content="Saved your background!")
+			return await inter.edit_original_message(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
+	# elif len(inter) > 0:
+	# 	try:
+	# 		await inter.attachments[0].save(f"custom_bgs/background_{inter.author.id}.png")
+	# 	except Exception as e:
+	# 		await inter.edit_original_message(content=f"```{e}```")
+	# 	return await inter.edit_original_message(content="Saved your background!")
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Makes a Dumpy gif! Default: last image in chat, person and image_url can override. Height is 1-40.")
