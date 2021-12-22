@@ -280,8 +280,6 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	if number > 35 and number < 41:
 		msg = await inter.send("Validating vote... <:sustopgg:922252075667185716>")
 		voted = await bot.topggpy.get_user_vote(inter.author.id)
-		await asyncio.sleep(0.2)
-		await msg.delete()
 		if not voted and inter.author.id != 454847501787463680:
 			return await inter.send(content=f"The limit for non-voters is 35! {inter.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 	if number > 40 or number < 1:
