@@ -307,8 +307,8 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 			file=disnake.File(filename, filename=filename),
 			components=promobuttons()
 		)
-	except:
-		await inter.edit_original_message(content="An error occurred! I might not have the permission `Attach Files` in this channel.")
+	except Exception as e:
+		await inter.edit_original_message(content="An error occurred! I might not have the permission `Attach Files` in this channel.\n```{e}```")
 	rmcmds = [
 		shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
 		shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
