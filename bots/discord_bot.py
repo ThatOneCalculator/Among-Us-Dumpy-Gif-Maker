@@ -46,7 +46,7 @@ intents = disnake.Intents.default()
 bot = commands.AutoShardedBot(
 	command_prefix=commands.when_mentioned_or("!!"),
 	intents=intents,
-	chunk_guilds_at_startup=False
+	chunk_guilds_at_startup=False,
 )
 bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
 bot.statcord_client = StatcordClient(bot, statcordkey)
@@ -387,8 +387,7 @@ async def on_message(message):
 	if message.guild == None and message.author.bot == False:
 		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands ")
 	if message.content.startswith("!!"):
-		# return await message.channel.send("I have moved to slash commands! Type `/` and select me to get started. All commands are the same, but they start with `/` instead of `!!`. You can also type `/info` for more info.\n\nIf you do not see slash commands, ask a server administrator or the server owner to click this link to reinvite the bot with slash command permissions: https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands")
-		return await message.channel.send("I am currently moving to slash commands. This upgrade process is going to take about an hour, so as of right now, the bot will be unusable.\nFor more updates, go to https://discord.gg/VRawXXybvd")
+		return await message.channel.send("I have moved to slash commands! Type `/` and select me to get started. All commands are the same, but they start with `/` instead of `!!`. You can also type `/info` for more info.\n\nIf you do not see slash commands, ask a server administrator or the server owner to click this link to reinvite the bot with slash command permissions: https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands")
 	# elif (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
 	# 	return await message.channel.send("**Commands have been disabled in this channel.**")
 	await bot.process_commands(message)
