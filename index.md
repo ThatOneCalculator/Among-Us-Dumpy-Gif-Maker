@@ -46,7 +46,9 @@
 # Instructions
 
 # Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a> or <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="25"/></a>
-##### The help command is `!!help`.
+##### The Discord bot uses slash commands, type `/info` in Discord for more info.
+##### The Revolt bot uses the `!!` prefix, type `!!help` in Revolt for more info.
+
 
 # Run as a program:
 ## Requirements:
