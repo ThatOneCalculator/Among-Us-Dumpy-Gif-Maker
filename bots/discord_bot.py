@@ -466,7 +466,6 @@ async def shards(inter):
 
 
 bot.remove_command("help")
-bot.add_cog(HelpCommand(bot))
 bot.add_cog(Tasks(bot))
 bot.add_cog(CommandErrorHandler(bot))
 
