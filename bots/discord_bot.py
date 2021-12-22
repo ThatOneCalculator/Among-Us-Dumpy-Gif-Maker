@@ -410,8 +410,8 @@ async def info(inter):
 		inline=False
 	)
 	embed.add_field(
-		name="📈 Votes"
-		text=f"I have {int(votes):,} monthly votes on top.gg. Type `/votes` for more info."
+		name="📈 Votes",
+		text=f"I have {int(votes):,} monthly votes on top.gg. Type `/votes` for more info.",
 		inline=False
 	)
 	embed.add_field(
