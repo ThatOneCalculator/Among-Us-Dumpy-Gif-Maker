@@ -84,9 +84,9 @@ class PromoButtons(disnake.ui.View):
 			row=1
 			))
 
-def blocking(messageid, mode, number, background):
+def blocking(messageid, mode, lines, background):
 	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {number} --file attach_{messageid}.png --mode {mode} --extraoutput {messageid} {background}")
+		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file attach_{messageid}.png --mode {mode} --extraoutput {messageid} {background}")
 	subprocess.check_call(cmd)
 
 
@@ -282,7 +282,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 			return await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
 	await asyncio.sleep(0.1)
 	img = Image.open(f"attach_{messageid}.png")
-	if img.lines / img.width <= 0.05:
+	if img.height / img.width <= 0.05:
 		subprocess.check_call(shlex.split(
 			f"bash -c 'rm ./attach_{messageid}.png'"))
 		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
