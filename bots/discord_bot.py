@@ -18,7 +18,7 @@ import disnake
 import humanfriendly
 import topgg
 from async_timeout import timeout
-from disnake import  ActionRow, Button
+from disnake import  ActionRow, Button, ButtonStyle
 from disnake.ext import commands, tasks
 from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
 from PIL import Image
