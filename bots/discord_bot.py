@@ -19,7 +19,7 @@ import humanfriendly
 import topgg
 from async_timeout import timeout
 from discord_components import (Button, ButtonStyle, DiscordComponents, InteractionType)
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
 from PIL import Image
 from statcord import StatcordClient
