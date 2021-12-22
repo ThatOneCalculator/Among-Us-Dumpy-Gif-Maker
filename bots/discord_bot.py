@@ -110,8 +110,8 @@ class CommandErrorHandler(commands.Cog):
 		self.bot = bot
 
 	@commands.Cog.listener()
-	async def on_command_error(inter, error):
-		if hasattr(inter.command, 'on_error'):
+	async def on_command_error(inter: discord.ApplicationCommandInteraction, error):
+		if hasattr(inter: discord.ApplicationCommandInteraction.command, 'on_error'):
 			return
 		ignored = (commands.CommandNotFound, commands.UserInputError)
 		error = getattr(error, 'original', error)
@@ -180,7 +180,7 @@ class Tasks(commands.Cog):
 
 
 @commands.slash_command(description="Check the number of votes on top.gg, and vote for the bot.")
-async def votes(inter):
+async def votes(inter: discord.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
 	allvotes = botinfo["points"]
@@ -196,12 +196,12 @@ async def votes(inter):
 					)
 
 @commands.slash_command(description="Brings you to the bot's statcord page.")
-async def statcord(inter):
+async def statcord(inter: discord.ApplicationCommandInteraction):
 	await inter.send(content="https://statcord.com/bot/847164104161361921")
 
 @commands.cooldown(1, 10, commands.BucketType.user)
 @commands.slash_command(description="Sees if someone is the impostor!")
-async def eject(inter, person: discord.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
+async def eject(inter: discord.ApplicationCommandInteraction, person: discord.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
 	if impostor == "Random":
 		outcome = random.choice(["true", "false"])
 	elif impostor ==  "True":
@@ -220,7 +220,7 @@ async def eject(inter, person: discord.Member, impostor: str=commands.Param(choi
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @commands.slash_command(description="Writes something out, but sus.")
-async def text(inter, text: str):
+async def text(inter: discord.ApplicationCommandInteraction, text: str):
 	mytext = urllib.parse.quote(text).upper()
 	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
 	await inter.send(
@@ -231,7 +231,7 @@ async def text(inter, text: str):
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @commands.slash_command(description="Makes a tall sussy impostor!")
-async def tall(inter, number: int):
+async def tall(inter: discord.ApplicationCommandInteraction, number: int):
 	if number == None or type(number) != int:
 		number = 0
 	if number > 20:
@@ -241,7 +241,7 @@ async def tall(inter, number: int):
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @commands.slash_command(description="Set a custom background image for `/dumpy` (and subsequent commands. Run `/background delete` to remove your current background, run `/background color` for a solid color, `/background #AAAAAA` for a custom color background, `/background flag` for pride flags (gay, lesbian, trans, etc and run `/background` and attach an image for a custom image as a background.")
-async def background(inter, bg_choice: str = None):
+async def background(inter: discord.ApplicationCommandInteraction, bg_choice: str = None):
 	if bg_choice != None:
 		bg_choice = bg_choice.lower()
 		if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
@@ -263,7 +263,7 @@ async def background(inter, bg_choice: str = None):
 				return await inter.send(content="Set your background!")
 			else:
 				return await inter.send(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
-	elif len(inter.attachments) > 0:
+	elif len(inter: discord.ApplicationCommandInteraction.attachments) > 0:
 		try:
 			await inter.attachments[0].save(f"custom_bgs/background_{inter.author.id}.png")
 		except Exception as e:
@@ -272,15 +272,15 @@ async def background(inter, bg_choice: str = None):
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @commands.slash_command(description="Makes a dumpy gif from whatever image you want! By default, it will use the last image in chat. Height can be a number between 1 and 40, the default is 10. If you add `person`, it will use that person's avatar. If you add `image_url`, it will use the image in that url (must be jpg or png).")
-async def dumpy(inter, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: discord.Member = None, image_url: str = None):
+async def dumpy(inter: discord.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: discord.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	loop = asyncio.get_running_loop()
-	messageid = str(inter.id)
+	messageid = str(inter: discord.ApplicationCommandInteraction.id)
 	if type(number) != int:
 		number = 10
 	if number > 35 and number < 41:
 		msg = await inter.send("Validating vote... <:sustopgg:922252075667185716>")
-		voted = await bot.topggpy.get_user_vote(inter.author.id)
+		voted = await bot.topggpy.get_user_vote(inter: discord.ApplicationCommandInteraction.author.id)
 		await asyncio.sleep(0.2)
 		await msg.delete()
 		if not voted and inter.author.id != 454847501787463680:
@@ -352,7 +352,7 @@ async def dumpy(inter, mode: str=commands.Param(choices=["default", "furry", "sa
 		subprocess.check_call(i)
 
 @commands.slash_command(description="Gives some helpful information about the bot.")
-async def info(inter):
+async def info(inter: discord.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
 	shardscounter = []
@@ -423,7 +423,7 @@ async def info(inter):
 	await ping.edit(content=None, embed=embed, components=promobuttons())
 
 @commands.slash_command(description="Shows all bot shards.")
-async def shards(inter):
+async def shards(inter: discord.ApplicationCommandInteraction):
 	shardscounter = []
 	allmembers = 0
 	for guild in bot.guilds:
