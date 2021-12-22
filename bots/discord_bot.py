@@ -332,11 +332,6 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 			allmembers += guild.member_count
 		except:
 			pass
-	beforeping = datetime.datetime.now()
-	await inter.send(f"Give me a second, you sussy impostor...")
-	afterping = datetime.datetime.now()
-	pingdiff = afterping - beforeping
-	pingdiffms = pingdiff.microseconds / 1000
 	uptime = afterping - upsince
 	embed = disnake.Embed(
 		title="Among Us Dumpy Bot",
@@ -356,7 +351,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		name="🏓 Ping",
-		value=f"Bot latency is {str(round((bot.latency * 1000),2))} milliseconds. API latency is {str(round((pingdiffms),2))} milliseconds.",
+		value=f"Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.",
 		inline=False
 	)
 	embed.add_field(
@@ -384,7 +379,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 		value=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info.",
 		inline=False
 	)
-	await ping.edit_original_message(content=None, embed=embed, components=promobuttons())
+	await inter.send(content=None, embed=embed, components=promobuttons())
 
 bot.remove_command("help")
 bot.add_cog(Tasks(bot))
