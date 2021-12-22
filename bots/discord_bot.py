@@ -178,7 +178,7 @@ class Tasks(commands.Cog):
 		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
 
 
-@commands.slash_command(description="Check the number of votes on top.gg, and vote for the bot.")
+@bot.slash_command(description="Check the number of votes on top.gg, and vote for the bot.")
 async def votes(inter: disnake.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
@@ -194,12 +194,12 @@ async def votes(inter: disnake.ApplicationCommandInteraction):
 					]
 					)
 
-@commands.slash_command(description="Brings you to the bot's statcord page.")
+@bot.slash_command(description="Brings you to the bot's statcord page.")
 async def statcord(inter: disnake.ApplicationCommandInteraction):
 	await inter.send(content="https://statcord.com/bot/847164104161361921")
 
 @commands.cooldown(1, 10, commands.BucketType.user)
-@commands.slash_command(description="Sees if someone is the impostor!")
+@bot.slash_command(description="Sees if someone is the impostor!")
 async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
 	if impostor == "Random":
 		outcome = random.choice(["true", "false"])
@@ -218,7 +218,7 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 	subprocess.check_call(rm)
 
 @commands.cooldown(1, 5, commands.BucketType.user)
-@commands.slash_command(description="Writes something out, but sus.")
+@bot.slash_command(description="Writes something out, but sus.")
 async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	mytext = urllib.parse.quote(text).upper()
 	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
@@ -229,7 +229,7 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	)
 
 @commands.cooldown(1, 15, commands.BucketType.user)
-@commands.slash_command(description="Makes a tall sussy impostor!")
+@bot.slash_command(description="Makes a tall sussy impostor!")
 async def tall(inter: disnake.ApplicationCommandInteraction, number: int):
 	if number == None or type(number) != int:
 		number = 0
@@ -239,7 +239,7 @@ async def tall(inter: disnake.ApplicationCommandInteraction, number: int):
 	await inter.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
 @commands.cooldown(1, 15, commands.BucketType.user)
-@commands.slash_command(description="Set a custom background image for `/dumpy` (and subsequent commands. Run `/background delete` to remove your current background, run `/background color` for a solid color, `/background #AAAAAA` for a custom color background, `/background flag` for pride flags (gay, lesbian, trans, etc and run `/background` and attach an image for a custom image as a background.")
+@bot.slash_command(description="Set a custom background image for `/dumpy` (and subsequent commands. Run `/background delete` to remove your current background, run `/background color` for a solid color, `/background #AAAAAA` for a custom color background, `/background flag` for pride flags (gay, lesbian, trans, etc and run `/background` and attach an image for a custom image as a background.")
 async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = None):
 	if bg_choice != None:
 		bg_choice = bg_choice.lower()
@@ -270,7 +270,7 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 		return await inter.send(content="Saved your background!")
 
 @commands.cooldown(1, 5, commands.BucketType.user)
-@commands.slash_command(description="Makes a dumpy gif from whatever image you want! By default, it will use the last image in chat. Height can be a number between 1 and 40, the default is 10. If you add `person`, it will use that person's avatar. If you add `image_url`, it will use the image in that url (must be jpg or png).")
+@bot.slash_command(description="Makes a dumpy gif from whatever image you want! By default, it will use the last image in chat. Height can be a number between 1 and 40, the default is 10. If you add `person`, it will use that person's avatar. If you add `image_url`, it will use the image in that url (must be jpg or png).")
 async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: disnake.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	loop = asyncio.get_running_loop()
@@ -350,7 +350,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	for i in rmcmds:
 		subprocess.check_call(i)
 
-@commands.slash_command(description="Gives some helpful information about the bot.")
+@bot.slash_command(description="Gives some helpful information about the bot.")
 async def info(inter: disnake.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
@@ -421,7 +421,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	)
 	await ping.edit(content=None, embed=embed, components=promobuttons())
 
-@commands.slash_command(description="Shows all bot shards.")
+@bot.slash_command(description="Shows all bot shards.")
 async def shards(inter: disnake.ApplicationCommandInteraction):
 	shardscounter = []
 	allmembers = 0
