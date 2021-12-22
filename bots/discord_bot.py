@@ -48,7 +48,6 @@ bot = commands.AutoShardedBot(
 	intents=intents,
 	chunk_guilds_at_startup=False
 )
-ddb = DiscordComponents(bot)
 bot.topggpy = topgg.DBLClient(
 	bot, topggtoken, autopost=True, post_shard_count=True)
 bot.statcord_client = StatcordClient(bot, statcordkey)
