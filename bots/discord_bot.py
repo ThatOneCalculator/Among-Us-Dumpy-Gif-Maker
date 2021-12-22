@@ -48,39 +48,39 @@ bot = commands.AutoShardedBot(
 	intents=intents,
 	chunk_guilds_at_startup=False
 )
-bot.topggpy = topgg.DBLClient(
-	bot, topggtoken, autopost=True, post_shard_count=True)
+bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
 bot.statcord_client = StatcordClient(bot, statcordkey)
 
 def promobuttons():
-	return [
-		[
-			disnake.Button(
-				style=disnake.ButtonStyle.link,
-				label="GitHub",
-				emoji=bot.get_emoji(922251058527473784),
-				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
-			),
-			disnake.Button(
-				style=disnake.ButtonStyle.link,
-				label="Support server",
-				emoji=bot.get_emoji(922251654869434448),
-				url="https://discord.gg/VRawXXybvd"
-			),
-			disnake.Button(
-				style=disnake.ButtonStyle.link,
-				label="Vote on top.gg!",
-				emoji=bot.get_emoji(922252075667185716),
-				url="https://top.gg/bot/847164104161361921/vote"
-			)
-		],
-		disnake.Button(
-			style=disnake.ButtonStyle.link,
-			label="Invite to your server!",
-			emoji=bot.get_emoji(851566828596887554),
-			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands "
-		)
-	]
+	return ActionRow(
+            Button(
+                style=ButtonStyle.URL,
+                label="GitHub",
+                emoji=bot.get_emoji(922251058527473784),
+                url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
+            ),
+
+            Button(
+                style=ButtonStyle.URL,
+                label="Support server",
+                emoji=bot.get_emoji(922251654869434448),
+                url="https://discord.gg/VRawXXybvd"
+            ),
+
+            Button(
+                style=ButtonStyle.URL,
+                label="Vote on top.gg!",
+                emoji=bot.get_emoji(922252075667185716),
+                url="https://top.gg/bot/847164104161361921/vote"
+            ),
+
+            Button(
+                style=ButtonStyle.URL,
+                label="Invite to your server!",
+                emoji=bot.get_emoji(851566828596887554),
+                url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands"
+        )
+    ) 
 
 def blocking(messageid, mode, number, background):
 	cmd = shlex.split(
