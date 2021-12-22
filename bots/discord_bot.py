@@ -275,7 +275,7 @@ async def background(inter: discord.ApplicationCommandInteraction, bg_choice: st
 async def dumpy(inter: discord.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: discord.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	loop = asyncio.get_running_loop()
-	messageid = str(inter: discord.ApplicationCommandInteraction.id)
+	messageid = str(inter.id)
 	if type(number) != int:
 		number = 10
 	if number > 35 and number < 41:
