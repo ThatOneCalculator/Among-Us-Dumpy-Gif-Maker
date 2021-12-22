@@ -280,7 +280,7 @@ async def dumpy(inter: discord.ApplicationCommandInteraction, mode: str=commands
 		number = 10
 	if number > 35 and number < 41:
 		msg = await inter.send("Validating vote... <:sustopgg:922252075667185716>")
-		voted = await bot.topggpy.get_user_vote(inter: discord.ApplicationCommandInteraction.author.id)
+		voted = await bot.topggpy.get_user_vote(inter.author.id)
 		await asyncio.sleep(0.2)
 		await msg.delete()
 		if not voted and inter.author.id != 454847501787463680:
