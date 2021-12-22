@@ -241,6 +241,7 @@ async def tall(inter: disnake.ApplicationCommandInteraction, number: int):
 @commands.cooldown(1, 15, commands.BucketType.user)
 @bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, delete, any color, or any pride flag.")
 async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = None):
+	await inter.response.defer()
 	if bg_choice != None:
 		bg_choice = bg_choice.lower()
 		if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
@@ -248,42 +249,42 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 				rmcmd = shlex.split(
 					f"bash -c 'rm custom_bgs/background_{inter.author.id}.png'")
 				subprocess.check_call(rmcmd)
-				return await inter.send(content="Your background has been deleted!")
+				return await inter.edit_original_message(content="Your background has been deleted!")
 		elif bg_choice.startswith("#"):
 			if len(bg_choice) != 7:
-				return await inter.send(content="Invalid length! Example: `#0ab32c`")
+				return await inter.edit_original_message(content="Invalid length! Example: `#0ab32c`")
 			await asyncimage(f"https://some-random-api.ml/canvas/colorviewer?key={sr_api_key}&hex={argument[1:]}", f"custom_bgs/background_{inter.author.id}.png")
-			return await inter.send(content="Set your background!")
+			return await inter.edit_original_message(content="Set your background!")
 		else:
 			if exists(f"backgrounds/{bg_choice}.png"):
 				cpcmd = shlex.split(
 					f"bash -c 'cp ./backgrounds/{bg_choice}.png ./custom_bgs/background_{inter.author.id}.png'")
 				subprocess.check_call(cpcmd)
-				return await inter.send(content="Set your background!")
+				return await inter.edit_original_message(content="Set your background!")
 			else:
-				return await inter.send(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
+				return await inter.edit_original_message(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
 	elif len(inter) > 0:
 		try:
 			await inter.attachments[0].save(f"custom_bgs/background_{inter.author.id}.png")
 		except Exception as e:
-			await inter.send(content=f"```{e}```")
-		return await inter.send(content="Saved your background!")
+			await inter.edit_original_message(content=f"```{e}```")
+		return await inter.edit_original_message(content="Saved your background!")
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Makes a Dumpy gif! Default: last image in chat, person and image_url can override. Height is 1-40.")
 async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: disnake.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
+	await inter.response.defer()
 	loop = asyncio.get_running_loop()
 	messageid = str(inter.id)
 	if type(number) != int:
 		number = 10
 	if number > 35 and number < 41:
-		msg = await inter.send("Validating vote... <:sustopgg:922252075667185716>")
 		voted = await bot.topggpy.get_user_vote(inter.author.id)
 		if not voted and inter.author.id != 454847501787463680:
-			return await inter.send(content=f"The limit for non-voters is 35! {inter.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
+			return await inter.edit_original_message(content=f"The limit for non-voters is 35! {inter.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 	if number > 40 or number < 1:
-		return await inter.send(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
+		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
 								components=[
 									Button(
 										style=ButtonStyle.URL,
@@ -307,40 +308,24 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 					await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
 					sus = False
 		except Exception as e:
-			return await inter.send(content="I couldn't find an image, you sussy baka!")
+			return await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
 	await asyncio.sleep(0.1)
 	img = Image.open(f"attach_{messageid}.png")
 	if img.height / img.width <= 0.05:
 		subprocess.check_call(shlex.split(
 			f"bash -c 'rm ./attach_{messageid}.png'"))
-		return await inter.send(content="This image is way too long, you're the impostor!")
+		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
 	background = f"--background custom_bgs/background_{inter.author.id}.png" if exists(
 		f"custom_bgs/background_{inter.author.id}.png") else ""
 	await loop.run_in_executor(None, blocking, messageid, mode, number, background)
 	filename = f"dumpy{messageid}.gif"
-	allmembers = 0
-	for guild in bot.guilds:
-		try:
-			allmembers += guild.member_count
-		except:
-			pass
 	try:
-		await inter.send(content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
+		await inter.edit_original_message(content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 			file=disnake.File(filename, filename=filename),
 			components=promobuttons()
 		)
-		await inter.send(content=f"Remember to invite the bot to your server(s)! I'm trying to get to 50,000 servers, and I'm currently at {len(bot.guilds):,}!\n<https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands >",
-						components=[
-							Button(
-								style=ButtonStyle.URL,
-								label="Tap here!",
-								emoji=bot.get_emoji(851566828596887554),
-								url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands "
-							)
-						]
-						)
 	except:
-		await inter.send(content="An error occurred! I might not have the permission `Attach Files` in this channel.")
+		await inter.edit_original_message(content="An error occurred! I might not have the permission `Attach Files` in this channel.")
 	rmcmds = [
 		shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
 		shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
