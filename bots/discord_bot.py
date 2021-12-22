@@ -332,7 +332,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 			allmembers += guild.member_count
 		except:
 			pass
-	uptime = afterping - upsince
+	uptime = datetime.datetime.now() - upsince
 	embed = disnake.Embed(
 		title="Among Us Dumpy Bot",
 		description="Made by ThatOneCalculator#0001 and pixer415#8145! `()` = optional, `<>` = mandatory.",
