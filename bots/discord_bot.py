@@ -239,7 +239,7 @@ async def tall(inter: disnake.ApplicationCommandInteraction, number: int):
 	await inter.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
 
 @commands.cooldown(1, 15, commands.BucketType.user)
-@bot.slash_command(description="Set a custom background image for `/dumpy` (and subsequent commands. Run `/background delete` to remove your current background, run `/background color` for a solid color, `/background #AAAAAA` for a custom color background, `/background flag` for pride flags (gay, lesbian, trans, etc and run `/background` and attach an image for a custom image as a background.")
+@bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, delete, any color, or any pride flag.")
 async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = None):
 	if bg_choice != None:
 		bg_choice = bg_choice.lower()
@@ -270,7 +270,7 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 		return await inter.send(content="Saved your background!")
 
 @commands.cooldown(1, 5, commands.BucketType.user)
-@bot.slash_command(description="Makes a dumpy gif from whatever image you want! By default, it will use the last image in chat. Height can be a number between 1 and 40, the default is 10. If you add `person`, it will use that person's avatar. If you add `image_url`, it will use the image in that url (must be jpg or png).")
+@bot.slash_command(description="Makes a Dumpy gif! Default: last image in chat, person and image_url can override. Height is 1-40.")
 async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: disnake.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	loop = asyncio.get_running_loop()
