@@ -207,7 +207,7 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 		outcome = "true"
 	elif impostor == "False":
 		outcome = "false"
-	url = str(person.avatar_url_as(format="png"))
+	url = str(person.avatar.url)
 	file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={person.name[0:35]}&imposter={outcome}", f"eject{inter.id}.gif")
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
@@ -295,7 +295,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 									)
 								])
 	if person != None:
-		await asyncimage(str(person.avatar_url_as(format='png', size=128)), f"attach_{messageid}.png")
+		await asyncimage(person.avatar.url, f"attach_{messageid}.png")
 	elif image_url != None:
 		await asyncimage(image_url, f"attach_{messageid}.png" )
 	else:
