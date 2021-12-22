@@ -177,23 +177,6 @@ class Tasks(commands.Cog):
 		await asyncio.sleep(10)
 		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
 
-
-@bot.slash_command(description="Check the number of votes on top.gg, and vote for the bot.")
-async def votes(inter: disnake.ApplicationCommandInteraction):
-	botinfo = await bot.topggpy.get_bot_info()
-	votes = botinfo["monthly_points"]
-	allvotes = botinfo["points"]
-	await inter.send(content=f"I have {int(votes):,} mothly votes and {int(allvotes):,} all-time votes on top.gg!",
-					components=[
-						Button(
-							style=ButtonStyle.URL,
-							label="Vote on top.gg!",
-							emoji=bot.get_emoji(922252075667185716),
-							url="https://top.gg/bot/847164104161361921/vote"
-						)
-					]
-					)
-
 @bot.slash_command(description="Brings you to the bot's statcord page.")
 async def statcord(inter: disnake.ApplicationCommandInteraction):
 	await inter.send(content="https://statcord.com/bot/847164104161361921")
@@ -337,6 +320,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 async def info(inter: disnake.ApplicationCommandInteraction):
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
+	allvotes = botinfo["points"]
 	shardscounter = []
 	for guild in bot.guilds:
 		if guild.shard_id not in shardscounter:
@@ -351,7 +335,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 		except:
 			pass
 	beforeping = datetime.datetime.now()
-	ping = await inter.send(f"Give me a second, you sussy impostor...")
+	await inter.send(f"Give me a second, you sussy impostor...")
 	afterping = datetime.datetime.now()
 	pingdiff = afterping - beforeping
 	pingdiffms = pingdiff.microseconds / 1000
@@ -384,7 +368,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		name="🔮 Shards",
-		text=f"This guild is on shard {inter.guild.shard_id}, with a total of {len(shards)} shards. Type `/shards` for more info.",
+		text=f"This guild is on shard {inter.guild.shard_id}, with a total of {len(shards)} shards.",
 		inline=False
 	)
 	embed.add_field(
@@ -394,7 +378,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		name="📈 Votes",
-		text=f"I have {int(votes):,} monthly votes on top.gg. Type `/votes` for more info.",
+		text=f"I have {int(votes):,} mothly votes and {int(allvotes):,} all-time votes on top.gg.",
 		inline=False
 	)
 	embed.add_field(
@@ -402,51 +386,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 		text=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info.",
 		inline=False
 	)
-	await ping.edit(content=None, embed=embed, components=promobuttons())
-
-@bot.slash_command(description="Shows all bot shards.")
-async def shards(inter: disnake.ApplicationCommandInteraction):
-	shardscounter = []
-	allmembers = 0
-	for guild in bot.guilds:
-		if guild.shard_id not in shardscounter:
-			shardscounter.append(guild.shard_id)
-		try:
-			allmembers += guild.member_count
-		except:
-			pass
-	shards = []
-	for i in shardscounter:
-		shards.append(bot.get_shard(i))
-	embedlist = []
-	totpings = []
-	closedcount = 0
-	count = 0
-	embed = disnake.Embed(title=f"Bot shards")
-	for i in shards:
-		gcount = 0
-		mcount = 0
-		for j in bot.guilds:
-			if j.shard_id == i.id:
-				gcount += 1
-				mcount += j.member_count
-		if count % 9 == 0 and count != 0:
-			embedlist.append(embed)
-			embed = disnake.Embed(title=f"Bot shards:")
-		count += 1
-		totpings.append(round((i.latency * 1000), 2))
-		if i.is_closed():
-			closedcount += 1
-		embed.add_field(
-			name=f"Shard {i.id}", value=f"Guilds: {gcount}, Members: {mcount}, Status: {'Down' if i.is_closed() else 'Ready'}, Ping: {round((i.latency * 1000),2)}")
-		if count == len(shards):
-			embedlist.append(embed)
-	shardpaginator = BotEmbedPaginator(ctx, embedlist)
-	staticembed = disnake.Embed(
-		title="Total", description=f"Guilds: {len(bot.guilds)}, Members: {allmembers}, Shards down: {closedcount}, Average ping: {round(sum(totpings)/len(totpings),2)}")
-	await inter.send(embed=staticembed)
-	await shardpaginator.run()
-
+	await ping.edit_original_message(content=None, embed=embed, components=promobuttons())
 
 bot.remove_command("help")
 bot.add_cog(Tasks(bot))
