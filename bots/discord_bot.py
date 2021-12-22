@@ -380,33 +380,33 @@ async def info(inter):
 		url="https://dumpy.t1c.dev/"
 	)
 	embed.add_field(
-		name="🤔 How to use"
-		text=f"Just type `/`, and navigate to Among Us Dumpy Bot to see all the commands!"
+		name="🤔 How to use",
+		text=f"Just type `/`, and navigate to Among Us Dumpy Bot to see all the commands!",
 		inline=False
 	)
 	embed.add_field(
-		name="💁 Creators"
-		text=f"ThatOneCalculator#0001 and pixer415#8145."
+		name="💁 Creators",
+		text=f"ThatOneCalculator#0001 and pixer415#8145.",
 		inline=False
 	)
 	embed.add_field(
-		name="🏓 Ping"
-		text=f"Bot latency is {str(round((bot.latency * 1000),2))} milliseconds. API latency is {str(round((pingdiffms),2))} milliseconds."
+		name="🏓 Ping",
+		text=f"Bot latency is {str(round((bot.latency * 1000),2))} milliseconds. API latency is {str(round((pingdiffms),2))} milliseconds.",
 		inline=False
 	)
 	embed.add_field(
-		name="☕ Uptime"
-		text=f"I have been up for {humanfriendly.format_timespan(uptime)}."
+		name="☕ Uptime",
+		text=f"I have been up for {humanfriendly.format_timespan(uptime)}.",
 		inline=False
 	)
 	embed.add_field(
-		name="🔮 Shards"
-		text=f"This guild is on shard {inter.guild.shard_id}, with a total of {len(shards)} shards. Type `/shards` for more info."
+		name="🔮 Shards",
+		text=f"This guild is on shard {inter.guild.shard_id}, with a total of {len(shards)} shards. Type `/shards` for more info.",
 		inline=False
 	)
 	embed.add_field(
-		name="👪 Bot stats"
-		text=f"I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people."
+		name="👪 Bot stats",
+		text=f"I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.",
 		inline=False
 	)
 	embed.add_field(
@@ -415,8 +415,8 @@ async def info(inter):
 		inline=False
 	)
 	embed.add_field(
-		name="🧑‍💻 Version"
-		text=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info."
+		name="🧑‍💻 Version",
+		text=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info.",
 		inline=False
 	)
 	await ping.edit(content=None, embed=embed, components=promobuttons())
