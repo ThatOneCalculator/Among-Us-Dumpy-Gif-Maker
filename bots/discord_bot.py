@@ -51,35 +51,38 @@ bot = commands.AutoShardedBot(
 bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
 bot.statcord_client = StatcordClient(bot, statcordkey)
 
-def promobuttons():
-	return [
-		[
-			disnake.ui.Button(
+class PromoButtons(disnake.ui.View):
+	def __init__(self):
+		super().__init__()
+		self.add_item(disnake.ui.Button(
 				style=disnake.ButtonStyle.link,
 				label="GitHub",
 				emoji=bot.get_emoji(922251058527473784),
-				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker"
-			),
-			disnake.ui.Button(
+				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker",
+				row=0
+				))
+		self.add_item(disnake.ui.Button(
 				style=disnake.ButtonStyle.link,
 				label="Support server",
 				emoji=bot.get_emoji(922251654869434448),
-				url="https://discord.gg/VRawXXybvd"
-			),
-			disnake.ui.Button(
+				url="https://discord.gg/VRawXXybvd",
+				row=0
+				))
+		self.add_item(disnake.ui.Button(
 				style=disnake.ButtonStyle.link,
 				label="Vote on top.gg!",
 				emoji=bot.get_emoji(922252075667185716),
-				url="https://top.gg/bot/847164104161361921/vote"
-			)
-		],
-		disnake.ui.Button(
+				url="https://top.gg/bot/847164104161361921/vote",
+				row=0
+				))
+		self.add_item(
+			disnake.ui.Button(
 			style=disnake.ButtonStyle.link,
 			label="Invite to your server!",
 			emoji=bot.get_emoji(851566828596887554),
-			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands"
-        )
-		]
+			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands",
+			row=1
+			))
 
 def blocking(messageid, mode, number, background):
 	cmd = shlex.split(
@@ -190,7 +193,7 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
-		components=promobuttons()
+		components=PromoButtons()
 	)
 	rm = shlex.split(f"bash -c 'rm ./eject{inter.id}.gif'")
 	subprocess.check_call(rm)
@@ -203,7 +206,7 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
-		components=promobuttons()
+		components=PromoButtons()
 	)
 
 @commands.cooldown(1, 15, commands.BucketType.user)
@@ -262,15 +265,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 		if not voted and inter.author.id != 454847501787463680:
 			return await inter.edit_original_message(content=f"The limit for non-voters is 35! {inter.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 	if number > 40 or number < 1:
-		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10.",
-								components=[
-									disnake.ui.Button(
-										style=disnake.ButtonStyle.link,
-										label="Vote on top.gg!",
-										emoji=bot.get_emoji(922252075667185716),
-										url="https://top.gg/bot/847164104161361921/vote"
-									)
-								])
+		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10. Vote here: https://top.gg/bot/847164104161361921/vote"
 	if person != None:
 		await asyncimage(person.avatar.url, f"attach_{messageid}.png")
 	elif image_url != None:
@@ -301,7 +296,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 		await inter.edit_original_message(
 			content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 			file=disnake.File(filename, filename=filename),
-			components=promobuttons()
+			components=PromoButtons()
 			)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
@@ -377,7 +372,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 		value=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info.",
 		inline=False
 	)
-	await inter.send(content=None, embed=embed, components=promobuttons())
+	await inter.send(content=None, embed=embed, components=PromoButtons())
 
 bot.remove_command("help")
 bot.add_cog(Tasks(bot))
