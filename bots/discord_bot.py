@@ -47,8 +47,7 @@ intents = disnake.Intents.default()
 bot = commands.AutoShardedBot(
 	command_prefix=commands.when_mentioned_or("!!"),
 	intents=intents,
-	chunk_guilds_at_startup=False,
-	sync_commands=True
+	chunk_guilds_at_startup=False
 )
 ddb = DiscordComponents(bot)
 bot.topggpy = topgg.DBLClient(
