@@ -263,7 +263,7 @@ async def background(inter: discord.ApplicationCommandInteraction, bg_choice: st
 				return await inter.send(content="Set your background!")
 			else:
 				return await inter.send(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
-	elif len(inter: discord.ApplicationCommandInteraction.attachments) > 0:
+	elif len(inter) > 0:
 		try:
 			await inter.attachments[0].save(f"custom_bgs/background_{inter.author.id}.png")
 		except Exception as e:
