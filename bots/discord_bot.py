@@ -110,8 +110,8 @@ class CommandErrorHandler(commands.Cog):
 		self.bot = bot
 
 	@commands.Cog.listener()
-	async def on_command_error(inter: discord.ApplicationCommandInteraction, error):
-		if hasattr(inter: discord.ApplicationCommandInteraction.command, 'on_error'):
+	async def on_command_error(inter, error):
+		if hasattr(inter, 'on_error'):
 			return
 		ignored = (commands.CommandNotFound, commands.UserInputError)
 		error = getattr(error, 'original', error)
