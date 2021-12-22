@@ -300,8 +300,11 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	await loop.run_in_executor(None, blocking, messageid, mode, number, background)
 	filename = f"dumpy{messageid}.gif"
 	try:
-		await inter.edit_original_message(content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!")
-		await inter.channel.send(file=disnake.File(filename, filename=filename), components=promobuttons())
+		await inter.edit_original_message(
+			content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
+			file=disnake.File(filename, filename=filename),
+			components=promobuttons()
+			)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
 	rmcmds = [
