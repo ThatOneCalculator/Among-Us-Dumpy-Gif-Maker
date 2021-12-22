@@ -481,12 +481,6 @@ async def on_message(message):
 	# 	return await message.channel.send("**Commands have been disabled in this channel.**")
 	await bot.process_commands(message)
 
-
-@bot.event
-async def on_command(ctx):
-	api.command_run(ctx)
-
-
 @bot.event
 async def on_ready():
 	print("Ready")
