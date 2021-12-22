@@ -271,7 +271,7 @@ async def background(inter, bg_choice: str = None):
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @commands.slash_command(description="Makes a dumpy gif from whatever image you want! By default, it will use the last image in chat. Height can be a number between 1 and 40, the default is 10. If you add `person`, it will use that person's avatar. If you add `image_url`, it will use the image in that url (must be jpg or png).")
-async def dumpy(inter, mode: commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"], number: int = 10, person: discord.Member = None, image_url: str = None)):
+async def dumpy(inter, mode: commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: discord.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	loop = asyncio.get_running_loop()
 	messageid = str(inter.id)
