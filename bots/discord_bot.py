@@ -211,13 +211,13 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @bot.slash_command(description="Makes a tall sussy impostor!")
-async def tall(inter: disnake.ApplicationCommandInteraction, number: int):
-	if number == None or type(number) != int:
-		number = 0
-	if number > 20:
+async def tall(inter: disnake.ApplicationCommandInteraction, height: int):
+	if height == None or type(height) != int:
+		height = 0
+	if height > 20:
 		return await inter.send(content="That's taller than 20, you sussy baka!")
 	lb = "\n"
-	await inter.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * number}<:tallamongus_3:853680372554268702>")
+	await inter.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * height}<:tallamongus_3:853680372554268702>")
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, delete, any color, or any pride flag.")
@@ -253,18 +253,16 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Makes a Dumpy gif! Default: last image in chat, person and image_url can override. Height is 1-40.")
-async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), number: int = 10, person: disnake.Member = None, image_url: str = None):
+async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), lines: int = 10, person: disnake.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	await inter.response.defer()
 	loop = asyncio.get_running_loop()
 	messageid = str(inter.id)
-	if type(number) != int:
-		number = 10
-	if number > 35 and number < 41:
+	if lines > 35 and lines < 41:
 		voted = await bot.topggpy.get_user_vote(inter.author.id)
 		if not voted and inter.author.id != 454847501787463680:
 			return await inter.edit_original_message(content=f"The limit for non-voters is 35! {inter.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
-	if number > 40 or number < 1:
+	if lines > 40 or lines < 1:
 		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10. Vote here: https://top.gg/bot/847164104161361921/vote")
 	if person != None:
 		await asyncimage(person.avatar.url, f"attach_{messageid}.png")
@@ -284,13 +282,13 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 			return await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
 	await asyncio.sleep(0.1)
 	img = Image.open(f"attach_{messageid}.png")
-	if img.height / img.width <= 0.05:
+	if img.lines / img.width <= 0.05:
 		subprocess.check_call(shlex.split(
 			f"bash -c 'rm ./attach_{messageid}.png'"))
 		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
 	background = f"--background custom_bgs/background_{inter.author.id}.png" if exists(
 		f"custom_bgs/background_{inter.author.id}.png") else ""
-	await loop.run_in_executor(None, blocking, messageid, mode, number, background)
+	await loop.run_in_executor(None, blocking, messageid, mode, lines, background)
 	filename = f"dumpy{messageid}.gif"
 	try:
 		await inter.edit_original_message(
@@ -328,7 +326,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	uptime = datetime.datetime.now() - upsince
 	embed = disnake.Embed(
 		title="Among Us Dumpy Bot",
-		description="Made by ThatOneCalculator#0001 and pixer415#8145! `()` = optional, `<>` = mandatory.",
+		description="Made by ThatOneCalculator#0001 and pixer415#8145!",
 		color=0x976BE1,
 		url="https://dumpy.t1c.dev/"
 	)
