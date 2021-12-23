@@ -393,15 +393,20 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 		await guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
 		inter.send(f"<@{person.id}> has been put on the blacklist!")
 
+def run_and_get(coro):
+    task = asyncio.create_task(coro)
+    asyncio.get_running_loop().run_until_complete(task)
+    return task.result()
+
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id, original_author_id):
 		super().__init__(timeout=60.0)
 		self.guild_id = guild_id
 		self.original_author_id = original_author_id
 		self.channel_id = channel_id
-		self.show_ads = await guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
-		self.disabled_channels = await guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
-		self.blacklisted_members = await guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"]
+		self.show_ads = run_and_get(guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"])
+		self.disabled_channels = run_and_get(guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"])
+		self.blacklisted_members = run_and_get(guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"])
 		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
 
 	@disnake.ui.button(
