@@ -60,8 +60,8 @@ def cannot_be_run(guild_id, channel_id, member_id):
 	disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
 	blacklisted_members = guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
 	if channel_id in disabled_channels or member_id in blacklisted_members:
-		return False
-	return True
+		return True
+	return False
 
 class PromoButtons(disnake.ui.View):
 	def __init__(self):
@@ -224,7 +224,7 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Writes something out, but sus.")
 async def text(inter: disnake.ApplicationCommandInteraction, text: str):
-	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): returnd
+	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
 	efault_guild_preferences(inter.guild.id)
 	mytext = urllib.parse.quote(text).upper()
 	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
