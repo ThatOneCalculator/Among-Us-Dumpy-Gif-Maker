@@ -100,7 +100,7 @@ class PromoButtons(disnake.ui.View):
 			row=1
 			))
 
-def ads(guild_id):
+async def ads(guild_id):
 	try:
 		if await guild_preferences.find_one({"guild_id": guild_id})["show_ads"] == False:
 			return None
@@ -221,7 +221,7 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 	await inter.edit_original_message(
 		content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 		file=file,
-		view=ads(inter.guild.id)
+		view=await ads(inter.guild.id)
 		)
 	rm = shlex.split(f"bash -c 'rm ./eject{inter.id}.gif'")
 	subprocess.check_call(rm)
@@ -236,7 +236,7 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
-		view=ads(inter.guild.id)
+		view=await ads(inter.guild.id)
 	)
 
 @commands.cooldown(1, 15, commands.BucketType.user)
@@ -367,7 +367,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 		await inter.edit_original_message(
 			content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 			file=disnake.File(filename, filename=filename),
-			view=ads(inter.guild.id)
+			view=await ads(inter.guild.id)
 			)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
