@@ -378,7 +378,7 @@ class SwapChannelStateButton(disnake.ui.Button):
 		self.state = "off" if self.this_channel_disabled else "on"
 		super.__init__(
 			style=self.style, 
-			emoji=bot.get_emoji(922251654869434448), 
+			emoji="<:AmongUsMarketablePlushie:922251654869434448>", 
 			label=f"Channel has commands {self.state}", 
 			row=0)
 
@@ -427,7 +427,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji="<:crewmatedead:923427463193829497>"
+		emoji=bot.get_emoji(923427463193829497),
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
