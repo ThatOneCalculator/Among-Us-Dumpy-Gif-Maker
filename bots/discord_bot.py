@@ -396,107 +396,93 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 		inter.send(f"<@{person.id}> has been put on the blacklist!")
 
 class SettingsView(disnake.ui.View):
-	def __init__(self, guild_id, channel_id, original_author_id):
+	def __init__(self, guild_id, channel_id):
 		super().__init__(timeout=60.0)
 		self.guild_id = guild_id
-		self.original_author_id = original_author_id
 		self.channel_id = channel_id
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923380567960080404),
+		emoji="<:sabatoge:923423633295179796>",
 		style=disnake.ButtonStyle.green,
 		label="Channel commands on/off",
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			data = await guild_preferences.find_one({"guild_id": self.guild_id})
-			disabled_channels = data["disabled_channels"]
-			if self.channel_id in disabled_channels:
-				disabled_channels.remove(self.channel_id)
-			else:
-				disabled_channels.append(self.channel_id)
-			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": disabled_channels}})
-			self.stop()
+		data = await guild_preferences.find_one({"guild_id": self.guild_id})
+		disabled_channels = data["disabled_channels"]
+		if self.channel_id in disabled_channels:
+			disabled_channels.remove(self.channel_id)
+		else:
+			disabled_channels.append(self.channel_id)
+		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": disabled_channels}})
+		await inter.response.edit_message(view=None)
+		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923380567960080404),
+		emoji="<:report:923424476459311144>",
 		style=disnake.ButtonStyle.green,
 		label="Promo buttons on/off",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			data = await guild_preferences.find_one({"guild_id": self.guild_id})
-			show_ads = not data["show_ads"]
-			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
-			self.stop()
+		data = await guild_preferences.find_one({"guild_id": self.guild_id})
+		show_ads = not data["show_ads"]
+		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
+		await inter.response.edit_message(view=None)
+		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923427463193829497),
+		emoji="<:vitals:923427463193829497>",
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
 	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			embed = disnake.Embed(title="Blacklisted members", description="")
-			data = await guild_preferences.find_one({"guild_id": self.guild_id})
-			blacklisted_members = data["blacklisted_members"]
-			for i in blacklisted_members:
-				embed.description += f"<@{i}>\n"
-			await inter.send(embed=embed)
-			self.stop()
+		embed = disnake.Embed(title="Blacklisted members", description="")
+		data = await guild_preferences.find_one({"guild_id": self.guild_id})
+		blacklisted_members = data["blacklisted_members"]
+		for i in blacklisted_members:
+			embed.description += f"<@{i}>\n"
+		await inter.response.edit_message(embed=embed, view=None)
+		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923424476165726239),
+		emoji="<:security:923424476165726239>",
 		style=disnake.ButtonStyle.primary,
 		label="Show disabled channels",
 		row=1)
 	async def show_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			message = ""
-			data = await guild_preferences.find_one({"guild_id": self.guild_id})
-			disabled_channels = data["disabled_channels"]
-			for i in disabled_channels:
-				message += f"<#{i}>\n"
-			if len(message) == 0:
-				message = "No channels are disabled."
-			await inter.send(content=message)
-			self.stop()
+		message = ""
+		data = await guild_preferences.find_one({"guild_id": self.guild_id})
+		disabled_channels = data["disabled_channels"]
+		for i in disabled_channels:
+			message += f"<#{i}>\n"
+		if len(message) == 0:
+			message = "No channels are disabled."
+		await inter.response.edit_message(content=message, embed=None, view=None)
+		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923425234063859752),
+		emoji="<:protect:923425234063859752>",
 		style=disnake.ButtonStyle.red,
 		label="Clear blacklisted members",
 		row=2)
 	async def clear_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
-			await inter.send(content="No more blacklisted members!")
-			self.stop()
+		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
+		await inter.response.edit_message(content="No more blacklisted members!", embed=None, view=None)
+		self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424942819786794),
 		style=disnake.ButtonStyle.red,
-		label="Clear disabled channels",
+		label="<:cleanthevents:923424942819786794>",
 		row=2)
 	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
-			await inter.send(content="No more disabled channels!")
-			self.stop()
-
-	@disnake.ui.button(
-		emoji=bot.get_emoji(923424476614516766),
-		style=disnake.ButtonStyle.secondary,
-		label="Exit settings menu",
-		row=3)
-	async def stop_settings(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			self.stop()
+		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
+		await inter.send(content="No more disabled channels!", embed=None, view=None)
+		self.stop()
 
 @bot.slash_command(description="Settings for server administrators.")
 async def settings(inter: disnake.ApplicationCommandInteraction):
 	if inter.author.guild_permissions.administrator == False:
-		return inter.send("You must be an admin on this server to use this command, you impostor!")
+		return inter.send("You must be an admin on this server to use this command, you impostor!", ephemeral=True)
 	await default_guild_preferences(inter.guild.id)
 	data = await guild_preferences.find_one({"guild_id": inter.guild.id})
 	show_ads = data["show_ads"]
@@ -505,12 +491,12 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
 		name="Bot enabled in this channel",
-		value=f"{'<:amongusthumbsdown:923380567960080404>' if this_channel_disabled else '<:amongusthumbsup:923380599195058176>'}",
+		value="<:amongusthumbsdown:923380567960080404>" if this_channel_disabled else "<:amongusthumbsup:923380599195058176>",
 		inline=False
 	)
 	embed.add_field(
 		name="Bot shows promo buttons",
-		value=f"{'<:amongusthumbsdown:923380567960080404>' if not show_ads else '<:amongusthumbsup:923380599195058176>'}",
+		value="<:amongusthumbsdown:923380567960080404>" if show_ads else "<:amongusthumbsup:923380599195058176>",
 		inline=False
 	)
 	embed.add_field(
@@ -521,7 +507,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		name="Disabled channels",
 		value=str(len(data["disabled_channels"]))
 	)
-	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id, inter.author.id))
+	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id), ephemeral=True)
 
 @bot.slash_command(description="Gives some helpful information about the bot.")
 async def info(inter: disnake.ApplicationCommandInteraction):
@@ -545,47 +531,46 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	uptime = datetime.datetime.now() - upsince
 	embed = disnake.Embed(
 		title="Among Us Dumpy Bot",
-		description="Made by ThatOneCalculator#0001 and pixer415#8145!",
 		color=0x976BE1,
 		url="https://dumpy.t1c.dev/"
 	)
 	embed.add_field(
-		name="🤔 How to use",
+		name="<:amongthink:923710573445779456> How to use",
 		value=f"Just type `/`, and navigate to Among Us Dumpy Bot to see all the commands!",
 		inline=False
 	)
 	embed.add_field(
-		name="💁 Creators",
+		name="<:kill:923424476614516766> Creators",
 		value=f"ThatOneCalculator#0001 and pixer415#8145.",
 		inline=False
 	)
 	embed.add_field(
-		name="🏓 Ping",
+		name="<:report:923424476459311144> Ping",
 		value=f"Bot latency is {str(round((bot.latency * 1000),2))} milliseconds.",
 		inline=False
 	)
 	embed.add_field(
-		name="☕ Uptime",
+		name="<:vitals:923427463193829497> Uptime",
 		value=f"I have been up for {humanfriendly.format_timespan(uptime)}.",
 		inline=False
 	)
 	embed.add_field(
-		name="🔮 Shards",
+		name="<:sabatoge:923423633295179796> Shards",
 		value=f"This guild is on shard {inter.guild.shard_id}, with a total of {len(shards)} shards.",
 		inline=False
 	)
 	embed.add_field(
-		name="👪 Bot stats",
+		name="<:protect:923425234063859752> Bot stats",
 		value=f"I am in {len(bot.guilds):,} servers with a total of {allmembers:,} people.",
 		inline=False
 	)
 	embed.add_field(
-		name="📈 Votes",
+		name="<:vent:923424476417388594> Votes",
 		value=f"I have {int(votes):,} mothly votes and {int(allvotes):,} all-time votes on top.gg.",
 		inline=False
 	)
 	embed.add_field(
-		name="🧑‍💻 Version",
+		name="<:security:923424476165726239> Version",
 		value=f"I am on jar version {version}. This bot uses disnake. Both the bot and the jar are licensed under the A-GPLv3 code license. See the GitHub for more info.",
 		inline=False
 	)
