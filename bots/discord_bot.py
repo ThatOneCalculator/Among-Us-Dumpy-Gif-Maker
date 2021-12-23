@@ -469,6 +469,9 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	default_guild_preferences(inter.guild.id)
 	show_ads = guild_preferences.find_one({"guild_id": inter.guild.id})["show_ads"]
 	disabled_channels = guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]
+	print(disabled_channels)
+	print("\n")
+	print(guild_preferences.find_one({"guild_id": inter.guild.id}))
 	this_channel_disabled = True if inter.channel.id in disabled_channels else False
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
