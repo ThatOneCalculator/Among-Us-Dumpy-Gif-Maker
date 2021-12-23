@@ -383,7 +383,7 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 	blacklist = guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]
 	blacklist.remove(person.id) if person.id in blacklist else blacklist.append(person.id)
 	blacklist = guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
-	inter.respond(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
+	inter.send(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
 
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id, original_author_id):
@@ -429,7 +429,7 @@ class SettingsView(disnake.ui.View):
 		row=1)
 	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
-			embed = disnake.Embed(title="Blacklisted members")
+			embed = disnake.Embed(title="Blacklisted members", description="")
 			for i in self.blacklisted_members:
 				embed.description += f"<@{i}>\n"
 			await inter.send(embed=embed)
@@ -458,7 +458,7 @@ class SettingsView(disnake.ui.View):
 	async def clear_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
 			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
-			await inter.send("No more blacklisted members!")
+			await inter.send(content="No more blacklisted members!")
 			await inter.edit_original_message(view=None)
 
 	@disnake.ui.button(
@@ -469,7 +469,7 @@ class SettingsView(disnake.ui.View):
 	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
 			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
-			await inter.send("No more disabled channels!")
+			await inter.send(content="No more disabled channels!")
 			await inter.edit_original_message(view=None)
 
 	@disnake.ui.button(
