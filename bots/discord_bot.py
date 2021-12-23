@@ -465,12 +465,12 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
 		title="Bot enabled in this channel",
-		value=f"{"<:amongusthumbsdown:923380567960080404>" if this_channel_disabled else "<:amongusthumbsup:923380599195058176>"}",
+		value=f"{'<:amongusthumbsdown:923380567960080404>' if this_channel_disabled else '<:amongusthumbsup:923380599195058176>'}",
 		inline=False
 	)
 	embed.add_field(
 		title="Bot shows promo buttons",
-		value=f"{"<:amongusthumbsdown:923380567960080404>" if not show_ads else "<:amongusthumbsup:923380599195058176>"}",
+		value=f"{'<:amongusthumbsdown:923380567960080404>' if not show_ads else '<:amongusthumbsup:923380599195058176>'}",
 		inline=False
 	)
 	embed.add_field(
