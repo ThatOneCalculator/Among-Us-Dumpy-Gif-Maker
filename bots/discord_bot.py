@@ -380,7 +380,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923380599195058176) if not self.this_channel_disabled else bot.get_emoji(923380567960080404),
 			style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
-			value=f"This channel has bot commands {'enabled' if not self.this_channel_disabled else 'disabled'.}",
+			value=f"This channel has bot commands {'enabled' if not self.this_channel_disabled else 'disabled'}.",
 			row=0)
 		async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			if interaction.channel.id in self.disabled_channels:
@@ -394,7 +394,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923380599195058176) if self.show_ads else bot.get_emoji(923380567960080404),
 			style=disnake.ButtonStyle.green if self.show_ads else disnake.ButtonStyle.red,
-			value=f"Command promo buttons are {'enabled' if self.show_ads else 'disabled'.}",
+			value=f"Command promo buttons are {'enabled' if self.show_ads else 'disabled'}.",
 			row=0)
 		async def swap_ad_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			self.show_ads = not self.show_ads
