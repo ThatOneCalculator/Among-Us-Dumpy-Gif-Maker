@@ -372,9 +372,9 @@ class SettingsView(disnake.ui.View):
 		super().__init__(timeout=60.0)
 		self.guild_id = guild_id
 		self.channel_id = channel_id
-		self.show_ads = guild_preferences.find_one({"guild_id": guild_id})["show_ads"]
-		self.disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
-		self.this_channel_disabled = True if channel_id in disabled_channels else False
+		self.show_ads = guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
+		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
+		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
