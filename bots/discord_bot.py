@@ -370,49 +370,48 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id):
 		super().__init__(timeout=60.0)
+		self.bot = bot
 		self.guild_id = guild_id
 		self.channel_id = channel_id
 		self.show_ads = guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
 		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
 		self.blacklisted_members = guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"]
 		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
+		self.swap_channel_state_emoji = 923380567960080404 if self.this_channel_disabled else 923380599195058176
+		self.swap_channel_state_style = disnake.ButtonStyle.red if self.this_channel_disabled else disnake.ButtonStyle.green
+		self.swap_channel_state_state = "off" if self.this_channel_disabled else "on"
+		self.swap_ad_state_emoji = 923380567960080404 if not self.show_ads else 923380599195058176
+		self.swap_ad_state_style = disnake.ButtonStyle.red if not self.show_ads else disnake.ButtonStyle.green
+		self.swap_ad_state_state = "off" if not self.show_ads else "on"
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923380567960080404),
-		style=disnake.ButtonStyle.red,
-		label="Channel has commands off",
+		emoji=self.bot.get_emoji(self.swap_channel_state_emoji),
+		style=self.swap_channel_state_style,
+		label=f"Channel has commands {self.swap_channel_state_state}",
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if not self.this_channel_disabled:
-			button.emoji = bot.get_emoji(923380599195058176)
-			button.style = disnake.ButtonStyle.green
-			button.label = "Channel has commands on"
-			await inter.edit_original_message(view=self)
 		if self.channel_id in self.disabled_channels:
 			self.disabled_channels.remove(self.channel_id)
 		else:
 			self.disabled_channels.append(self.channel_id)
 		self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"disabled_channels": self.disabled_channels})
 		self.this_channel_disabled = not self.this_channel_disabled
+		await inter.response.edit(view=None)
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923380567960080404),
-		style=disnake.ButtonStyle.red,
-		label="Promo buttons are off",
+		emoji=self.bot.get_emoji(self.swap_ad_state_emoji),
+		style=self.swap_ad_state_style,
+		label=f"Promo buttons are {swap_ad_state_state}",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if self.show_ads:
-			button.emoji = bot.get_emoji(923380599195058176)
-			button.style = disnake.ButtonStyle.green
-			button.label = "Promo buttons are on"
-			await inter.edit_original_message(view=self)
+			await inter.response.edit(view=self)
 		self.show_ads = not self.show_ads
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"show_ads": self.show_ads})
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923427463193829497),
+		emoji=self.bot.get_emoji(923427463193829497),
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
@@ -424,7 +423,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923424476165726239),
+		emoji=self.bot.get_emoji(923424476165726239),
 		style=disnake.ButtonStyle.primary,
 		label="Show disabled channels",
 		row=1)
@@ -438,7 +437,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923425234063859752),
+		emoji=self.bot.get_emoji(923425234063859752),
 		style=disnake.ButtonStyle.secondary,
 		label="Clear blacklisted members",
 		row=2)
@@ -448,7 +447,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923424942819786794),
+		emoji=self.bot.get_emoji(923424942819786794),
 		style=disnake.ButtonStyle.secondary,
 		label="Clear disabled channels",
 		row=2)
@@ -458,7 +457,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923424476614516766),
+		emoji=self.bot.get_emoji(923424476614516766),
 		style=disnake.ButtonStyle.red,
 		label="Exit settings menu",
 		row=3)
