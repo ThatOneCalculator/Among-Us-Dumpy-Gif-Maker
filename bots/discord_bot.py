@@ -427,7 +427,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji="<:crewmatedead:923427463193829497>
+		emoji="<:crewmatedead:923427463193829497>"
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
