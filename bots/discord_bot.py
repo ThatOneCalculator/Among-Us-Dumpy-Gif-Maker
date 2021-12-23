@@ -393,21 +393,12 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 		await guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
 		inter.send(f"<@{person.id}> has been put on the blacklist!")
 
-def run_and_get(coro):
-    task = asyncio.create_task(coro)
-    asyncio.get_running_loop().run_until_complete(task)
-    return task.result()
-
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id, original_author_id):
 		super().__init__(timeout=60.0)
 		self.guild_id = guild_id
 		self.original_author_id = original_author_id
 		self.channel_id = channel_id
-		self.show_ads = run_and_get(guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"])
-		self.disabled_channels = run_and_get(guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"])
-		self.blacklisted_members = run_and_get(guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"])
-		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
@@ -416,12 +407,12 @@ class SettingsView(disnake.ui.View):
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
-			if self.channel_id in self.disabled_channels:
-				self.disabled_channels.remove(self.channel_id)
+			disabled_channels = await guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
+			if self.channel_id in disabled_channels:
+				disabled_channels.remove(self.channel_id)
 			else:
-				self.disabled_channels.append(self.channel_id)
-			self.disabled_channels = await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": self.disabled_channels}})
-			self.this_channel_disabled = not self.this_channel_disabled
+				disabled_channels.append(self.channel_id)
+			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": disabled_channels}})
 			self.stop()
 
 	@disnake.ui.button(
@@ -430,9 +421,10 @@ class SettingsView(disnake.ui.View):
 		label="Promo buttons on/off",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:
-			self.show_ads = not self.show_ads
-			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
+		if inter.author.id == self.original_author_id:\
+			show_ads = await guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
+			show_ads = not show_ads
+			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
 			self.stop()
 
 	@disnake.ui.button(
@@ -443,7 +435,8 @@ class SettingsView(disnake.ui.View):
 	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
 			embed = disnake.Embed(title="Blacklisted members", description="")
-			for i in self.blacklisted_members:
+			blacklisted_members = await guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"]
+			for i in blacklisted_members:
 				embed.description += f"<@{i}>\n"
 			await inter.send(embed=embed)
 			self.stop()
@@ -456,7 +449,8 @@ class SettingsView(disnake.ui.View):
 	async def show_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
 			message = ""
-			for i in self.disabled_channels:
+			disabled_channels = await guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
+			for i in disabled_channels:
 				message += f"<#{i}>\n"
 			if len(message) == 0:
 				message = "No channels are disabled."
