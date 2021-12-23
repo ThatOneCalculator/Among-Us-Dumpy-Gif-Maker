@@ -470,21 +470,21 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	this_channel_disabled = True if inter.channel.id in disabled_channels else False
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
-		title="Bot enabled in this channel",
+		name="Bot enabled in this channel",
 		value=f"{'<:amongusthumbsdown:923380567960080404>' if this_channel_disabled else '<:amongusthumbsup:923380599195058176>'}",
 		inline=False
 	)
 	embed.add_field(
-		title="Bot shows promo buttons",
+		name="Bot shows promo buttons",
 		value=f"{'<:amongusthumbsdown:923380567960080404>' if not show_ads else '<:amongusthumbsup:923380599195058176>'}",
 		inline=False
 	)
 	embed.add_field(
-		title="Blacklisted members",
+		name="Blacklisted members",
 		value=str(len(guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]))
 	)
 	embed.add_field(
-		title="Disabled channels",
+		name="Disabled channels",
 		value=str(len(guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]))
 	)
 	await inter.send(embed=embed, view=SettingsView(inter.guild.id))
