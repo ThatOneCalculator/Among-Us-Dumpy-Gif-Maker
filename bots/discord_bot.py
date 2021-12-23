@@ -16,28 +16,19 @@ import aiofiles
 import aiohttp
 import disnake
 import humanfriendly
+import pymongo
 import topgg
 from async_timeout import timeout
 from disnake.ext import commands, tasks
 from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
+from dotenv import dotenv_values
 from PIL import Image
 from statcord import StatcordClient
 
-with open("srapi.txt", "r") as f:
-	lines = f.readlines()
-	sr_api_key = lines[0].strip()
-
-with open("token.txt", "r") as f:
-	lines = f.readlines()
-	token = lines[0].strip()
-
-with open("topgg.txt", "r") as f:
-	lines = f.readlines()
-	topggtoken = lines[0].strip()
-
-with open("statcord.txt", "r") as f:
-	lines = f.readlines()
-	statcordkey = lines[0].strip()
+token = dotenv_values(".env")["DISCORD"]
+sr_api_key = dotenv_values(".env")["SRAPI"]
+topggtoken = dotenv_values(".env")["TOPGG"]
+statcordkey = dotenv_values(".env")["STATCORD"]
 
 upsince = datetime.datetime.now()
 version = "4.1.0"
@@ -50,6 +41,20 @@ bot = commands.AutoShardedBot(
 )
 bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
 bot.statcord_client = StatcordClient(bot, statcordkey)
+
+mongoclient = pymongo.MongoClient()
+db = mongoclient.among_us_dumpy_bot
+guild_preferences = db.guild_preferences
+
+def default_guild_preferences(guild_id: int):
+	prefs = {
+		"guild_id": guild_id,
+		"show_ads": True,
+		"disabled_channels": [],
+		"blacklisted_members": []
+	}
+	if guild_preferences.find_one({"guild_id": guild_id}) == None:
+		guild_preferences.insert_one(prefs)
 
 class PromoButtons(disnake.ui.View):
 	def __init__(self):
@@ -83,6 +88,14 @@ class PromoButtons(disnake.ui.View):
 			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands",
 			row=1
 			))
+
+def ads(guild_id):
+	try:
+		if guild_preferences.find_one({"guild_id": guild_id})["show_ads"] == False:
+			return None
+	except:
+		pass
+	return PromoButtons()
 
 def blocking(messageid, mode, lines, background):
 	cmd = shlex.split(
@@ -182,6 +195,7 @@ async def statcord(inter: disnake.ApplicationCommandInteraction):
 @commands.cooldown(1, 10, commands.BucketType.user)
 @bot.slash_command(description="Sees if someone is the impostor!")
 async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
+	default_guild_preferences(inter.guild.id)
 	if impostor == "Random":
 		outcome = random.choice(["true", "false"])
 	elif impostor ==  "True":
@@ -190,23 +204,24 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 		outcome = "false"
 	url = str(person.avatar.url)
 	file = await asyncimage(f"https://some-random-api.ml/premium/amongus?avatar={url}&key={sr_api_key}&username={person.name[0:35]}&imposter={outcome}", f"eject{inter.id}.gif")
-	await inter.send(
-		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
+	await inter.edit_original_message(
+		content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 		file=file,
-		view=PromoButtons()
-	)
+		view=ads(inter.guild.id)
+		)
 	rm = shlex.split(f"bash -c 'rm ./eject{inter.id}.gif'")
 	subprocess.check_call(rm)
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Writes something out, but sus.")
 async def text(inter: disnake.ApplicationCommandInteraction, text: str):
+	default_guild_preferences(inter.guild.id)
 	mytext = urllib.parse.quote(text).upper()
 	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
 	await inter.send(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
-		view=PromoButtons()
+		view=ads(inter.guild.id)
 	)
 
 @commands.cooldown(1, 15, commands.BucketType.user)
@@ -289,11 +304,12 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 	# 	return await inter.edit_original_message(content="Saved your background!")
 
 @commands.cooldown(1, 5, commands.BucketType.user)
-@bot.slash_command(description="Makes a Dumpy gif! Default: last image in chat, person and image_url can override. Height is 1-40.")
+@bot.slash_command(description="Makes a Dumpy GIF! Uses the last image posted, but person/image_url overrides this. Lines are 1-40.")
 async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), lines: int = 10, person: disnake.Member = None, image_url: str = None):
 	await bot.wait_until_ready()
 	await inter.response.defer()
 	loop = asyncio.get_running_loop()
+	default_guild_preferences(inter.guild.id)
 	messageid = str(inter.id)
 	if lines > 35 and lines < 41:
 		voted = await bot.topggpy.get_user_vote(inter.author.id)
@@ -323,15 +339,15 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 		subprocess.check_call(shlex.split(
 			f"bash -c 'rm ./attach_{messageid}.png'"))
 		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
-	background = f"--background custom_bgs/background_{inter.author.id}.png" if exists(
-		f"custom_bgs/background_{inter.author.id}.png") else ""
+	custom_bg_path = f"custom_bgs/background_{inter.author.id}.png"
+	background = f"--background {custom_bg_path}" if exists(custom_bg_path) else ""
 	await loop.run_in_executor(None, blocking, messageid, mode, lines, background)
 	filename = f"dumpy{messageid}.gif"
 	try:
 		await inter.edit_original_message(
 			content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 			file=disnake.File(filename, filename=filename),
-			view=PromoButtons()
+			view=ads(inter.guild.id)
 			)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
@@ -341,6 +357,131 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	]
 	for i in rmcmds:
 		subprocess.check_call(i)
+
+@bot.slash_command(description="Blacklist a server member from using the bot. Can also be used to unblacklist.")
+async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnake.Member):
+	if inter.author.guild_permissions.kick_members == False:
+		return inter.send("You must be have the ability to kick members from this server to use this command, you impostor!")
+	blacklist = guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
+	blacklist.remove(person.id) if person.id in blacklist else blacklist.append(person.id)
+	blacklist = guild_preferences.update_one({"guild_id": guild_id}, {"blacklisted_members": blacklist})
+	inter.respond(f"{person.mention} has been {"blacklisted" if person.id in blacklist else "unblacklisted"}.")
+
+@bot.slash_command(description="Settings for server administrators.")
+async def settings(inter: disnake.ApplicationCommandInteraction):
+
+	class SettingsView(disnake.ui.View):
+		def __init__(self):
+			super().__init__(timeout=60.0)
+			self.show_ads = guild_preferences.find_one({"guild_id": guild_id})["show_ads"]
+			self.disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
+			self.this_channel_disabled = True if inter.channel.id in disabled_channels else False
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923380599195058176) if not self.this_channel_disabled else bot.get_emoji(923380567960080404),
+			style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
+			value=f"This channel has bot commands {'enabled' if not self.this_channel_disabled else 'disabled'.}"
+			row=0)
+		async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			if interaction.channel.id in self.disabled_channels:
+				self.disabled_channels.remove(interaction.channel.id)
+			else:
+				self.disabled_channels.append(interaction.channel.id)
+			self.disabled_channels = guild_preferences.update_one({"guild_id": guild_id}, {"disabled_channels": self.disabled_channels})
+			self.this_channel_disabled = not self.this_channel_disabled
+			self.stop()
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923380599195058176) if self.show_ads else bot.get_emoji(923380567960080404),
+			style=disnake.ButtonStyle.green if self.show_ads else disnake.ButtonStyle.red,
+			value=f"Command promo buttons are {'enabled' if self.show_ads else 'disabled'.}"
+			row=0)
+		async def swap_ad_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			self.show_ads = not self.show_ads
+			guild_preferences.update_one({"guild_id": guild_id}, {"show_ads": self.show_ads})
+			self.stop()
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923427463193829497),
+			style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
+			value=f"Show blacklisted members"
+			row=1)
+		async def show_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			embed = disnake.Embed(title="Blacklisted members")
+			for i in guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]:
+				embed.description += f"<@{i}>\n"
+			await interaction.send(embed=embed)
+			self.stop()
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923424476165726239),
+			style=disnake.ButtonStyle.primary,
+			value=f"Show disabled channels"
+			row=1)
+		async def show_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			message = ""
+			for i in guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]:
+				message += f"<#{i}>\n"
+			if len(message) == 0:
+				message = "No channels are disabled."
+			await interaction.send(content=message)
+			self.stop()
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923425234063859752),
+			style=disnake.ButtonStyle.secondary,
+			value=f"Clear blacklisted members"
+			row=2)
+		async def clear_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			guild_preferences.update_one({"guild_id": guild_id}, {"blacklisted_members": []})
+			await interaction.send("No more blacklisted members!")
+			self.stop()
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923424942819786794),
+			style=disnake.ButtonStyle.secondary,
+			value=f"Clear disabled channels"
+			row=2)
+		async def clear_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			guild_preferences.update_one({"guild_id": guild_id}, {"disabled_channels": []})
+			await interaction.send("No more disabled channels!")
+			self.stop()
+
+		@disnake.ui.button(
+			emoji=bot.get_emoji(923424476614516766),
+			style=disnake.ButtonStyle.red,
+			value=f"Exit settings menu"
+			row=3)
+		async def stop_settings(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+			self.stop()
+
+
+	if inter.author.guild_permissions.administrator == False:
+		return inter.send("You must be an admin on this server to use this command, you impostor!")
+	default_guild_preferences(inter.guild.id)
+	show_ads = guild_preferences.find_one({"guild_id": guild_id})["show_ads"]
+	disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
+	this_channel_disabled = True if inter.channel.id in disabled_channels else False
+	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
+	embed.add_field(
+		title="Bot enabled in this channel",
+		value=f"{"<:amongusthumbsdown:923380567960080404>" if this_channel_disabled else "<:amongusthumbsup:923380599195058176>"}",
+		inline=False
+	)
+	embed.add_field(
+		title="Bot shows promo buttons",
+		value=f"{"<:amongusthumbsdown:923380567960080404>" if not show_ads else "<:amongusthumbsup:923380599195058176>"}",
+		inline=False
+	)
+	embed.add_field(
+		title="Blacklisted members",
+		value=str(len(guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]))
+	)
+	embed.add_field(
+		title="Disabled channels",
+		value=str(len(guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]))
+	)
+	await inter.send(embed=embed, view=SettingsView())
 
 @bot.slash_command(description="Gives some helpful information about the bot.")
 async def info(inter: disnake.ApplicationCommandInteraction):

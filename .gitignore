@@ -22,15 +22,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-#output
+# output
 dumpy.gif
 F_*
+background*.png
 
 # token
-token.txt
+.env
 revolt.txt
-srapi.txt
-statcord.txt
 
 # Ignore Gradle project-specific cache directory
 .gradle
