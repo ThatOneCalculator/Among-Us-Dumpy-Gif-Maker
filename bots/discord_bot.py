@@ -373,12 +373,12 @@ class SwapChannelStateButton(disnake.ui.Button):
 		self.channel_id = channel_id
 		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
 		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
-		self.emoji = bot.get_emoji(923380567960080404) if not self.this_channel_disabled else bot.get_emoji(923380599195058176)
+		#self.emoji = bot.get_emoji(923380567960080404) if not self.this_channel_disabled else bot.get_emoji(923380599195058176)
 		self.style = disnake.ButtonStyle.red if self.this_channel_disabled else disnake.ButtonStyle.green
 		self.state = "off" if self.this_channel_disabled else "on"
 		super.__init__(
 			style=self.style, 
-			emoji=self.emoji, 
+			emoji=bot.get_emoji(922251654869434448), 
 			label=f"Channel has commands {self.state}", 
 			row=0)
 
@@ -395,12 +395,12 @@ class SwapAdStateButton(disnake.ui.Button):
 	def __init__(self, guild_id):
 		self.guild_id = guild_id
 		self.show_ads = guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
-		self.emoji = bot.get_emoji(923380567960080404) if not self.show_ads else bot.get_emoji(923380599195058176)
+		# self.emoji = bot.get_emoji(923380567960080404) if not self.show_ads else bot.get_emoji(923380599195058176)
 		self.style = disnake.ButtonStyle.red if not self.show_ads else disnake.ButtonStyle.green
 		self.state = "off" if not self.show_ads else "on"
 		super.__init__(
 			style=self.style, 
-			emoji=self.emoji, 
+			emoji=bot.get_emoji(853395664477224960), 
 			label=f"Channel has commands {self.state}", 
 			row=0)
 
