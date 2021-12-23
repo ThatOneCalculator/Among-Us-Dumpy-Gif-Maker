@@ -409,7 +409,7 @@ class SettingsView(disnake.ui.View):
 				self.disabled_channels.append(self.channel_id)
 			self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": self.disabled_channels}})
 			self.this_channel_disabled = not self.this_channel_disabled
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
@@ -420,7 +420,7 @@ class SettingsView(disnake.ui.View):
 		if inter.author.id == self.original_author_id:
 			self.show_ads = not self.show_ads
 			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923427463193829497),
@@ -433,7 +433,7 @@ class SettingsView(disnake.ui.View):
 			for i in self.blacklisted_members:
 				embed.description += f"<@{i}>\n"
 			await inter.send(embed=embed)
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424476165726239),
@@ -448,7 +448,7 @@ class SettingsView(disnake.ui.View):
 			if len(message) == 0:
 				message = "No channels are disabled."
 			await inter.send(content=message)
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923425234063859752),
@@ -459,7 +459,7 @@ class SettingsView(disnake.ui.View):
 		if inter.author.id == self.original_author_id:
 			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
 			await inter.send(content="No more blacklisted members!")
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424942819786794),
@@ -470,7 +470,7 @@ class SettingsView(disnake.ui.View):
 		if inter.author.id == self.original_author_id:
 			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
 			await inter.send(content="No more disabled channels!")
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424476614516766),
@@ -479,7 +479,7 @@ class SettingsView(disnake.ui.View):
 		row=3)
 	async def stop_settings(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
-			await inter.edit_original_message(view=None)
+			self.stop()
 
 @bot.slash_command(description="Settings for server administrators.")
 async def settings(inter: disnake.ApplicationCommandInteraction):
