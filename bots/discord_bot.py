@@ -365,7 +365,7 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 	blacklist = guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
 	blacklist.remove(person.id) if person.id in blacklist else blacklist.append(person.id)
 	blacklist = guild_preferences.update_one({"guild_id": guild_id}, {"blacklisted_members": blacklist})
-	inter.respond(f"{person.mention} has been {"blacklisted" if person.id in blacklist else "unblacklisted"}.")
+	inter.respond(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
 
 @bot.slash_command(description="Settings for server administrators.")
 async def settings(inter: disnake.ApplicationCommandInteraction):
