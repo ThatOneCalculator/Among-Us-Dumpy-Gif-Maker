@@ -400,7 +400,7 @@ class SwapAdStateButton(disnake.ui.Button):
 		self.state = "off" if not self.show_ads else "on"
 		super.__init__(
 			style=self.style, 
-			emoji=bot.get_emoji(853395664477224960), 
+			emoji="<a:AmongUsMarketablePlushy:853395664477224960>", 
 			label=f"Channel has commands {self.state}", 
 			row=0)
 
@@ -427,7 +427,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923427463193829497),
+		emoji="<:crewmatedead:923427463193829497>
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
