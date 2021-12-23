@@ -123,21 +123,21 @@ class CommandErrorHandler(commands.Cog):
 	async def on_command_error(inter, error):
 		if hasattr(inter, 'on_error'):
 			return
-		ignored = (commands.CommandNotFound, commands.UserInputError)
+		ignored = (commands.errors.CommandNotFound, commands.errors.UserInputError)
 		error = getattr(error, 'original', error)
 		if isinstance(error, ignored):
 			return
-		elif isinstance(error, commands.DisabledCommand):
+		elif isinstance(error, commands.errors.DisabledCommand):
 			return await inter.send(content=f'{inter.command} has been disabled.')
-		elif isinstance(error, commands.NoPrivateMessage):
+		elif isinstance(error, commands.errors.NoPrivateMessage):
 			try:
 				return await inter.author.send(f'{inter.command} can not be used in Private Messages.')
 			except:
 				pass
-		elif isinstance(error, commands.BadArgument):
+		elif isinstance(error, commands.errors.BadArgument):
 			if inter.command.qualified_name == 'tag list':
 				return await inter.send(content='I could not find that member. Please try again.')
-		elif isinstance(error, commands.CommandOnCooldown):
+		elif isinstance(error, commands.errors.CommandOnCooldown):
 			return await inter.send(content="You're on cooldown, you sussy baka!")
 		print('Ignoring exception in command {}:'.format(
 			inter.command), file=sys.stderr)
@@ -375,6 +375,14 @@ class SettingsView(disnake.ui.View):
 		self.show_ads = guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
 		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
 		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
+		###
+		print(f"""
+self.guild_id: {self.guild_id} ({type(self.guild_id)})
+self.channel_id: {self.channel_id} ({type(self.channel_id)})
+self.show_ads: {self.show_ads} ({type(self.show_ads)})
+self.disabled_channels: {self.disabled_channels} ({type(self.disabled_channels)})
+self.this_channel_disabled: {self.this_channel_disabled} ({type(self.this_channel_disabled)})
+""")
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
@@ -469,9 +477,6 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	default_guild_preferences(inter.guild.id)
 	show_ads = guild_preferences.find_one({"guild_id": inter.guild.id})["show_ads"]
 	disabled_channels = guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]
-	print(disabled_channels)
-	print("\n")
-	print(guild_preferences.find_one({"guild_id": inter.guild.id}))
 	this_channel_disabled = True if inter.channel.id in disabled_channels else False
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
