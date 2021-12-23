@@ -515,11 +515,11 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		name="Blacklisted members",
-		value=str(len(await guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]))
+		value=str(len(data["blacklisted_members"]))
 	)
 	embed.add_field(
 		name="Disabled channels",
-		value=str(len(await guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]))
+		value=str(len(data["disabled_channels"]))
 	)
 	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id, inter.author.id))
 
