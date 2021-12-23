@@ -414,7 +414,7 @@ class SettingsView(disnake.ui.View):
 		else:
 			disabled_channels.append(self.channel_id)
 		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": disabled_channels}})
-		await inter.response.edit_message(view=None)
+		await inter.response.edit_message(content="Done", embed=None, view=None)
 		self.stop()
 
 	@disnake.ui.button(
@@ -426,7 +426,7 @@ class SettingsView(disnake.ui.View):
 		data = await guild_preferences.find_one({"guild_id": self.guild_id})
 		show_ads = not data["show_ads"]
 		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
-		await inter.response.edit_message(view=None)
+		await inter.response.edit_message(content="Done", embed=None, view=None)
 		self.stop()
 
 	@disnake.ui.button(
@@ -470,9 +470,9 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=bot.get_emoji(923424942819786794),
+		emoji="<:cleanthevents:923424942819786794>",
 		style=disnake.ButtonStyle.red,
-		label="<:cleanthevents:923424942819786794>",
+		label="Clear disabled channels",
 		row=2)
 	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
