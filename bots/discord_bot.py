@@ -381,9 +381,14 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 	if inter.author.guild_permissions.kick_members == False:
 		return inter.send("You must be have the ability to kick members from this server to use this command, you impostor!")
 	blacklist = guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]
-	blacklist.remove(person.id) if person.id in blacklist else blacklist.append(person.id)
-	blacklist = guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
-	inter.send(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
+	if person.id in blacklist:
+		blacklist.remove(person.id)
+		guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
+		inter.send(f"<@{person.id}> has been taken off the blacklist!")
+	else:
+		blacklist.append(person.id)
+		guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
+		inter.send(f"<@{person.id}> has been put on the blacklist!")
 
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id, original_author_id):
