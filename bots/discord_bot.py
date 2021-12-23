@@ -385,9 +385,10 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 	inter.respond(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
 
 class SettingsView(disnake.ui.View):
-	def __init__(self, guild_id, channel_id):
+	def __init__(self, guild_id, channel_id, original_author_id):
 		super().__init__(timeout=60.0)
 		self.guild_id = guild_id
+		self.original_author_id = original_author_id
 		self.channel_id = channel_id
 		self.show_ads = guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
 		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
@@ -404,13 +405,14 @@ class SettingsView(disnake.ui.View):
 		label="Channel commands on/off",
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if self.channel_id in self.disabled_channels:
-			self.disabled_channels.remove(self.channel_id)
-		else:
-			self.disabled_channels.append(self.channel_id)
-		self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": self.disabled_channels}})
-		self.this_channel_disabled = not self.this_channel_disabled
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			if self.channel_id in self.disabled_channels:
+				self.disabled_channels.remove(self.channel_id)
+			else:
+				self.disabled_channels.append(self.channel_id)
+			self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": self.disabled_channels}})
+			self.this_channel_disabled = not self.this_channel_disabled
+			await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
@@ -418,9 +420,10 @@ class SettingsView(disnake.ui.View):
 		label="Promo buttons on/off",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		self.show_ads = not self.show_ads
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			self.show_ads = not self.show_ads
+			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
+			await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923427463193829497),
@@ -428,11 +431,12 @@ class SettingsView(disnake.ui.View):
 		label="Show blacklisted members",
 		row=1)
 	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		embed = disnake.Embed(title="Blacklisted members")
-		for i in self.blacklisted_members:
-			embed.description += f"<@{i}>\n"
-		await inter.send(embed=embed)
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			embed = disnake.Embed(title="Blacklisted members")
+			for i in self.blacklisted_members:
+				embed.description += f"<@{i}>\n"
+			await inter.send(embed=embed)
+			await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424476165726239),
@@ -440,13 +444,14 @@ class SettingsView(disnake.ui.View):
 		label="Show disabled channels",
 		row=1)
 	async def show_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		message = ""
-		for i in self.disabled_channels:
-			message += f"<#{i}>\n"
-		if len(message) == 0:
-			message = "No channels are disabled."
-		await inter.send(content=message)
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			message = ""
+			for i in self.disabled_channels:
+				message += f"<#{i}>\n"
+			if len(message) == 0:
+				message = "No channels are disabled."
+			await inter.send(content=message)
+			await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923425234063859752),
@@ -454,9 +459,10 @@ class SettingsView(disnake.ui.View):
 		label="Clear blacklisted members",
 		row=2)
 	async def clear_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
-		await inter.send("No more blacklisted members!")
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
+			await inter.send("No more blacklisted members!")
+			await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424942819786794),
@@ -464,9 +470,10 @@ class SettingsView(disnake.ui.View):
 		label="Clear disabled channels",
 		row=2)
 	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
-		await inter.send("No more disabled channels!")
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
+			await inter.send("No more disabled channels!")
+			await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923424476614516766),
@@ -474,7 +481,8 @@ class SettingsView(disnake.ui.View):
 		label="Exit settings menu",
 		row=3)
 	async def stop_settings(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		await self.exit_menu(inter)
+		if inter.author.id == self.original_author_id:
+			await self.exit_menu(inter)
 
 @bot.slash_command(description="Settings for server administrators.")
 async def settings(inter: disnake.ApplicationCommandInteraction):
@@ -503,7 +511,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		name="Disabled channels",
 		value=str(len(guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]))
 	)
-	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id))
+	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id, inter.author.id))
 
 @bot.slash_command(description="Gives some helpful information about the bot.")
 async def info(inter: disnake.ApplicationCommandInteraction):
