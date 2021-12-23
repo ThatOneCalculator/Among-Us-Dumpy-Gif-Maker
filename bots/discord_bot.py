@@ -362,13 +362,13 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnake.Member):
 	if inter.author.guild_permissions.kick_members == False:
 		return inter.send("You must be have the ability to kick members from this server to use this command, you impostor!")
-	blacklist = guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
+	blacklist = guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]
 	blacklist.remove(person.id) if person.id in blacklist else blacklist.append(person.id)
-	blacklist = guild_preferences.update_one({"guild_id": guild_id}, {"blacklisted_members": blacklist})
+	blacklist = guild_preferences.update_one({"guild_id": inter.guild.id}, {"blacklisted_members": blacklist})
 	inter.respond(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
 
 class SettingsView(disnake.ui.View):
-	def __init__(self):
+	def __init__(self, guild_id):
 		super().__init__(timeout=60.0)
 		self.show_ads = guild_preferences.find_one({"guild_id": guild_id})["show_ads"]
 		self.disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
@@ -465,8 +465,8 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	if inter.author.guild_permissions.administrator == False:
 		return inter.send("You must be an admin on this server to use this command, you impostor!")
 	default_guild_preferences(inter.guild.id)
-	show_ads = guild_preferences.find_one({"guild_id": guild_id})["show_ads"]
-	disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
+	show_ads = guild_preferences.find_one({"guild_id": inter.guild.id})["show_ads"]
+	disabled_channels = guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]
 	this_channel_disabled = True if inter.channel.id in disabled_channels else False
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
@@ -481,13 +481,13 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		title="Blacklisted members",
-		value=str(len(guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]))
+		value=str(len(guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]))
 	)
 	embed.add_field(
 		title="Disabled channels",
-		value=str(len(guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]))
+		value=str(len(guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]))
 	)
-	await inter.send(embed=embed, view=SettingsView())
+	await inter.send(embed=embed, view=SettingsView(inter.guild.id))
 
 @bot.slash_command(description="Gives some helpful information about the bot.")
 async def info(inter: disnake.ApplicationCommandInteraction):
