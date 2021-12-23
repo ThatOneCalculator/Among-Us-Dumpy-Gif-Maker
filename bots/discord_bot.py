@@ -16,7 +16,7 @@ import aiofiles
 import aiohttp
 import disnake
 import humanfriendly
-import motor
+import motor.motor_asyncio
 import topgg
 import validators
 from async_timeout import timeout
