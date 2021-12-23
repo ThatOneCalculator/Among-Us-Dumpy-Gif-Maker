@@ -378,7 +378,7 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 		return inter.send("You must be have the ability to kick members from this server to use this command, you impostor!")
 	blacklist = guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]
 	blacklist.remove(person.id) if person.id in blacklist else blacklist.append(person.id)
-	blacklist = guild_preferences.update_one({"guild_id": inter.guild.id}, {"blacklisted_members": blacklist})
+	blacklist = guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
 	inter.respond(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
 
 class SettingsView(disnake.ui.View):
@@ -397,7 +397,7 @@ class SettingsView(disnake.ui.View):
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
-		style=disnake.ButtonStyle.primary,
+		style=disnake.ButtonStyle.green,
 		label="Channel commands on/off",
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
@@ -405,7 +405,7 @@ class SettingsView(disnake.ui.View):
 			self.disabled_channels.remove(self.channel_id)
 		else:
 			self.disabled_channels.append(self.channel_id)
-		self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"disabled_channels": self.disabled_channels})
+		self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": self.disabled_channels}})
 		self.this_channel_disabled = not self.this_channel_disabled
 		await self.exit_menu(inter)
 
@@ -421,12 +421,12 @@ class SettingsView(disnake.ui.View):
 			button.label = "Promo buttons are on"
 			await interaction.response.edit_message(view=self)
 		self.show_ads = not self.show_ads
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"show_ads": self.show_ads})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923427463193829497),
-		style=disnake.ButtonStyle.green,
+		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
 	async def show_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
@@ -456,7 +456,7 @@ class SettingsView(disnake.ui.View):
 		label="Clear blacklisted members",
 		row=2)
 	async def clear_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"blacklisted_members": []})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {{"$set": "blacklisted_members": []}})
 		await interaction.send("No more blacklisted members!")
 		await self.exit_menu(inter)
 
@@ -466,7 +466,7 @@ class SettingsView(disnake.ui.View):
 		label="Clear disabled channels",
 		row=2)
 	async def clear_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"disabled_channels": []})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
 		await interaction.send("No more disabled channels!")
 		await self.exit_menu(inter)
 
