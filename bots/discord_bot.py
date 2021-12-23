@@ -395,7 +395,7 @@ class SettingsView(disnake.ui.View):
 		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
 
 	async def exit_menu(self, inter):
-		await inter.response.edit(view=None)
+		await inter.edit_original_message(view=None)
 		self.stop()
 
 	@disnake.ui.button(
@@ -418,11 +418,6 @@ class SettingsView(disnake.ui.View):
 		label="Promo buttons on/off",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if self.show_ads:
-			button.emoji = bot.get_emoji(923380599195058176)
-			button.style = disnake.ButtonStyle.green
-			button.label = "Promo buttons are on"
-			await inter.response.edit_message(view=self)
 		self.show_ads = not self.show_ads
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
 		await self.exit_menu(inter)
