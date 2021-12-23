@@ -380,7 +380,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923380599195058176) if not self.this_channel_disabled else bot.get_emoji(923380567960080404),
 			style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
-			value=f"This channel has bot commands {'enabled' if not self.this_channel_disabled else 'disabled'.}"
+			value=f"This channel has bot commands {'enabled' if not self.this_channel_disabled else 'disabled'.}",
 			row=0)
 		async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			if interaction.channel.id in self.disabled_channels:
@@ -394,7 +394,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923380599195058176) if self.show_ads else bot.get_emoji(923380567960080404),
 			style=disnake.ButtonStyle.green if self.show_ads else disnake.ButtonStyle.red,
-			value=f"Command promo buttons are {'enabled' if self.show_ads else 'disabled'.}"
+			value=f"Command promo buttons are {'enabled' if self.show_ads else 'disabled'.}",
 			row=0)
 		async def swap_ad_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			self.show_ads = not self.show_ads
@@ -404,7 +404,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923427463193829497),
 			style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
-			value=f"Show blacklisted members"
+			value=f"Show blacklisted members",
 			row=1)
 		async def show_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			embed = disnake.Embed(title="Blacklisted members")
@@ -416,7 +416,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923424476165726239),
 			style=disnake.ButtonStyle.primary,
-			value=f"Show disabled channels"
+			value=f"Show disabled channels",
 			row=1)
 		async def show_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			message = ""
@@ -430,7 +430,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923425234063859752),
 			style=disnake.ButtonStyle.secondary,
-			value=f"Clear blacklisted members"
+			value=f"Clear blacklisted members",
 			row=2)
 		async def clear_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			guild_preferences.update_one({"guild_id": guild_id}, {"blacklisted_members": []})
@@ -440,7 +440,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923424942819786794),
 			style=disnake.ButtonStyle.secondary,
-			value=f"Clear disabled channels"
+			value=f"Clear disabled channels",
 			row=2)
 		async def clear_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			guild_preferences.update_one({"guild_id": guild_id}, {"disabled_channels": []})
@@ -450,7 +450,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 		@disnake.ui.button(
 			emoji=bot.get_emoji(923424476614516766),
 			style=disnake.ButtonStyle.red,
-			value=f"Exit settings menu"
+			value=f"Exit settings menu",
 			row=3)
 		async def stop_settings(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 			self.stop()
