@@ -231,10 +231,11 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 @bot.slash_command(description="Writes something out, but sus.")
 async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+	await inter.response.defer()
 	await default_guild_preferences(inter.guild.id)
 	mytext = urllib.parse.quote(text).upper()
 	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
-	await inter.send(
+	await inter.edit_original_message(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
 		view=await ads(inter.guild.id)
@@ -254,7 +255,7 @@ async def tall(inter: disnake.ApplicationCommandInteraction, height: int):
 async def autocomplete_bg_choices(inter: disnake.ApplicationCommandInteraction, user_input: str):
 		CHOICES = [
 			"transparent", 
-			"#", 
+			"#",
 			"gray", 
 			"white", 
 			"black", 
@@ -266,23 +267,14 @@ async def autocomplete_bg_choices(inter: disnake.ApplicationCommandInteraction, 
 			"purple", 
 			"pink",
 			"brown",
-			"asexual", 
-			"aromantic", 
+			"asexual",
+			"aromantic",
 			"agender",
-			"aroace",
 			"bisexual",
-			"boyflux",
-			"demiboy",
-			"demigirl",
 			"gay",
-			"genderfluid",
-			"genderflux",
 			"lesbian",
 			"nonbinary",
-			"omnisexual",
 			"pansexual",
-			"polyamorous",
-			"polysexual",
 			"pride",
 			"transgender",
 			"vincian"
@@ -414,7 +406,7 @@ class SettingsView(disnake.ui.View):
 		else:
 			disabled_channels.append(self.channel_id)
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": disabled_channels}})
-		await inter.response.edit_message(content="Done", embed=None, view=None)
+		await inter.response.edit_message(content="Done!", embed=None, view=None)
 		self.stop()
 
 	@disnake.ui.button(
@@ -424,9 +416,8 @@ class SettingsView(disnake.ui.View):
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		data = guild_preferences.find_one({"guild_id": self.guild_id})
-		show_ads = not data["show_ads"]
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
-		await inter.response.edit_message(content="Done", embed=None, view=None)
+		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": not data["show_ads"]}})
+		await inter.response.edit_message(content="Done!", embed=None, view=None)
 		self.stop()
 
 	@disnake.ui.button(
