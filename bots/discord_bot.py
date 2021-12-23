@@ -376,12 +376,13 @@ class SettingsView(disnake.ui.View):
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
-		style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
+		style=disnake.ButtonStyle.red,
 		value=f"This channel has bot commands {'enabled' if not self.this_channel_disabled else 'disabled'}.",
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 		if not self.this_channel_disabled:
 			button.emoji = bot.get_emoji(923380599195058176)
+			button.style = disnake.ButtonStyle.green 
 		if interaction.channel.id in self.disabled_channels:
 			self.disabled_channels.remove(interaction.channel.id)
 		else:
@@ -392,19 +393,20 @@ class SettingsView(disnake.ui.View):
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923380567960080404),
-		style=disnake.ButtonStyle.green if self.show_ads else disnake.ButtonStyle.red,
+		style=disnake.ButtonStyle.red,
 		value=f"Command promo buttons are {'enabled' if self.show_ads else 'disabled'}.",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 		if self.show_ads:
 			button.emoji = bot.get_emoji(923380599195058176)
+			button.style = disnake.ButtonStyle.green
 		self.show_ads = not self.show_ads
 		guild_preferences.update_one({"guild_id": guild_id}, {"show_ads": self.show_ads})
 		self.stop()
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923427463193829497),
-		style=disnake.ButtonStyle.green if not self.this_channel_disabled else disnake.ButtonStyle.red,
+		style=disnake.ButtonStyle.primary,
 		value=f"Show blacklisted members",
 		row=1)
 	async def show_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
