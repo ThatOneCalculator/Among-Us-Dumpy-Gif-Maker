@@ -18,6 +18,7 @@ import disnake
 import humanfriendly
 import motor
 import topgg
+import validators
 from async_timeout import timeout
 from disnake.ext import commands, tasks
 from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
@@ -337,6 +338,8 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	if person != None and image_url == None:
 		await asyncimage(person.avatar.url, f"attach_{messageid}.png")
 	elif image_url != None:
+		if not validators.url(image_url):
+			return await inter.send("Invalid URL!")
 		await asyncimage(image_url, f"attach_{messageid}.png" )
 	else:
 		sus = True
