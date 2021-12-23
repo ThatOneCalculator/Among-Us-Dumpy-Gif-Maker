@@ -333,7 +333,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 			return await inter.edit_original_message(content=f"The limit for non-voters is 35! {inter.author.mention}, vote on top.gg to increase it to 40!\nAll you need to do is sign in with Discord and click the button. Please note that votes reset every 12 hours.\nhttps://top.gg/bot/847164104161361921/vote")
 	if lines > 40 or lines < 1:
 		return await inter.edit_original_message(content="Number must be between 1 and 35 (40 if you vote!) Defaults to 10. Vote here: https://top.gg/bot/847164104161361921/vote")
-	if person != None:
+	if person != None and image_url == None:
 		await asyncimage(person.avatar.url, f"attach_{messageid}.png")
 	elif image_url != None:
 		await asyncimage(image_url, f"attach_{messageid}.png" )
