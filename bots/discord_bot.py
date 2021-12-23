@@ -400,7 +400,7 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.green,
 		label="Channel commands on/off",
 		row=0)
-	async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if self.channel_id in self.disabled_channels:
 			self.disabled_channels.remove(self.channel_id)
 		else:
@@ -414,12 +414,12 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.green,
 		label="Promo buttons on/off",
 		row=0)
-	async def swap_ad_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if self.show_ads:
 			button.emoji = bot.get_emoji(923380599195058176)
 			button.style = disnake.ButtonStyle.green
 			button.label = "Promo buttons are on"
-			await interaction.response.edit_message(view=self)
+			await inter.response.edit_message(view=self)
 		self.show_ads = not self.show_ads
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": self.show_ads}})
 		await self.exit_menu(inter)
@@ -429,11 +429,11 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
-	async def show_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		embed = disnake.Embed(title="Blacklisted members")
 		for i in self.blacklisted_members:
 			embed.description += f"<@{i}>\n"
-		await interaction.send(embed=embed)
+		await inter.send(embed=embed)
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
@@ -441,13 +441,13 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.primary,
 		label="Show disabled channels",
 		row=1)
-	async def show_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def show_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		message = ""
 		for i in self.disabled_channels:
 			message += f"<#{i}>\n"
 		if len(message) == 0:
 			message = "No channels are disabled."
-		await interaction.send(content=message)
+		await inter.send(content=message)
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
@@ -455,9 +455,9 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.red,
 		label="Clear blacklisted members",
 		row=2)
-	async def clear_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def clear_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
-		await interaction.send("No more blacklisted members!")
+		await inter.send("No more blacklisted members!")
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
@@ -465,9 +465,9 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.red,
 		label="Clear disabled channels",
 		row=2)
-	async def clear_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
-		await interaction.send("No more disabled channels!")
+		await inter.send("No more disabled channels!")
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
@@ -475,7 +475,7 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.secondary,
 		label="Exit settings menu",
 		row=3)
-	async def stop_settings(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def stop_settings(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		await self.exit_menu(inter)
 
 @bot.slash_command(description="Settings for server administrators.")
