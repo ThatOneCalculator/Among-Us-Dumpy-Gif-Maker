@@ -456,7 +456,7 @@ class SettingsView(disnake.ui.View):
 		label="Clear blacklisted members",
 		row=2)
 	async def clear_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {{"$set": "blacklisted_members": []}})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
 		await interaction.send("No more blacklisted members!")
 		await self.exit_menu(inter)
 
