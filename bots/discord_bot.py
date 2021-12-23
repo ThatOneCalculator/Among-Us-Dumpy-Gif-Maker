@@ -59,8 +59,9 @@ async def default_guild_preferences(guild_id: int):
 
 async def cannot_be_run(guild_id, channel_id, member_id):
 	try:
-		disabled_channels = await guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
-		blacklisted_members = await guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
+		data = await guild_preferences.find_one({"guild_id": guild_id})
+		disabled_channels = data["disabled_channels"]
+		blacklisted_members = data["blacklisted_members"]
 		if channel_id in disabled_channels or member_id in blacklisted_members:
 			return True
 		return False
@@ -383,7 +384,8 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
 	if inter.author.guild_permissions.kick_members == False:
 		return inter.send("You must be have the ability to kick members from this server to use this command, you impostor!")
-	blacklist = await guild_preferences.find_one({"guild_id": inter.guild.id})["blacklisted_members"]
+	data = await guild_preferences.find_one({"guild_id": inter.guild.id})
+	blacklist = data["blacklisted_members"]
 	if person.id in blacklist:
 		blacklist.remove(person.id)
 		await guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
@@ -407,7 +409,8 @@ class SettingsView(disnake.ui.View):
 		row=0)
 	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
-			disabled_channels = await guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
+			data = await guild_preferences.find_one({"guild_id": self.guild_id})
+			disabled_channels = data["disabled_channels"]
 			if self.channel_id in disabled_channels:
 				disabled_channels.remove(self.channel_id)
 			else:
@@ -422,8 +425,8 @@ class SettingsView(disnake.ui.View):
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
-			show_ads = await guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
-			show_ads = not show_ads
+			data = await guild_preferences.find_one({"guild_id": self.guild_id})
+			show_ads = not data["show_ads"]
 			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
 			self.stop()
 
@@ -435,7 +438,8 @@ class SettingsView(disnake.ui.View):
 	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
 			embed = disnake.Embed(title="Blacklisted members", description="")
-			blacklisted_members = await guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"]
+			data = await guild_preferences.find_one({"guild_id": self.guild_id})
+			blacklisted_members = data["blacklisted_members"]
 			for i in blacklisted_members:
 				embed.description += f"<@{i}>\n"
 			await inter.send(embed=embed)
@@ -449,7 +453,8 @@ class SettingsView(disnake.ui.View):
 	async def show_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if inter.author.id == self.original_author_id:
 			message = ""
-			disabled_channels = await guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
+			data = await guild_preferences.find_one({"guild_id": self.guild_id})
+			disabled_channels = data["disabled_channels"]
 			for i in disabled_channels:
 				message += f"<#{i}>\n"
 			if len(message) == 0:
@@ -493,8 +498,9 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	if inter.author.guild_permissions.administrator == False:
 		return inter.send("You must be an admin on this server to use this command, you impostor!")
 	await default_guild_preferences(inter.guild.id)
-	show_ads = await guild_preferences.find_one({"guild_id": inter.guild.id})["show_ads"]
-	disabled_channels = await guild_preferences.find_one({"guild_id": inter.guild.id})["disabled_channels"]
+	data = await guild_preferences.find_one({"guild_id": inter.guild.id})
+	show_ads = data["show_ads"]
+	disabled_channels = data["disabled_channels"]
 	this_channel_disabled = True if inter.channel.id in disabled_channels else False
 	embed = disnake.Embed(title="Among Us Dumpy Bot Settings")
 	embed.add_field(
