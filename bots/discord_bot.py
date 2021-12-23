@@ -421,7 +421,7 @@ class SettingsView(disnake.ui.View):
 		label="Promo buttons on/off",
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if inter.author.id == self.original_author_id:\
+		if inter.author.id == self.original_author_id:
 			show_ads = await guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
 			show_ads = not show_ads
 			await guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": show_ads}})
