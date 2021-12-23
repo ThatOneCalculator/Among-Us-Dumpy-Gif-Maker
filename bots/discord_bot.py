@@ -389,7 +389,7 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(self.swap_channel_state_emoji),
+		emoji=bot.get_emoji(self.swap_channel_state_emoji),
 		style=self.swap_channel_state_style,
 		label=f"Channel has commands {self.swap_channel_state_state}",
 		row=0)
@@ -403,7 +403,7 @@ class SettingsView(disnake.ui.View):
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(self.swap_ad_state_emoji),
+		emoji=bot.get_emoji(self.swap_ad_state_emoji),
 		style=self.swap_ad_state_style,
 		label=f"Promo buttons are {swap_ad_state_state}",
 		row=0)
@@ -413,7 +413,7 @@ class SettingsView(disnake.ui.View):
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(923427463193829497),
+		emoji=bot.get_emoji(923427463193829497),
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
@@ -425,7 +425,7 @@ class SettingsView(disnake.ui.View):
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(923424476165726239),
+		emoji=bot.get_emoji(923424476165726239),
 		style=disnake.ButtonStyle.primary,
 		label="Show disabled channels",
 		row=1)
@@ -439,7 +439,7 @@ class SettingsView(disnake.ui.View):
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(923425234063859752),
+		emoji=bot.get_emoji(923425234063859752),
 		style=disnake.ButtonStyle.secondary,
 		label="Clear blacklisted members",
 		row=2)
@@ -449,7 +449,7 @@ class SettingsView(disnake.ui.View):
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(923424942819786794),
+		emoji=bot.get_emoji(923424942819786794),
 		style=disnake.ButtonStyle.secondary,
 		label="Clear disabled channels",
 		row=2)
@@ -459,7 +459,7 @@ class SettingsView(disnake.ui.View):
 		await self.exit_menu(inter)
 
 	@disnake.ui.button(
-		emoji=self.bot.get_emoji(923424476614516766),
+		emoji=bot.get_emoji(923424476614516766),
 		style=disnake.ButtonStyle.red,
 		label="Exit settings menu",
 		row=3)
