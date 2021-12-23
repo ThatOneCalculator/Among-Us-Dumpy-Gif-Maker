@@ -57,11 +57,14 @@ def default_guild_preferences(guild_id: int):
 		guild_preferences.insert_one(prefs)
 
 def cannot_be_run(guild_id, channel_id, member_id):
-	disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
-	blacklisted_members = guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
-	if channel_id in disabled_channels or member_id in blacklisted_members:
-		return True
-	return False
+	try:
+		disabled_channels = guild_preferences.find_one({"guild_id": guild_id})["disabled_channels"]
+		blacklisted_members = guild_preferences.find_one({"guild_id": guild_id})["blacklisted_members"]
+		if channel_id in disabled_channels or member_id in blacklisted_members:
+			return True
+		return False
+	except:
+		return False
 
 class PromoButtons(disnake.ui.View):
 	def __init__(self):
