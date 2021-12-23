@@ -367,6 +367,48 @@ async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnak
 	blacklist = guild_preferences.update_one({"guild_id": inter.guild.id}, {"blacklisted_members": blacklist})
 	inter.respond(f"{person.mention} has been {'blacklisted' if person.id in blacklist else 'unblacklisted'}.")
 
+class SwapChannelStateButton(disnake.ui.Button):
+	def __init__(self, guild_id, channel_id):
+		self.guild_id = guild_id
+		self.channel_id = channel_id
+		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
+		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
+		self.emoji = 923380567960080404 if self.this_channel_disabled else 923380599195058176
+		self.style = disnake.ButtonStyle.red if self.this_channel_disabled else disnake.ButtonStyle.green
+		self.state = "off" if self.this_channel_disabled else "on"
+		super.__init__(
+			style=self.style, 
+			emoji=self.emoji, 
+			label=f"Channel has commands {self.state}", 
+			row=0)
+
+	async def callback(self, interaction: disnake.MessageInteraction):
+		if self.channel_id in self.disabled_channels:
+			self.disabled_channels.remove(self.channel_id)
+		else:
+			self.disabled_channels.append(self.channel_id)
+		self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"disabled_channels": self.disabled_channels})
+		self.this_channel_disabled = not self.this_channel_disabled
+		await inter.response.edit(view=None)
+
+class SwapAdStateButton(disnake.ui.Button):
+	def __init__(self, guild_id):
+		self.guild_id = guild_id
+		self.show_ads = guild_preferences.find_one({"guild_id": self.guild_id})["show_ads"]
+		self.emoji = 923380567960080404 if not self.show_ads else 923380599195058176
+		self.style = disnake.ButtonStyle.red if not self.show_ads else disnake.ButtonStyle.green
+		self.state = "off" if not self.show_ads else "on"
+		super.__init__(
+			style=self.style, 
+			emoji=self.emoji, 
+			label=f"Channel has commands {self.state}", 
+			row=0)
+
+	async def callback(self, interaction: disnake.MessageInteraction):
+		self.show_ads = not self.show_ads
+		guild_preferences.update_one({"guild_id": self.guild_id}, {"show_ads": self.show_ads})
+		await inter.response.edit(view=None)
+
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id):
 		super().__init__(timeout=60.0)
@@ -377,40 +419,12 @@ class SettingsView(disnake.ui.View):
 		self.disabled_channels = guild_preferences.find_one({"guild_id": self.guild_id})["disabled_channels"]
 		self.blacklisted_members = guild_preferences.find_one({"guild_id": self.guild_id})["blacklisted_members"]
 		self.this_channel_disabled = True if self.channel_id in self.disabled_channels else False
-		self.swap_channel_state_emoji = 923380567960080404 if self.this_channel_disabled else 923380599195058176
-		self.swap_channel_state_style = disnake.ButtonStyle.red if self.this_channel_disabled else disnake.ButtonStyle.green
-		self.swap_channel_state_state = "off" if self.this_channel_disabled else "on"
-		self.swap_ad_state_emoji = 923380567960080404 if not self.show_ads else 923380599195058176
-		self.swap_ad_state_style = disnake.ButtonStyle.red if not self.show_ads else disnake.ButtonStyle.green
-		self.swap_ad_state_state = "off" if not self.show_ads else "on"
+		self.add_item(SwapChannelStateButton(self.guild_id, self.channel_id))
+		self.add_item(SwapAdStateButton(self.guild_id))
 
 	async def exit_menu(self, inter):
 		await inter.response.edit(view=None)
 		self.stop()
-
-	@disnake.ui.button(
-		emoji=bot.get_emoji(self.swap_channel_state_emoji),
-		style=self.swap_channel_state_style,
-		label=f"Channel has commands {self.swap_channel_state_state}",
-		row=0)
-	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		if self.channel_id in self.disabled_channels:
-			self.disabled_channels.remove(self.channel_id)
-		else:
-			self.disabled_channels.append(self.channel_id)
-		self.disabled_channels = guild_preferences.update_one({"guild_id": self.guild_id}, {"disabled_channels": self.disabled_channels})
-		self.this_channel_disabled = not self.this_channel_disabled
-		await self.exit_menu(inter)
-
-	@disnake.ui.button(
-		emoji=bot.get_emoji(self.swap_ad_state_emoji),
-		style=self.swap_ad_state_style,
-		label=f"Promo buttons are {swap_ad_state_state}",
-		row=0)
-	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		self.show_ads = not self.show_ads
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"show_ads": self.show_ads})
-		await self.exit_menu(inter)
 
 	@disnake.ui.button(
 		emoji=bot.get_emoji(923427463193829497),
