@@ -487,7 +487,7 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		name="Bot shows promo buttons",
-		value="<:amongusthumbsdown:923380567960080404>" if show_ads else "<:amongusthumbsup:923380599195058176>",
+		value="<:amongusthumbsdown:923380567960080404>" if not show_ads else "<:amongusthumbsup:923380599195058176>",
 		inline=False
 	)
 	embed.add_field(
