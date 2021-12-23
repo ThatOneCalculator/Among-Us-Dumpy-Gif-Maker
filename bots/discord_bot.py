@@ -382,12 +382,12 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.red,
 		label="Channel has commands off",
 		row=0)
-	async def swap_channel_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def swap_channel_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if not self.this_channel_disabled:
 			button.emoji = bot.get_emoji(923380599195058176)
 			button.style = disnake.ButtonStyle.green
 			button.label = "Channel has commands on"
-			await interaction.response.edit_message(view=self)
+			await inter.edit_original_message(view=self)
 		if self.channel_id in self.disabled_channels:
 			self.disabled_channels.remove(self.channel_id)
 		else:
@@ -401,12 +401,12 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.red,
 		label="Promo buttons are off",
 		row=0)
-	async def swap_ad_state(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		if self.show_ads:
 			button.emoji = bot.get_emoji(923380599195058176)
 			button.style = disnake.ButtonStyle.green
 			button.label = "Promo buttons are on"
-			await interaction.response.edit_message(view=self)
+			await inter.edit_original_message(view=self)
 		self.show_ads = not self.show_ads
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"show_ads": self.show_ads})
 		self.stop()
@@ -416,11 +416,11 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.primary,
 		label="Show blacklisted members",
 		row=1)
-	async def show_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def show_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		embed = disnake.Embed(title="Blacklisted members")
 		for i in self.blacklisted_members:
 			embed.description += f"<@{i}>\n"
-		await interaction.send(embed=embed)
+		await inter.send(embed=embed)
 		self.stop()
 
 	@disnake.ui.button(
@@ -428,13 +428,13 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.primary,
 		label="Show disabled channels",
 		row=1)
-	async def show_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def show_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		message = ""
 		for i in self.disabled_channels:
 			message += f"<#{i}>\n"
 		if len(message) == 0:
 			message = "No channels are disabled."
-		await interaction.send(content=message)
+		await inter.send(content=message)
 		self.stop()
 
 	@disnake.ui.button(
@@ -442,9 +442,9 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.secondary,
 		label="Clear blacklisted members",
 		row=2)
-	async def clear_blacklisted_members(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def clear_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"blacklisted_members": []})
-		await interaction.send("No more blacklisted members!")
+		await inter.send("No more blacklisted members!")
 		self.stop()
 
 	@disnake.ui.button(
@@ -452,9 +452,9 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.secondary,
 		label="Clear disabled channels",
 		row=2)
-	async def clear_disabled_channels(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		guild_preferences.update_one({"guild_id": self.guild_id}, {"disabled_channels": []})
-		await interaction.send("No more disabled channels!")
+		await inter.send("No more disabled channels!")
 		self.stop()
 
 	@disnake.ui.button(
@@ -462,7 +462,7 @@ class SettingsView(disnake.ui.View):
 		style=disnake.ButtonStyle.red,
 		label="Exit settings menu",
 		row=3)
-	async def stop_settings(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+	async def stop_settings(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		self.stop()
 
 @bot.slash_command(description="Settings for server administrators.")
