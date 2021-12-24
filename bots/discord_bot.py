@@ -131,8 +131,7 @@ async def asyncimage(url, filename):
 	return discord_file
 
 def draw_text(text: str, sussy: bool, filename: str):
-	text = text.upper().strip()
-	print(text)
+	text = text.upper().strip().replace("%20", " ")
 	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 100)
 	image = Image.new(mode="RGB", size=font.getsize(text), color="white")
 	draw = ImageDraw.Draw(image)
