@@ -615,6 +615,6 @@ async def on_message(message):
 
 @bot.event
 async def on_ready():
-	print("Ready")
+	print("------\nReady\n------\n")
 
 bot.run(token)
