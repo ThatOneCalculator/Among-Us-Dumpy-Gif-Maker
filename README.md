@@ -1,5 +1,5 @@
 <p align="center">
-   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="50"/></a>
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-5865F2?logo=discord&style=for-the-badge" height="50"/></a>
    <!--<br>
    <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="35"/></a>-->
    <br><br>
@@ -38,7 +38,7 @@
 
 # Instructions
 
-# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-7289DA?logo=discord&style=for-the-badge" height="30"/></a><!-- or <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="25"/></a>-->
+# Easiest: <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-5865F2?logo=discord&style=for-the-badge" height="30"/></a><!-- or <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="25"/></a>-->
 ##### The Discord bot uses slash commands, type `/info` for more info or `/dumpy` to make a dumpy gif.
 <!--##### The Revolt bot uses the `!!` prefix, type `!!help` in Revolt for more info.-->
 
