@@ -14,7 +14,7 @@
       <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
    </a>
    <br>
-  <img align="center" src="https://user-images.githubusercontent.com/44733677/147306225-acb0d9e9-8f4d-4f68-8f4a-eb2258556f07.png" width="500"/>
+  <a href="https://dumpy.t1c.dev"><img align="center" src="https://user-images.githubusercontent.com/44733677/147306225-acb0d9e9-8f4d-4f68-8f4a-eb2258556f07.png" width="500"/></a>
 </p>
 
 <h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer415</a></h3>
