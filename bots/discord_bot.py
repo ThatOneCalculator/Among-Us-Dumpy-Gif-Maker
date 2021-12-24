@@ -319,7 +319,7 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 			return await inter.edit_original_message(content="Set your background!")
 		else:
 			return await inter.edit_original_message(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
-	# elif len(inter) > 0:
+	# elif len(inter.attachments) > 0:
 	# 	try:
 	# 		await inter.attachments[0].save(f"custom_bgs/background_{inter.author.id}.png")
 	# 	except Exception as e:
@@ -609,9 +609,7 @@ async def on_message(message):
 	if message.guild == None and message.author.bot == False:
 		return await message.channel.send("Looks like you're trying to use this command in a DM! You need to invite me to a server to use my commands.\nhttps://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands ")
 	if message.content.startswith("!!"):
-		return await message.channel.send("I have moved to slash commands! Type `/` and select me to get started. All commands are the same, but they start with `/` instead of `!!`. You can also type `/info` for more info.\n\nIf you do not see slash commands, ask a server administrator or the server owner to click this link to reinvite the bot with slash command permissions: https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands")
-	# elif (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
-	# 	return await message.channel.send("**Commands have been disabled in this channel.**")
+		return await message.channel.send("**I have moved to slash commands!**\nType `/` and select me to get started.\nSome commands have changed a bit, but feel free to try out `/dumpy` and `/info`.\nIf you do not see slash commands, ask a server administrator or the server owner to click this link to reinvite the bot with slash command permissions: https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands")
 	await bot.process_commands(message)
 
 
