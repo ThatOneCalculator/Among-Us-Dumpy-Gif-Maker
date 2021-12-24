@@ -122,7 +122,7 @@ async def asyncimage(url, filename):
 	discord_file = disnake.File(filename, filename=filename)
 	return discord_file
 
-async def asyncmmd(cmd):
+async def asyncrun(cmd):
 	proc = await asyncio.create_subprocess_shell(
 		cmd,
 		stdout=asyncio.subprocess.PIPE,
