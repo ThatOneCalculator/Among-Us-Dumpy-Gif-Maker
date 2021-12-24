@@ -6,5 +6,5 @@ rm attach*
 rm dumpy*
 rm eject*
 rm text*
-sleep 600
+sleep 6000
 done
