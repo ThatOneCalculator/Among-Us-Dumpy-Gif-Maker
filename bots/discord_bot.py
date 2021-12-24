@@ -131,7 +131,6 @@ async def asyncimage(url, filename):
 	return discord_file
 
 def draw_text(text: str, sussy: bool, filename: str):
-	text = text.upper().strip().replace("%20", " ")
 	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 100)
 	image = Image.new(mode="RGB", size=font.getsize(text), color="white")
 	draw = ImageDraw.Draw(image)
@@ -254,8 +253,8 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str, sussy: b
 	loop = asyncio.get_running_loop()
 	await inter.response.defer()
 	await default_guild_preferences(inter.guild.id)
-	mytext = urllib.parse.quote(text).upper()
-	file = await loop.run_in_executor(None, draw_text, mytext, sussy, f"text{inter.id}.png")
+	text = text.upper()
+	file = await loop.run_in_executor(None, draw_text, text, sussy, f"text{inter.id}.png")
 	await inter.edit_original_message(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
