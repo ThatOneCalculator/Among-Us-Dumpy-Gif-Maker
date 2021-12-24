@@ -13,7 +13,7 @@
    <a href="https://discord.gg/Z7UZPR3bbW/">
       <img src="https://discordapp.com/api/guilds/716364441658327120/embed.png?style=shield" alt="Discord" />
    </a>
-   
+   <br>
   <img align="center" src="https://user-images.githubusercontent.com/44733677/147306225-acb0d9e9-8f4d-4f68-8f4a-eb2258556f07.png" width="500"/>
 </p>
 
