@@ -21,9 +21,8 @@ import topgg
 import validators
 from async_timeout import timeout
 from disnake.ext import commands, tasks
-from disputils import BotConfirmation, BotEmbedPaginator, BotMultipleChoice
 from dotenv import dotenv_values
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from statcord import StatcordClient
 
 token = dotenv_values(".env")["DISCORD"]
@@ -128,9 +127,17 @@ async def asyncimage(url, filename):
 			await f.write(await resp.read())
 			await f.close()
 	img = Image.open(filename)
-	file = disnake.File(filename, filename=filename)
-	return file
+	discord_file = disnake.File(filename, filename=filename)
+	return discord_file
 
+def draw_text(text: str, sussy: bool, filename: str):
+	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 26)
+	image = Image.new(mode="RGB", size=(13*len(text), 26), color="white")
+	draw = ImageDraw.Draw(image)
+	draw.text((0, 0), text, font=font, fill=(255, 255, 255))
+	image.save(filename)
+	discord_file = disnake.File(filename, filename=filename)
+	return discord_file
 
 class CommandErrorHandler(commands.Cog):
 
@@ -240,18 +247,21 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Writes something out, but sus.")
-async def text(inter: disnake.ApplicationCommandInteraction, text: str):
+async def text(inter: disnake.ApplicationCommandInteraction, text: str, sussy: bool = True):
 	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
+	loop = asyncio.get_running_loop()
 	await inter.response.defer()
 	await default_guild_preferences(inter.guild.id)
 	mytext = urllib.parse.quote(text).upper()
-	file = await asyncimage(f"https://img.dafont.com/preview.php?text={mytext}&ttf=among_us0&ext=1&size=57&psize=m&y=58", "text.png")
+	file = await loop.run_in_executor(None, draw_text, mytext, sussy, f"text{inter.id}.png")
 	await inter.edit_original_message(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
 		view=await ads(inter.guild.id)
 	)
+	rm = shlex.split(f"bash -c 'rm ./text{inter.id}.png'")
+	subprocess.check_call(rm)
 
 
 @commands.cooldown(1, 15, commands.BucketType.user)
