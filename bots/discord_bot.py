@@ -381,7 +381,6 @@ async def dumpy(
 	proc = await asyncio.create_subprocess_exec(cmd)
 	returncode = await proc.wait()
 	print(returncode)
-	await loop.run_in_executor(None, blocking, messageid, mode, lines, background)
 	filename = f"dumpy{messageid}.gif"
 	try:
 		await inter.edit_original_message(
@@ -392,8 +391,8 @@ async def dumpy(
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
 	rmcmds = [
-		"bash -c 'rm ./attach_{messageid}.png'",
-		"bash -c 'rm ./dumpy{messageid}.gif'"
+		f"bash -c 'rm ./attach_{messageid}.png'",
+		f"bash -c 'rm ./dumpy{messageid}.gif'"
 	]
 	for i in rmcmds:
 		proc = await asyncio.create_subprocess_exec(i)
