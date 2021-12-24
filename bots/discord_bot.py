@@ -131,10 +131,11 @@ async def asyncimage(url, filename):
 	return discord_file
 
 def draw_text(text: str, sussy: bool, filename: str):
-	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 26)
-	image = Image.new(mode="RGB", size=(13*len(text), 26), color="white")
+	text = text.upper()
+	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 100)
+	image = Image.new(mode="RGB", size=font.getsize(text), color="white")
 	draw = ImageDraw.Draw(image)
-	draw.text((0, 0), text, font=font, fill=(255, 255, 255))
+	draw.text((0, 0), text, font=font, fill=(0, 0, 0))
 	image.save(filename)
 	discord_file = disnake.File(filename, filename=filename)
 	return discord_file
