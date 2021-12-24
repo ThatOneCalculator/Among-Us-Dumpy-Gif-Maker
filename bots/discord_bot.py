@@ -40,12 +40,14 @@ bot = commands.AutoShardedBot(
 	intents=intents,
 	chunk_guilds_at_startup=False,
 )
-bot.topggpy = topgg.DBLClient(bot, topggtoken, autopost=True, post_shard_count=True)
+bot.topggpy = topgg.DBLClient(
+	bot, topggtoken, autopost=True, post_shard_count=True)
 bot.statcord_client = StatcordClient(bot, statcordkey)
 
 mongoclient = pymongo.MongoClient()
 db = mongoclient.among_us_dumpy_bot
 guild_preferences = db.guild_preferences
+
 
 async def default_guild_preferences(guild_id: int):
 	prefs = {
@@ -56,6 +58,7 @@ async def default_guild_preferences(guild_id: int):
 	}
 	if guild_preferences.find_one({"guild_id": guild_id}) == None:
 		guild_preferences.insert_one(prefs)
+
 
 async def cannot_be_run(guild_id, channel_id, member_id):
 	try:
@@ -68,38 +71,40 @@ async def cannot_be_run(guild_id, channel_id, member_id):
 	except:
 		return False
 
+
 class PromoButtons(disnake.ui.View):
 	def __init__(self):
 		super().__init__()
 		self.add_item(disnake.ui.Button(
-				style=disnake.ButtonStyle.link,
-				label="GitHub",
-				emoji=bot.get_emoji(922251058527473784),
-				url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker",
-				row=0
-				))
+			style=disnake.ButtonStyle.link,
+			label="GitHub",
+			emoji=bot.get_emoji(922251058527473784),
+			url="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker",
+			row=0
+		))
 		self.add_item(disnake.ui.Button(
-				style=disnake.ButtonStyle.link,
-				label="Support server",
-				emoji=bot.get_emoji(922251654869434448),
-				url="https://discord.gg/VRawXXybvd",
-				row=0
-				))
+			style=disnake.ButtonStyle.link,
+			label="Support server",
+			emoji=bot.get_emoji(922251654869434448),
+			url="https://discord.gg/VRawXXybvd",
+			row=0
+		))
 		self.add_item(disnake.ui.Button(
-				style=disnake.ButtonStyle.link,
-				label="Vote on top.gg!",
-				emoji=bot.get_emoji(922252075667185716),
-				url="https://top.gg/bot/847164104161361921/vote",
-				row=0
-				))
+			style=disnake.ButtonStyle.link,
+			label="Vote on top.gg!",
+			emoji=bot.get_emoji(922252075667185716),
+			url="https://top.gg/bot/847164104161361921/vote",
+			row=0
+		))
 		self.add_item(
 			disnake.ui.Button(
-			style=disnake.ButtonStyle.link,
-			label="Invite to your server!",
-			emoji=bot.get_emoji(851566828596887554),
-			url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands",
-			row=1
+				style=disnake.ButtonStyle.link,
+				label="Invite to your server!",
+				emoji=bot.get_emoji(851566828596887554),
+				url="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands",
+				row=1
 			))
+
 
 async def ads(guild_id):
 	try:
@@ -108,6 +113,7 @@ async def ads(guild_id):
 	except:
 		pass
 	return PromoButtons()
+
 
 def blocking(messageid, mode, lines, background):
 	cmd = shlex.split(
@@ -135,7 +141,8 @@ class CommandErrorHandler(commands.Cog):
 	async def on_command_error(inter, error):
 		if hasattr(inter, 'on_error'):
 			return
-		ignored = (commands.errors.CommandNotFound, commands.errors.UserInputError)
+		ignored = (commands.errors.CommandNotFound,
+				   commands.errors.UserInputError)
 		error = getattr(error, 'original', error)
 		if isinstance(error, ignored):
 			return
@@ -200,20 +207,24 @@ class Tasks(commands.Cog):
 		await asyncio.sleep(10)
 		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
 
+
 @bot.slash_command(description="Brings you to the bot's statcord page.")
 async def statcord(inter: disnake.ApplicationCommandInteraction):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	await inter.send(content="https://statcord.com/bot/847164104161361921")
+
 
 @commands.cooldown(1, 10, commands.BucketType.user)
 @bot.slash_command(description="Sees if someone is the impostor!")
-async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Member, impostor: str=commands.Param(choices=["Random", "True", "False"])):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Member, impostor: str = commands.Param(choices=["Random", "True", "False"])):
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	await inter.response.defer()
 	await default_guild_preferences(inter.guild.id)
 	if impostor == "Random":
 		outcome = random.choice(["true", "false"])
-	elif impostor ==  "True":
+	elif impostor == "True":
 		outcome = "true"
 	elif impostor == "False":
 		outcome = "false"
@@ -223,14 +234,16 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 		content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 		file=file,
 		view=await ads(inter.guild.id)
-		)
+	)
 	rm = shlex.split(f"bash -c 'rm ./eject{inter.id}.gif'")
 	subprocess.check_call(rm)
+
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Writes something out, but sus.")
 async def text(inter: disnake.ApplicationCommandInteraction, text: str):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	await inter.response.defer()
 	await default_guild_preferences(inter.guild.id)
 	mytext = urllib.parse.quote(text).upper()
@@ -241,50 +254,51 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str):
 		view=await ads(inter.guild.id)
 	)
 
+
 @commands.cooldown(1, 15, commands.BucketType.user)
 @bot.slash_command(description="Makes a tall sussy impostor!")
-async def tall(inter: disnake.ApplicationCommandInteraction, height: int):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
-	if height == None or type(height) != int:
-		height = 0
-	if height > 20:
-		return await inter.send(content="That's taller than 20, you sussy baka!")
+async def tall(inter: disnake.ApplicationCommandInteraction, height: int = commands.Param(ge=1, le=20)):
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	lb = "\n"
 	await inter.send(f"<:tallamongus_1:853680242124259338>\n{('<:tallamongus_2:853680316110602260>' + lb) * height}<:tallamongus_3:853680372554268702>")
 
+
 async def autocomplete_bg_choices(inter: disnake.ApplicationCommandInteraction, user_input: str):
-		CHOICES = [
-			"transparent", 
-			"#",
-			"gray", 
-			"white", 
-			"black", 
-			"red", 
-			"orange", 
-			"yellow", 
-			"green", 
-			"blue", 
-			"purple", 
-			"pink",
-			"brown",
-			"asexual",
-			"aromantic",
-			"agender",
-			"bisexual",
-			"gay",
-			"lesbian",
-			"nonbinary",
-			"pansexual",
-			"pride",
-			"transgender",
-			"vincian"
-			]
-		return [i for i in CHOICES if user_input.lower() in i]
+	CHOICES = [
+		"transparent",
+		"#",
+		"gray",
+		"white",
+		"black",
+		"red",
+		"orange",
+		"yellow",
+		"green",
+		"blue",
+		"purple",
+		"pink",
+		"brown",
+		"asexual",
+		"aromantic",
+		"agender",
+		"bisexual",
+		"gay",
+		"lesbian",
+		"nonbinary",
+		"pansexual",
+		"pride",
+		"transgender",
+		"vincian"
+	]
+	return [i for i in CHOICES if user_input.lower() in i]
+
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, any color, or any pride flag.")
 async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = commands.Param(autocomplete=autocomplete_bg_choices)):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	await inter.response.defer()
 	bg_choice = bg_choice.lower()
 	if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
@@ -313,10 +327,18 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 	# 		await inter.edit_original_message(content=f"```{e}```")
 	# 	return await inter.edit_original_message(content="Saved your background!")
 
+
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Makes a Dumpy GIF! Uses the last image posted, but person/image_url overrides this. Lines are 1-40.")
-async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands.Param(choices=["default", "furry", "sans", "isaac", "bounce"]), lines: int = 10, person: disnake.Member = None, image_url: str = None):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+async def dumpy(
+		inter: disnake.ApplicationCommandInteraction,
+		mode: str = commands.Param(
+			choices=["default", "furry", "sans", "isaac", "bounce"]),
+		lines: int = commands.Param(default=10, ge=1, le=40),
+		person: disnake.Member = None,
+		image_url: str = None):
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	await bot.wait_until_ready()
 	await inter.response.defer()
 	loop = asyncio.get_running_loop()
@@ -333,7 +355,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	elif image_url != None:
 		if not validators.url(image_url):
 			return await inter.send("Invalid URL!")
-		await asyncimage(image_url, f"attach_{messageid}.png" )
+		await asyncimage(image_url, f"attach_{messageid}.png")
 	else:
 		sus = True
 		try:
@@ -353,7 +375,8 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 			f"bash -c 'rm ./attach_{messageid}.png'"))
 		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
 	custom_bg_path = f"custom_bgs/background_{inter.author.id}.png"
-	background = f"--background {custom_bg_path}" if exists(custom_bg_path) else ""
+	background = f"--background {custom_bg_path}" if exists(
+		custom_bg_path) else ""
 	await loop.run_in_executor(None, blocking, messageid, mode, lines, background)
 	filename = f"dumpy{messageid}.gif"
 	try:
@@ -361,7 +384,7 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 			content="Please leave a star on the GitHub, vote on top.gg, and most of all invite the bot to your server! These are all free and helps out a lot!",
 			file=disnake.File(filename, filename=filename),
 			view=await ads(inter.guild.id)
-			)
+		)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
 	rmcmds = [
@@ -371,21 +394,26 @@ async def dumpy(inter: disnake.ApplicationCommandInteraction, mode: str=commands
 	for i in rmcmds:
 		subprocess.check_call(i)
 
+
 @bot.slash_command(description="Blacklist a server member from using the bot. Can also be used to unblacklist.")
 async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnake.Member):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	if inter.author.guild_permissions.kick_members == False:
 		return inter.send("You must be have the ability to kick members from this server to use this command, you impostor!")
 	data = guild_preferences.find_one({"guild_id": inter.guild.id})
 	blacklist = data["blacklisted_members"]
 	if person.id in blacklist:
 		blacklist.remove(person.id)
-		guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
+		guild_preferences.update_one({"guild_id": inter.guild.id}, {
+									 "$set": {"blacklisted_members": blacklist}})
 		inter.send(f"<@{person.id}> has been taken off the blacklist!")
 	else:
 		blacklist.append(person.id)
-		guild_preferences.update_one({"guild_id": inter.guild.id}, {"$set": {"blacklisted_members": blacklist}})
+		guild_preferences.update_one({"guild_id": inter.guild.id}, {
+									 "$set": {"blacklisted_members": blacklist}})
 		inter.send(f"<@{person.id}> has been put on the blacklist!")
+
 
 class SettingsView(disnake.ui.View):
 	def __init__(self, guild_id, channel_id):
@@ -405,7 +433,8 @@ class SettingsView(disnake.ui.View):
 			disabled_channels.remove(self.channel_id)
 		else:
 			disabled_channels.append(self.channel_id)
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": disabled_channels}})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {
+									 "$set": {"disabled_channels": disabled_channels}})
 		await inter.response.edit_message(content="Done!", embed=None, view=None)
 		self.stop()
 
@@ -416,7 +445,8 @@ class SettingsView(disnake.ui.View):
 		row=0)
 	async def swap_ad_state(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
 		data = guild_preferences.find_one({"guild_id": self.guild_id})
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"show_ads": not data["show_ads"]}})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {
+									 "$set": {"show_ads": not data["show_ads"]}})
 		await inter.response.edit_message(content="Done!", embed=None, view=None)
 		self.stop()
 
@@ -456,7 +486,8 @@ class SettingsView(disnake.ui.View):
 		label="Clear blacklisted members",
 		row=2)
 	async def clear_blacklisted_members(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"blacklisted_members": []}})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {
+									 "$set": {"blacklisted_members": []}})
 		await inter.response.edit_message(content="No more blacklisted members!", embed=None, view=None)
 		self.stop()
 
@@ -466,9 +497,11 @@ class SettingsView(disnake.ui.View):
 		label="Clear disabled channels",
 		row=2)
 	async def clear_disabled_channels(self, button: disnake.ui.Button, inter: disnake.MessageInteraction):
-		guild_preferences.update_one({"guild_id": self.guild_id}, {"$set": {"disabled_channels": []}})
+		guild_preferences.update_one({"guild_id": self.guild_id}, {
+									 "$set": {"disabled_channels": []}})
 		await inter.send(content="No more disabled channels!", embed=None, view=None)
 		self.stop()
+
 
 @bot.slash_command(description="Settings for server administrators.")
 async def settings(inter: disnake.ApplicationCommandInteraction):
@@ -500,9 +533,11 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	)
 	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id), ephemeral=True)
 
+
 @bot.slash_command(description="Gives some helpful information about the bot.")
 async def info(inter: disnake.ApplicationCommandInteraction):
-	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id): return
+	if await cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
+		return
 	botinfo = await bot.topggpy.get_bot_info()
 	votes = botinfo["monthly_points"]
 	allvotes = botinfo["points"]
@@ -581,6 +616,7 @@ async def on_message(message):
 	# elif (message.channel.topic != None and message.channel.topic.find("nodumpy") != -1) and message.content.startswith("!!"):
 	# 	return await message.channel.send("**Commands have been disabled in this channel.**")
 	await bot.process_commands(message)
+
 
 @bot.event
 async def on_ready():
