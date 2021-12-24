@@ -158,8 +158,7 @@ class CommandErrorHandler(commands.Cog):
 				return await inter.send(content='I could not find that member. Please try again.')
 		elif isinstance(error, commands.errors.CommandOnCooldown):
 			return await inter.send(content="You're on cooldown, you sussy baka!")
-		print('Ignoring exception in command {}:'.format(
-			inter.command), file=sys.stderr)
+		print(f"Ignoring exception in command {inter.command}:", file=sys.stderr)
 		traceback.print_exception(
 			type(error), error, error.__traceback__, file=sys.stderr)
 
