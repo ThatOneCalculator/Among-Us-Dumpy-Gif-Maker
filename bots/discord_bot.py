@@ -3,7 +3,6 @@ import datetime
 import json
 import os
 import random
-import shlex
 import subprocess
 import sys
 import traceback
@@ -112,13 +111,6 @@ async def ads(guild_id):
 	except:
 		pass
 	return PromoButtons()
-
-
-def blocking(messageid, mode, lines, background):
-	cmd = shlex.split(
-		f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file attach_{messageid}.png --mode {mode} --extraoutput {messageid} {background}")
-	subprocess.check_call(cmd)
-
 
 async def asyncimage(url, filename):
 	async with aiohttp.ClientSession() as session:
@@ -241,8 +233,9 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 		file=file,
 		view=await ads(inter.guild.id)
 	)
-	rm = shlex.split(f"bash -c 'rm ./eject{inter.id}.gif'")
-	subprocess.check_call(rm)
+	proc = await asyncio.create_subprocess_exec(f"bash -c 'rm ./eject{inter.id}.gif'")
+	returncode = await proc.wait()
+	print(returncode)
 
 
 @commands.cooldown(1, 5, commands.BucketType.user)
@@ -260,8 +253,9 @@ async def text(inter: disnake.ApplicationCommandInteraction, text: str, sussy: b
 		file=file,
 		view=await ads(inter.guild.id)
 	)
-	rm = shlex.split(f"bash -c 'rm ./text{inter.id}.png'")
-	subprocess.check_call(rm)
+	proc = await asyncio.create_subprocess_exec(f"bash -c 'rm ./text{inter.id}.png'")
+	returncode = await proc.wait()
+	print(returncode)
 
 
 @commands.cooldown(1, 15, commands.BucketType.user)
@@ -312,9 +306,9 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 	bg_choice = bg_choice.lower()
 	if bg_choice in ["delete", "default", "remove", "gray", "grey"]:
 		if exists(f"custom_bgs/background_{inter.author.id}.png"):
-			rmcmd = shlex.split(
-				f"bash -c 'rm custom_bgs/background_{inter.author.id}.png'")
-			subprocess.check_call(rmcmd)
+			proc = await asyncio.create_subprocess_exec(f"bash -c 'rm custom_bgs/background_{inter.author.id}.png'")
+			returncode = await proc.wait()
+			print(returncode)
 			return await inter.edit_original_message(content="Your background has been deleted!")
 	elif bg_choice.startswith("#"):
 		if len(bg_choice) != 7:
@@ -323,9 +317,9 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 		return await inter.edit_original_message(content="Set your background!")
 	else:
 		if exists(f"backgrounds/{bg_choice}.png"):
-			cpcmd = shlex.split(
-				f"bash -c 'cp ./backgrounds/{bg_choice}.png ./custom_bgs/background_{inter.author.id}.png'")
-			subprocess.check_call(cpcmd)
+			proc = await asyncio.create_subprocess_exec(f"bash -c 'cp ./backgrounds/{bg_choice}.png ./custom_bgs/background_{inter.author.id}.png'")
+			returncode = await proc.wait()
+			print(returncode)
 			return await inter.edit_original_message(content="Set your background!")
 		else:
 			return await inter.edit_original_message(content="I couldn't find that background preset! Options avaliable:\n- `delete`/`remove`/`default`\n- Basics (ex `black`/`white`/`transparent`)\n- Basic colors (ex `red`, `orange`, `yellow`)\n- Custom colors (hex, start with `#`)\n- Pride flags (ex `gay`, `lesbian`, `vincian`, `bisexual`, `transgender`)\n- Custom images (upload image with no argument)")
@@ -350,7 +344,6 @@ async def dumpy(
 		return
 	await bot.wait_until_ready()
 	await inter.response.defer()
-	loop = asyncio.get_running_loop()
 	default_guild_preferences(inter.guild.id)
 	messageid = str(inter.id)
 	if lines > 35:
@@ -378,12 +371,16 @@ async def dumpy(
 	await asyncio.sleep(0.1)
 	img = Image.open(f"attach_{messageid}.png")
 	if img.height / img.width <= 0.05:
-		subprocess.check_call(shlex.split(
-			f"bash -c 'rm ./attach_{messageid}.png'"))
+		proc = await asyncio.create_subprocess_exec(f"bash -c 'rm ./attach_{messageid}.png'")
+		returncode = await proc.wait()
+		print(returncode)
 		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
 	custom_bg_path = f"custom_bgs/background_{inter.author.id}.png"
-	background = f"--background {custom_bg_path}" if exists(
-		custom_bg_path) else ""
+	background = f"--background {custom_bg_path}" if exists(custom_bg_path) else ""
+	cmd = f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file attach_{messageid}.png --mode {mode} --extraoutput {messageid} {background}"
+	proc = await asyncio.create_subprocess_exec(cmd)
+	returncode = await proc.wait()
+	print(returncode)
 	await loop.run_in_executor(None, blocking, messageid, mode, lines, background)
 	filename = f"dumpy{messageid}.gif"
 	try:
@@ -395,11 +392,13 @@ async def dumpy(
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
 	rmcmds = [
-		shlex.split(f"bash -c 'rm ./attach_{messageid}.png'"),
-		shlex.split(f"bash -c 'rm ./dumpy{messageid}.gif'")
+		"bash -c 'rm ./attach_{messageid}.png'",
+		"bash -c 'rm ./dumpy{messageid}.gif'"
 	]
 	for i in rmcmds:
-		subprocess.check_call(i)
+		proc = await asyncio.create_subprocess_exec(i)
+		returncode = await proc.wait()
+		print(returncode)
 
 
 @bot.slash_command(description="Blacklist a server member from using the bot. Can also be used to unblacklist.")
