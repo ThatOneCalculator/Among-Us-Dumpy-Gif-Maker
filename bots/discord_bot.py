@@ -403,6 +403,7 @@ async def dumpy(
 		)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
+	await asyncio.sleep(10)
 	rmcmds = [
 		f"bash -c 'rm ./attach_{messageid}.png'",
 		f"bash -c 'rm ./dumpy{messageid}.gif'"
