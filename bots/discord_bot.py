@@ -385,7 +385,9 @@ async def dumpy(
 					await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
 					sus = False
 		except Exception as e:
-			return await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
+			await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
+			print(f"---\n\n{e}\n\n---")
+			return
 	await asyncio.sleep(0.1)
 	img = Image.open(f"attach_{messageid}.png")
 	if img.height / img.width <= 0.05:
@@ -403,7 +405,7 @@ async def dumpy(
 		)
 	except Exception as e:
 		await inter.edit_original_message(content=f"An error occurred! I might not have the permission `Attach Files` in this channel.\n```\n{e}```")
-	await asyncio.sleep(10)
+	await asyncio.sleep(5)
 	rmcmds = [
 		f"bash -c 'rm ./attach_{messageid}.png'",
 		f"bash -c 'rm ./dumpy{messageid}.gif'"
