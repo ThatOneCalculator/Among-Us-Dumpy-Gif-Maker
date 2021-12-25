@@ -30,7 +30,7 @@ topggtoken = dotenv_values(".env")["TOPGG"]
 statcordkey = dotenv_values(".env")["STATCORD"]
 
 upsince = datetime.datetime.now()
-version = "4.1.0"
+version = "4.2.0"
 
 intents = disnake.Intents.default()
 bot = commands.AutoShardedBot(
@@ -136,9 +136,18 @@ async def asyncrun(cmd):
 	if stderr:
 		print(f"[stderr]\n{stderr.decode()}")
 
-def draw_text(text: str, sussy: bool, filename: str):
+def draw_text(text: str, sussy: bool, filename: str, mode: str):
+	if mode  == "transparent":
+		background = (0, 0, 0, 0)
+		foreground = (255, 255, 255, 255)
+	elif mode  == "dark":
+		background = (0, 0, 0, 255)
+		foreground = (255, 255, 255, 255)
+	elif mode == "light":
+		background = (255, 255, 255, 255)
+		foreground = (0, 0, 0, 255)
 	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 100)
-	image = Image.new(mode="RGB", size=font.getsize(text), color="white")
+	image = Image.new(mode="RGBA", size=font.getsize(text), color="white")
 	draw = ImageDraw.Draw(image)
 	draw.text((0, 0), text, font=font, fill=(0, 0, 0))
 	image.save(filename)
@@ -251,14 +260,18 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.slash_command(description="Writes something out, but sus.")
-async def text(inter: disnake.ApplicationCommandInteraction, text: str, sussy: bool = True):
+async def text(
+	inter: disnake.ApplicationCommandInteraction, 
+	text: str, 
+	sussy: bool = True,
+	mode: str = commands.Param(default="dark", choices=["dark", "light", "transparent"])):
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	loop = asyncio.get_running_loop()
 	await inter.response.defer()
 	default_guild_preferences(inter.guild.id)
 	text = text.upper()
-	file = await loop.run_in_executor(None, draw_text, text, sussy, f"text{inter.id}.png")
+	file = await loop.run_in_executor(None, draw_text, text, sussy, f"text{inter.id}.png", mode)
 	await inter.edit_original_message(
 		content="Please leave a star on the GitHub and vote on top.gg, it's free and helps out a lot!",
 		file=file,
@@ -340,7 +353,8 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 async def dumpy(
 		inter: disnake.ApplicationCommandInteraction,
 		mode: str = commands.Param(
-			choices=["default", "furry", "sans", "isaac", "bounce"]),
+			default="default"
+			choices=["default", "furry", "sans", "spamton" "isaac", "bounce"]),
 		lines: int = commands.Param(default=10, ge=1, le=40),
 		person: disnake.Member = None,
 		image_url: str = None):
@@ -569,7 +583,7 @@ async def info(inter: disnake.ApplicationCommandInteraction):
 	)
 	embed.add_field(
 		name="<:kill:923424476614516766> Creators",
-		value=f"ThatOneCalculator#0001 and pixer415#8145.",
+		value=f"ThatOneCalculator#0001 and pixer415#8145.\nGuest artists: [twistCMYK](https://twitter.com/twistCMYK) for the `furry` mode, [Coco](https://twitter.com/CocotheMunchkin) for the `sans` mode, and [Advos](https://twitter.com/AdvosArt) for the `spamton` mode.",
 		inline=False
 	)
 	embed.add_field(

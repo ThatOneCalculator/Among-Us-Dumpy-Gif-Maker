@@ -21,7 +21,7 @@
 <p align="center">
    <a href="https://voring.me/@thatonecalculator" target="blank"><img src="https://shields.io/badge/follow-@thatonecalculator-3088D4?logo=mastodon&style=for-the-badge" alt="voring.me (mastodon)"/></a>
  <a href="https://twitter.com/pixer415" target="blank"><img src="https://shields.io/badge/follow-@pixer415-1DA1F2?logo=twitter&style=for-the-badge" alt="twitter"/></a>
-<h6 align="center"> With help from <a href="https://twitter.com/twistCMYK">twistCMYK</a>, <a href="https://twitter.com/CocotheMunchkin">Coco</a>, karl-police, and auguwu!<br><br>v4.1.0</h6>
+<h6 align="center"> With help from <a href="https://twitter.com/twistCMYK">twistCMYK</a>, <a href="https://twitter.com/CocotheMunchkin">Coco</a>, <a href="https://twitter.com/AdvosArt">Advos</a>, karl-police, and auguwu!<br><br>v4.2.0</h6>
 <div align="center"> <img src="https://cdn.discordapp.com/icons/849516341933506561/a_d4c89d8bd30a116e8ea3808478f73387.gif" height=100></div>
 </p>
 
@@ -59,13 +59,13 @@
 
 To everyone else:
 
-### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v4.1.0/Among-Us-Dumpy-Gif-Maker-4.1.0-all.jar)!
+### Make sure to [download the jar](https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/download/v4.2.0/Among-Us-Dumpy-Gif-Maker-4.2.0-all.jar)!
 
 ### Basic usage:
 Click and open the jar, select the file, and a file called "dumpy.gif" will be made in the same folder as the jar.
 
 ### CLI usage:
-- `java -jar Among-Us-Dumpy-Gif-Maker-4.1.0-all.jar <flags>`
+- `java -jar Among-Us-Dumpy-Gif-Maker-4.2.0-all.jar <flags>`
 All flags are optional.
 Flags:
 ```
@@ -85,7 +85,7 @@ git clone https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker
 cd Among-Us-Dumpy-Gif-Maker
 gradle wrapper
 ./gradlew shadowJar # .\gradelw.bat shadowJar if you're on Windows
-java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-4.1.0-all.jar
+java -jar ./build/libs/Among-Us-Dumpy-Gif-Maker-4.2.0-all.jar
 ```
 
 Please note that the Discord/Revolt bots are not designed to be self-hosted, and I will not be providing support for self-hosting them.
