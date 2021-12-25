@@ -381,9 +381,6 @@ async def dumpy(
 				if len(message.attachments) > 0 and sus and message.author != inter.guild.me:
 					await message.attachments[0].save(f"attach_{messageid}.png")
 					sus = False
-				elif len(message.embeds) > 0 and message.author != inter.guild.me:
-					await asyncimage(message.embeds[0].url, f"attach_{messageid}.png")
-					sus = False
 		except Exception as e:
 			await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
 			print(f"---\n\n{e}\n\n---")
