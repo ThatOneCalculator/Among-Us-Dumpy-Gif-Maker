@@ -147,9 +147,9 @@ def draw_text(text: str, sussy: bool, filename: str, mode: str):
 		background = (255, 255, 255, 255)
 		foreground = (0, 0, 0, 255)
 	font = ImageFont.truetype(f"fonts/{'amongsus' if sussy else 'amongus'}.ttf", 100)
-	image = Image.new(mode="RGBA", size=font.getsize(text), color="white")
+	image = Image.new(mode="RGBA", size=font.getsize(text), color=background)
 	draw = ImageDraw.Draw(image)
-	draw.text((0, 0), text, font=font, fill=(0, 0, 0))
+	draw.text((0, 0), text, font=font, fill=foreground)
 	image.save(filename)
 	discord_file = disnake.File(filename, filename=filename)
 	return discord_file
