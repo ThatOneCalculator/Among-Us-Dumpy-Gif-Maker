@@ -354,7 +354,7 @@ async def dumpy(
 		inter: disnake.ApplicationCommandInteraction,
 		mode: str = commands.Param(
 			default="default",
-			choices=["default", "furry", "sans", "spamton" "isaac", "bounce"]),
+			choices=["default", "furry", "sans", "spamton", "isaac", "bounce"]),
 		lines: int = commands.Param(default=10, ge=1, le=40),
 		person: disnake.Member = None,
 		image_url: str = None):
