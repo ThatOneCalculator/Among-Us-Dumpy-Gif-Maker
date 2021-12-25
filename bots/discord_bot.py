@@ -353,7 +353,7 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 async def dumpy(
 		inter: disnake.ApplicationCommandInteraction,
 		mode: str = commands.Param(
-			default="default"
+			default="default",
 			choices=["default", "furry", "sans", "spamton" "isaac", "bounce"]),
 		lines: int = commands.Param(default=10, ge=1, le=40),
 		person: disnake.Member = None,
