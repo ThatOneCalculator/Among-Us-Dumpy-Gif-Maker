@@ -385,13 +385,14 @@ async def dumpy(
 			await inter.edit_original_message(content="I couldn't find an image, you sussy baka!")
 			print(f"---\n\n{e}\n\n---")
 			return
-	await asyncio.sleep(0.1)
+	await asyncio.sleep(0.4)
 	img = Image.open(f"attach_{messageid}.png")
 	if img.height / img.width <= 0.05:
 		await asyncrun(f"bash -c 'rm ./attach_{messageid}.png'")
 		return await inter.edit_original_message(content="This image is way too long, you're the impostor!")
 	custom_bg_path = f"custom_bgs/background_{inter.author.id}.png"
 	background = f"--background {custom_bg_path}" if exists(custom_bg_path) else ""
+	await asyncio.sleep(0.2)
 	await asyncrun(f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file attach_{messageid}.png --mode {mode} --extraoutput {messageid} {background}")
 	filename = f"dumpy{messageid}.gif"
 	try:
