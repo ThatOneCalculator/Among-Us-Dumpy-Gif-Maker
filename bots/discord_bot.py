@@ -229,16 +229,26 @@ class Tasks(commands.Cog):
 		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=f"slash commands on {len(bot.guilds):,} servers!"))
 
 
-@bot.slash_command(description="Brings you to the bot's statcord page.")
+@bot.slash_command()
 async def statcord(inter: disnake.ApplicationCommandInteraction):
+	"""Brings you to the bot's Statcord page"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	await inter.send(content="https://statcord.com/bot/847164104161361921")
 
 
 @commands.cooldown(1, 10, commands.BucketType.user)
-@bot.slash_command(description="Sees if someone is the impostor!")
+@bot.slash_command()
 async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Member, impostor: str = commands.Param(choices=["Random", "True", "False"])):
+	"""Sees if someone is the impostor
+
+	Parameters
+	----------
+	person: disnake.Member
+		The person to eject
+	impostor: str
+		Whether the person was the impostor
+	"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	await inter.response.defer()
@@ -259,12 +269,23 @@ async def eject(inter: disnake.ApplicationCommandInteraction, person: disnake.Me
 	await asyncrun(f"bash -c 'rm ./eject{inter.id}.gif'")
 
 @commands.cooldown(1, 5, commands.BucketType.user)
-@bot.slash_command(description="Writes something out, but sus.")
+@bot.slash_command()
 async def text(
-	inter: disnake.ApplicationCommandInteraction, 
-	text: str, 
+	inter: disnake.ApplicationCommandInteraction,
+	text: str,
 	sussy: bool = True,
 	mode: str = commands.Param(default="dark", choices=["dark", "light", "transparent"])):
+	"""Writes something out, but sus
+
+	Parameters
+	----------
+	text: str
+		The text to write out
+	sussy:
+		Whether the font is sussy or not
+	mode: str
+		The coloring of the text
+	"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	loop = asyncio.get_running_loop()
@@ -278,10 +299,17 @@ async def text(
 		view=await ads(inter.guild.id)
 	)
 	await asyncrun(f"bash -c 'rm ./text{inter.id}.png'")
-	
+
 @commands.cooldown(1, 15, commands.BucketType.user)
-@bot.slash_command(description="Makes a tall sussy impostor!")
+@bot.slash_command()
 async def tall(inter: disnake.ApplicationCommandInteraction, height: int = commands.Param(ge=1, le=20)):
+	"""Makes a tall sussy impostor
+
+	Parameters
+	----------
+	height: int
+		The height of the impostor
+	"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	lb = "\n"
@@ -319,8 +347,15 @@ async def autocomplete_bg_choices(inter: disnake.ApplicationCommandInteraction, 
 
 
 @commands.cooldown(1, 15, commands.BucketType.user)
-@bot.slash_command(description="Set background image for /dumpy. bg_choice can be transparent, any color, or any pride flag.")
+@bot.slash_command()
 async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: str = commands.Param(autocomplete=autocomplete_bg_choices)):
+	"""Set background image for /dumpy.
+
+	Parameters
+	----------
+	bg_choice: str
+		Can be transparent, any color (a name like "red" or a hex color like "#FDFC26), or any pride flag.
+	"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	await inter.response.defer()
@@ -349,7 +384,7 @@ async def background(inter: disnake.ApplicationCommandInteraction, bg_choice: st
 
 
 @commands.cooldown(1, 5, commands.BucketType.user)
-@bot.slash_command(description="Makes a Dumpy GIF! Uses the last image posted, but person/image_url overrides this. Lines are 1-40.")
+@bot.slash_command()
 async def dumpy(
 		inter: disnake.ApplicationCommandInteraction,
 		mode: str = commands.Param(
@@ -358,6 +393,19 @@ async def dumpy(
 		lines: int = commands.Param(default=10, ge=1, le=40),
 		person: disnake.Member = None,
 		image_url: str = None):
+	"""Makes a Dumpy GIF! Uses the last image posted, but person/image_url overrides this.
+
+	Parameters
+	----------
+	mode: str
+		The character the GIF will be made with.
+	lines: int
+		The number of lines the GIF will have. Max 35 (40 for voters!)
+	person: disnake.Member
+		Overrides the target by making it the PFP of whoever the person is.
+	image_url: str
+		Overrides the target by making it the image of the url.
+	"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	await bot.wait_until_ready()
@@ -412,8 +460,15 @@ async def dumpy(
 		await asyncrun(i)
 
 
-@bot.slash_command(description="Blacklist a server member from using the bot. Can also be used to unblacklist.")
+@bot.slash_command()
 async def blacklist(inter: disnake.ApplicationCommandInteraction, person: disnake.Member):
+	"""Blacklist a server member from using the bot. Can also be used to unblacklist.
+
+	Parameters
+	----------
+	person: disnake.Member
+		The person to blacklist/unblacklist.
+	"""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	if inter.author.guild_permissions.kick_members == False:
@@ -520,8 +575,9 @@ class SettingsView(disnake.ui.View):
 		self.stop()
 
 
-@bot.slash_command(description="Settings for server administrators.")
+@bot.slash_command()
 async def settings(inter: disnake.ApplicationCommandInteraction):
+	"""Settings for server administrators."""
 	if inter.author.guild_permissions.administrator == False:
 		return inter.send("You must be an admin on this server to use this command, you impostor!", ephemeral=True)
 	default_guild_preferences(inter.guild.id)
@@ -551,8 +607,9 @@ async def settings(inter: disnake.ApplicationCommandInteraction):
 	await inter.send(embed=embed, view=SettingsView(inter.guild.id, inter.channel.id), ephemeral=True)
 
 
-@bot.slash_command(description="Gives some helpful information about the bot.")
+@bot.slash_command()
 async def info(inter: disnake.ApplicationCommandInteraction):
+	"""Gives some helpful information about the bot."""
 	if cannot_be_run(inter.guild.id, inter.channel.id, inter.author.id):
 		return
 	botinfo = await bot.topggpy.get_bot_info()
