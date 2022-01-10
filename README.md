@@ -1,8 +1,11 @@
 <p align="center">
-   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-5865F2?logo=discord&style=for-the-badge&logoColor=ffffff" height="50"/></a>
    <!--<br>
    <a href="https://app.revolt.chat/bot/01FQ1AMSEKYQM3Z7ZNJZVQ3DNA" target="blank"><img src="https://shields.io/badge/invite_the-revolt_bot-FC4454?logo=rakuten&style=for-the-badge" height="35"/></a>-->
-   <br><br>
+   <br>
+   <a href="https://dumpy.t1c.dev"><img align="center" src="https://user-images.githubusercontent.com/44733677/147306225-acb0d9e9-8f4d-4f68-8f4a-eb2258556f07.png" width="500"/></a><br>
+   <br>
+   <a href="https://discord.com/api/oauth2/authorize?client_id=847164104161361921&permissions=117760&scope=bot%20applications.commands" target="blank"><img src="https://shields.io/badge/invite_the-discord_bot-5865F2?logo=discord&style=for-the-badge&logoColor=ffffff" height="50"/></a>
+   <br>
    <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/status/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a> <a href="https://top.gg/bot/847164104161361921/">
@@ -10,14 +13,13 @@
    </a> <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a>
+   <br>
    <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/latest">
       <img src="https://img.shields.io/github/downloads/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/total?label=jar%20downloads&logo=java&color=234b24" />
    </a>
    <a href="https://discord.gg/Z7UZPR3bbW/">
       <img src="https://img.shields.io/discord/716364441658327120?&color=5865f2&logo=discord&logoColor=ffffff&label=support%20server"/>
    </a>
-   <br>
-  <a href="https://dumpy.t1c.dev"><img align="center" src="https://user-images.githubusercontent.com/44733677/147306225-acb0d9e9-8f4d-4f68-8f4a-eb2258556f07.png" width="500"/></a>
 </p>
 
 <h3 align="center">Made by <a href="https://t1c.dev">ThatOneCalculator</a> & <a href="https://twitter.com/pixer415">Pixer415</a></h3>
