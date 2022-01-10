@@ -10,6 +10,9 @@
    </a> <a href="https://top.gg/bot/847164104161361921/">
       <img src="https://top.gg/api/widget/upvotes/847164104161361921.svg" alt="Among Us Dumpy Bot" />
    </a>
+   <a href="https://github.com/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/releases/latest">
+      <img src="https://img.shields.io/github/downloads/ThatOneCalculator/Among-Us-Dumpy-Gif-Maker/total?label=jar%20downloads&logo=java&color=234b24" />
+   </a>
    <a href="https://discord.gg/Z7UZPR3bbW/">
       <img src="https://img.shields.io/discord/716364441658327120?&color=5865f2&logo=discord&logoColor=ffffff&label=support%20server"/>
    </a>
