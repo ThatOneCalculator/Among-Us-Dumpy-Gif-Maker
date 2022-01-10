@@ -55,7 +55,7 @@ Bots: <a href="https://python.org"><img src="https://upload.wikimedia.org/wikipe
 ## Requirements:
 - Java Runtime Environment 16
     - [All downloads](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
-    - Also works with [OpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
+    - Also works with [OpenJDK](https://adoptium.net/?variant=openjdk16)
 - ImageMagick
     - [Windows (static, v6.9.X)](https://archive.org/download/image-magick-6.9.12-19-q-16-x-64-static/ImageMagick-6.9.12-19-Q16-x64-static.exe)
     - macOS: `brew install imagemagick` (needs [Homebrew](https://brew.sh/))
