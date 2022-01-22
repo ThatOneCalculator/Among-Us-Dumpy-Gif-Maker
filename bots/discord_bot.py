@@ -30,7 +30,7 @@ topggtoken = dotenv_values(".env")["TOPGG"]
 statcordkey = dotenv_values(".env")["STATCORD"]
 
 upsince = datetime.datetime.now()
-version = "4.2.0"
+version = "4.2.1"
 
 intents = disnake.Intents.default()
 bot = commands.AutoShardedBot(
