@@ -43,6 +43,7 @@ async def on_post_note(note):
 
 
 async def on_mention(note):
+    print("here")
     if note['id'] in receivedNotes:
         return
 
