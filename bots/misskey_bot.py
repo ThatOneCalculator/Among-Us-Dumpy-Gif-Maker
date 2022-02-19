@@ -66,7 +66,7 @@ async def on_mention(note):
             return
 
         postid = reply_note['id']
-        imagename = attach_{postid}.png
+        imagename = f"attach_{postid}.png"
         await asyncimage(reply_note['files'][0]['url'], imagename)
 
         digit = [int(s) for s in txt.split() if s.isdigit()][-1]
