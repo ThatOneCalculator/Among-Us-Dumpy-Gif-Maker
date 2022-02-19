@@ -47,6 +47,7 @@ async def on_mention(note):
     if note['id'] in receivedNotes:
         return
     receivedNotes.add(note['id'])
+    print(note)
     if note.get('reply'):
         print("here again")
         reply_note = note['reply']
