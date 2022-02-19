@@ -36,6 +36,7 @@ revolt.txt
 
 # Ignore Gradle build output directory
 build
+bin
 
 # Ignore IDEA
 .idea
