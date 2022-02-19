@@ -46,20 +46,17 @@ async def on_mention(note):
     if note['id'] in receivedNotes:
         return
     receivedNotes.add(note['id'])
-    print(note)
     if note.get('reply'):
         reply_note = note['reply']
-        msk.notes_create(
-                    "Test reply.",
-                    reply_id=note['id'])
-        if reply_note['user']['id'] == MY_ID:
-            return
+        # msk.notes_create(
+        #             "Test reply.",
+        #             reply_id=note['id'])
 
-        if reply_note['cw']:
-            reply_note['text'] = reply_note['cw'] + '\n' + reply_note['text']
-
+        print(reply_note['files'])
         if len(reply_note['files']) == 0:
-            msk.notes_create(text="I can't find an image to dumpify, you sussy impostor!", reply_id=note['id'])
+            msk.notes_create(
+                text="I can't find an image to dumpify, you sussy impostor!",
+                reply_id=note['id'])
             return
 
         async with session.get(reply_note['files'][0]['thumbnailUrl']) as resp:
