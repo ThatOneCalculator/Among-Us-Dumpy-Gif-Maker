@@ -20,7 +20,6 @@ version = "4.2.1"
 WS_URL = f"wss://{url}/streaming?i={token}"
 msk = Misskey(url, i=token)
 i = msk.i()
-session = aiohttp.ClientSession()
 
 receivedNotes = set()
 
@@ -38,6 +37,14 @@ async def asyncrun(cmd):
 	if stderr:
 		print(f"[stderr]\n{stderr.decode()}")
 
+async def asyncimage(url, filename):
+	async with aiohttp.ClientSession() as session:
+		async with session.get(url) as resp:
+			f = await aiofiles.open(filename, mode="wb")
+			await f.write(await resp.read())
+			await f.close()
+	return = Image.open(filename)
+
 async def on_post_note(note):
     pass
 
@@ -52,22 +59,15 @@ async def on_mention(note):
         #             "Test reply.",
         #             reply_id=note['id'])
 
-        print(reply_note['files'])
         if len(reply_note['files']) == 0:
             msk.notes_create(
                 text="I can't find an image to dumpify, you sussy impostor!",
                 reply_id=note['id'])
             return
 
-        async with session.get(reply_note['files'][0]['thumbnailUrl']) as resp:
-            if resp.status != 200:
-                msk.notes_create(
-                    text="I'm such a sussy baka, I can't even download the image!~ *dies cutely*",
-                    reply_id=note['id'])
-                return
-            image = await resp.read()
-
         postid = reply_note['id']
+        await asyncimage(reply_note['files'][0]['url'], f"attach{postid}.png")
+
         digit = [int(s) for s in txt.split() if s.isdigit()][-1]
         if digit != None and digit < 40:
             lines = int(digit)
