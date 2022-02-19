@@ -33,7 +33,7 @@ async def on_mention(note):
         return
 
     receivedNotes.add(note['id'])
-    print(note['files'])
+    print(note['files']['thumbnailUrl'])
     command = False
     split_text = note['text'].split(' ')
     new_st = []
