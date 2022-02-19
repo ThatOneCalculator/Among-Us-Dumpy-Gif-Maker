@@ -67,9 +67,9 @@ async def on_mention(note):
 
         postid = reply_note['id']
         imagename = f"attach_{postid}.png"
-        await asyncimage(reply_note['files'][0]['url'], imagename)
+        await asyncimage(reply_note['files'][0]['thumnailUrl'], imagename)
 
-        digit = [int(s) for s in txt.split() if s.isdigit()][-1]
+        digit = [int(s) for s in reply_note['text'].split() if s.isdigit()][-1]
         if digit != None and digit < 40:
             lines = int(digit)
         else:
