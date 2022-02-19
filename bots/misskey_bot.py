@@ -51,6 +51,9 @@ async def on_mention(note):
         reply_note = note['reply']
         if reply_note['user']['id'] == MY_ID:
             return
+        msk.notes_create(
+                    "Test reply.",
+                    reply_id=note['id'])
 
         if reply_note['cw']:
             reply_note['text'] = reply_note['cw'] + '\n' + reply_note['text']
@@ -59,9 +62,6 @@ async def on_mention(note):
             msk.notes_create(text="I can't find an image to dumpify, you sussy impostor!", reply_id=note['id'])
             return
 
-        msk.notes_create(
-                    "Test reoky.",
-                    reply_id=note['id'])
         async with session.get(reply_note['files'][0]['thumbnailUrl']) as resp:
             if resp.status != 200:
                 msk.notes_create(
