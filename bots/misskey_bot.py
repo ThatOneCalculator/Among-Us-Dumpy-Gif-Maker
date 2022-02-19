@@ -46,32 +46,9 @@ async def on_mention(note):
     print("here")
     if note['id'] in receivedNotes:
         return
-
     receivedNotes.add(note['id'])
-    print(note['files'][0]['thumbnailUrl'])
-    command = False
-    split_text = note['text'].split(' ')
-    new_st = []
-
-    for t in split_text:
-        if t.startswith('@'):
-            if (not t == f'@{i["username"]}') and (not t == f'@{i["username"]}@{url}'):
-                pass
-            else:
-                new_st.append(t)
-        else:
-            new_st.append(t)
-
-    note['text'] = ' '.join(new_st)
-
-    try:
-        content = note['text'].strip().split(' ', 1)[1].strip()
-        command = True
-    except IndexError:
-        pass
-
     if note.get('reply'):
-        print("here")
+        print("here again")
         reply_note = note['reply']
         if reply_note['user']['id'] == MY_ID:
             return
@@ -123,20 +100,8 @@ async def on_mention(note):
                 reply_id=note['id'])
             return
 
-        msk.notes_create(text='.', file_ids=[f['id']], reply_id=note['id'])
+        msk.notes_create(text="You're so sussy!", file_ids=[f['id']], reply_id=note['id'])
         return
-
-    if command:
-
-        if content == 'ping':
-
-            postdate = datetime.datetime.fromisoformat(
-                note['createdAt'][:-1]).timestamp()
-            nowdate = datetime.datetime.utcnow().timestamp()
-            sa = nowdate - postdate
-            text = f'{sa*1000:.2f}ms'
-            msk.notes_create(text=text, reply_id=note['id'])
-
 
 async def on_followed(user):
     try:
