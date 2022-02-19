@@ -70,6 +70,7 @@ async def on_mention(note):
         pass
 
     if note.get('reply'):
+        print("here")
         reply_note = note['reply']
         if reply_note['user']['id'] == MY_ID:
             return
@@ -78,7 +79,7 @@ async def on_mention(note):
             reply_note['text'] = reply_note['cw'] + '\n' + reply_note['text']
 
         img = BASE_WHITE_IMAGE.copy()
-        if len(note['files']) == 0:
+        if len(reply_note['files']) == 0:
             msk.notes_create(text="I can't find an image to dumpify, you sussy impostor!", reply_id=note['id'])
             return
         async with session.get(reply_note['files'][0]['thumbnailUrl']) as resp:
