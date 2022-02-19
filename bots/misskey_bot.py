@@ -15,6 +15,7 @@ from dotenv import dotenv_values
 
 token = dotenv_values(".env")["MISSKEY_TOKEN"]
 url = dotenv_values(".env")["MISSKEY_URL"]
+version = "4.2.1"
 
 WS_URL = f"wss://{url}/streaming?i={token}"
 msk = Misskey(url, i=token)
@@ -23,6 +24,19 @@ session = aiohttp.ClientSession()
 
 receivedNotes = set()
 
+async def asyncrun(cmd):
+	proc = await asyncio.create_subprocess_shell(
+		cmd,
+		stdout=asyncio.subprocess.PIPE,
+		stderr=asyncio.subprocess.PIPE)
+
+	stdout, stderr = await proc.communicate()
+
+	print(f"[{cmd!r} exited with {proc.returncode}]")
+	if stdout:
+		print(f"[stdout]\n{stdout.decode()}")
+	if stderr:
+		print(f"[stderr]\n{stderr.decode()}")
 
 async def on_post_note(note):
     pass
@@ -64,22 +78,29 @@ async def on_mention(note):
             reply_note['text'] = reply_note['cw'] + '\n' + reply_note['text']
 
         img = BASE_WHITE_IMAGE.copy()
-        if not reply_note['user'].get('avatarUrl'):
-            msk.notes_create(text='アイコン画像がないので作れません', reply_id=note['id'])
+        if len(note['files']) == 0:
+            msk.notes_create(text="I can't find an image to dumpify, you sussy impostor!", reply_id=note['id'])
             return
-        async with session.get(reply_note['user']['avatarUrl']) as resp:
+        async with session.get(reply_note['files'][0]['thumbnailUrl']) as resp:
             if resp.status != 200:
-                msk.notes_create(text='アイコン画像ダウンロードに失敗しました',
-                                 reply_id=note['id'])
+                msk.notes_create(
+                    text="I'm such a sussy baka, I can't even download the image!~ *dies cutely*",
+                    reply_id=note['id'])
                 return
-            avatar = await resp.read()
+            image = await resp.read()
 
-        # icon = Image.open(BytesIO(avatar))
-        # icon = icon.resize((720, 720), Image.ANTIALIAS)
+        postid = reply_note['id']
+        digit = [int(s) for s in txt.split() if s.isdigit()][-1]
+        if digit != None and digit < 40:
+            lines = int(digit)
+        else:
+            lines = 20
+        image = Image.save(f"attach_{postid}.png", image)
+        await asyncrun(f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file attach_{postid}.png {postid}")
 
         id = reply_note['user']['username']
         try:
-            data = BytesIO()
+            data = open(f"dumpy{postid}.gif", "rb")
             f = msk.drive_files_create(
                 file=data, name=f'{datetime.datetime.utcnow().timestamp()}.jpg')
             msk.drive_files_update(
@@ -152,7 +173,7 @@ async def main():
         }
         await ws.send(json.dumps(p))
 
-        print('Listening ws')
+        print('Listening to WebSocket')
         while True:
             data = await ws.recv()
             j = json.loads(data)
