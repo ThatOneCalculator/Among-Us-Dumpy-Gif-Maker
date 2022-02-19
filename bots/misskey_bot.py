@@ -64,15 +64,17 @@ async def on_mention(note):
                 reply_id=note['id'])
             return
 
-        postid = reply_note['id']
         imagename = f"attach_{postid}.png"
-        await asyncimage(reply_note['files'][0]['thumnailUrl'], imagename)
+        async with session.get(reply_note['files'][0]['thumbnailUrl']) as resp:
+            if resp.status != 200:
+                msk.notes_create(
+                    text="I'm such a sussy baka, I can't even download the image!~ *dies cutely*",
+                    reply_id=note['id'])
+                return
+            image = await resp.read()
 
-        # digit = [int(s) for s in reply_note['text'].split() if s.isdigit()][-1]
-        # if digit != None and digit < 40:
-        #     lines = int(digit)
-        # else:
-        #     lines = 20
+        postid = reply_note['id']
+        image = Image.save(imagename, image)
         print("dumpifying")
         await asyncrun(f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file {imagename} {postid}")
 
