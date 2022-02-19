@@ -43,7 +43,7 @@ async def asyncimage(url, filename):
 			f = await aiofiles.open(filename, mode="wb")
 			await f.write(await resp.read())
 			await f.close()
-	return = Image.open(filename)
+	return Image.open(filename)
 
 async def on_post_note(note):
     pass
