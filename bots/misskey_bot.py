@@ -15,7 +15,7 @@ token = dotenv_values(".env")["MISSKEY_TOKEN"]
 url = dotenv_values(".env")["MISSKEY_URL"]
 
 WS_URL = f"wss://{url}/streaming?i={token}"
-msk = Misskey(config.MISSKEY_INSTANCE, i=config.MISSKEY_TOKEN)
+msk = Misskey(url, i=token)
 i = msk.i()
 session = aiohttp.ClientSession()
 
@@ -121,7 +121,7 @@ async def on_followed(user):
 
 
 async def main():
-    print('Connecting to ' + config.MISSKEY_INSTANCE + '...', end='')
+    print('Connecting to ' + url + '...', end='')
     async with websockets.connect(WS_URL) as ws:
         print('OK')
         print('Attemping to watching timeline...', end='')
