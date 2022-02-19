@@ -187,11 +187,4 @@ while True:
         asyncio.get_event_loop().run_until_complete(main())
     except KeyboardInterrupt:
         break
-    except:
-        time.sleep(10)
-        reconnect_counter += 1
-        print('Reconnecting...', end='')
-        if reconnect_counter > 10:
-            print('Too many reconnects. Exiting.')
-            sys.exit(1)
-        continue
+
