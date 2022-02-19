@@ -69,11 +69,11 @@ async def on_mention(note):
         imagename = f"attach_{postid}.png"
         await asyncimage(reply_note['files'][0]['thumnailUrl'], imagename)
 
-        digit = [int(s) for s in reply_note['text'].split() if s.isdigit()][-1]
-        if digit != None and digit < 40:
-            lines = int(digit)
-        else:
-            lines = 20
+        # digit = [int(s) for s in reply_note['text'].split() if s.isdigit()][-1]
+        # if digit != None and digit < 40:
+        #     lines = int(digit)
+        # else:
+        #     lines = 20
         print("dumpifying")
         await asyncrun(f"java -jar ./Among-Us-Dumpy-Gif-Maker-{version}-all.jar --lines {lines} --file {imagename} {postid}")
 
