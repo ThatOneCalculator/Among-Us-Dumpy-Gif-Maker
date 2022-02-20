@@ -302,7 +302,9 @@ async def text(
 
 @commands.cooldown(1, 15, commands.BucketType.user)
 @bot.slash_command()
-async def tall(inter: disnake.ApplicationCommandInteraction, height: int = commands.Param(ge=1, le=20)):
+async def tall(
+    inter: disnake.ApplicationCommandInteraction,
+    height: int = commands.Range[1, 20]):
 	"""Makes a tall sussy impostor
 
 	Parameters
@@ -392,6 +394,7 @@ async def dumpy(
 			choices=["default", "furry", "sans", "spamton", "isaac", "bounce"]),
 		lines: int = commands.Param(default=10, ge=1, le=40),
 		person: disnake.Member = None,
+		image_attachment: disnake.Attachment = None,
 		image_url: str = None):
 	"""Makes a Dumpy GIF! Uses the last image posted, but person/image_url overrides this.
 
@@ -403,6 +406,8 @@ async def dumpy(
 		The number of lines the GIF will have. Max 35 (40 for voters!)
 	person: disnake.Member
 		Overrides the target by making it the PFP of whoever the person is.
+	image_attachment: disnake.Attachment
+		Overrides the target by making it the attached image.
 	image_url: str
 		Overrides the target by making it the image of the url.
 	"""
@@ -422,6 +427,8 @@ async def dumpy(
 		if not validators.url(image_url):
 			return await inter.send("Invalid URL!")
 		await asyncimage(image_url, f"attach_{messageid}.png")
+	elif image_attachment != None:
+		await image_attachment.save(f"attach_{messageid}.png")
 	else:
 		sus = True
 		try:

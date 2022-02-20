@@ -34,7 +34,7 @@
 
 ### Testimonials
 
-["Among Us Dumpy Bot is the best Discord bot" -Mutahar (SomeOrdinaryGamers)](https://youtube.com/clip/Ugkxu7XdTjB6B15ZLTeorgE5x-0rT1IsOD4X)
+["Among Us Dumpy Bot is the best Discord bot" -Mutahar (SomeOrdinaryGamers)](https://www.youtube.com/watch?v=L0iXa3ckmMQ)
 
 ### Technologies used
 Jar: <a href="https://java.com"><img src="https://www.vectorlogo.zone/logos/java/java-icon.svg" height=20/></a> <a href="https://openjdk.java.net/"><img src="https://user-images.githubusercontent.com/44733677/148750659-ebcfbbc9-f38b-40f9-a5fd-cec927d61dff.png" height=20/></a> <a href="https://gradle.com"><img src="https://gradle.com/wp-content/themes/fuel/assets/img/branding/gradle-elephant-icon-dark-green.svg" height=20/></a> <a href="https://imperceptiblethoughts.com/shadow/"><img src="https://imperceptiblethoughts.com/shadow/logo.svg" height=20/></a> <a href="https://commons.apache.org/proper/commons-cli/"><img src="https://cdn.discordapp.com/attachments/810799100940255260/923746275000713286/New_Project.png" height=20/></a>
