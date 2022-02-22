@@ -394,7 +394,7 @@ async def dumpy(
 			choices=["default", "furry", "sans", "spamton", "isaac", "bounce"]),
 		lines: int = commands.Param(default=10, ge=1, le=40),
 		person: disnake.Member = None,
-		image_attachment: disnake.Attachment = None,
+		#image_attachment: disnake.Attachment = None,
 		image_url: str = None):
 	"""Makes a Dumpy GIF! Uses the last image posted, but person/image_url overrides this.
 
