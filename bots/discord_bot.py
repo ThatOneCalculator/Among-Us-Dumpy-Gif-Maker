@@ -427,8 +427,8 @@ async def dumpy(
 		if not validators.url(image_url):
 			return await inter.send("Invalid URL!")
 		await asyncimage(image_url, f"attach_{messageid}.png")
-	elif image_attachment != None:
-		await image_attachment.save(f"attach_{messageid}.png")
+	#elif image_attachment != None:
+	#	await image_attachment.save(f"attach_{messageid}.png")
 	else:
 		sus = True
 		try:
