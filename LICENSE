@@ -7,10 +7,12 @@ Written by Kainoa Kanter (ThatOneCalculator) on 1 March, 2022
 While the software author(s) can modifify the based license, you have to state below if it was and if so,
 how it was modified.
 
-Is this a modified copy of the based license? If so, how was it modified?
-* No, this copy of the based license has not been modified.
+Have the license terms been modified? If so, how was it modified?
+* No, the terms in this copy of the based license has not been modified. *
 
 ---
+
+BEGIN LICENSE TERMS
 
 All copies of this software that are redistributed (INCLUDING modifications to the software)
 must have their source code easily and publicly avaliable, and also be licensed under the based license.
@@ -31,18 +33,19 @@ non-free network services, that must also be stated clearly in the software or i
 
 This software cannot be used as a dependency in other software that is closed source.
 
-This software can be used for corporate/for-profit purposes as long as it follows every guideline in the based license,
-including the fact that all components of said software must be open source.
+This software can be used for corporate/for-profit purposes as long as it follows every guideline in the based 
+license, including the fact that all components of said software must be open source.
 
 By using this software, you agree to the terms above. If you break the terms of this license, the author(s) of the 
 software this copy of the based license is being used for have the right to persue legal action against you if
 violations are not resolved within one week (7 days).
 
+END LICENSE TERMS
 
-⠘⡀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀
-  ⠑⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⠁⠀⠀⠀
-   ⠈⠢⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠴⠊⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀ ⠑⠀ ⠀⠀  ⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⣀⣀⣀⡀⠤⠄⠒⠈⠀⠀⠀⠀⠀⠀⠀⠀
+⠘⡀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀
+  ⠑⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⠁⠀⠀⠀
+   ⠈⠢⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠴⠊⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀ ⠑⠀ ⠀⠀  ⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⣀⡀⢀⣀⣀⣀⣀⡀⠤⠄⠒⠈⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠘⣀⠄⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀
 ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠋⠉⠈⠉⠉⠉⠉⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿
@@ -71,4 +74,4 @@ violations are not resolved within one week (7 days).
 ⣿⣿⣿⣿⠿⠛⠉⠉⠁⠀⢻⣿⡇⠀⠀⠀⠀⠀⠀⢀⠈⣿⣿⡿⠉⠛⠛⠛⠉⠉
 ⣿⡿⠋⠁⠀⠀⢀⣀⣠⡴⣸⣿⣇⡄⠀⠀⠀⠀⢀⡿⠄⠙⠛⠀⣀⣠⣤⣤⠄
 
-(This ascii art isn't part of a legally binding part of the license, btw.)
+(The above ASCII art isn't a legally binding part of the license.)
