@@ -1,5 +1,6 @@
-                    GNU AFFERO GENERAL PUBLIC LICENSE
+               GNU AFFERO GENERAL PUBLIC LICENSE - NO NFT EDITION
                        Version 3, 19 November 2007
+                 Revised by Kainoa Kanter on 1 March 2022
 
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
@@ -160,6 +161,11 @@ for you must do so exclusively on your behalf, under your direction
 and control, on terms that prohibit them from making any copies of
 your copyrighted material outside their relationship with you.
 
+  However, no NFTs (Non-fungible tokens) or similar smart-contract
+based proof-of-ownership schemes may be minted or produced from outputs,
+results, binaries, source code, or anything else from or relating to 
+this project.
+
   Conveying under any other circumstances is permitted solely under
 the conditions stated below.  Sublicensing is not allowed; section 10
 makes it unnecessary.
@@ -293,7 +299,10 @@ of the particular user or of the way in which the particular user
 actually uses, or expects or is expected to use, the product.  A product
 is a consumer product regardless of whether the product has substantial
 commercial, industrial or non-consumer uses, unless such uses represent
-the only significant mode of use of the product.
+the only significant mode of use of the product. Once again, no NFTs 
+(Non-fungible tokens) or similar smart-contract based proof-of-ownership 
+schemes may be minted or produced from outputs, results, binaries, source code, 
+or anything else from or relating to this project.
 
   "Installation Information" for a User Product means any methods,
 procedures, authorization keys, or other information required to install
